@@ -38,6 +38,8 @@ type TemplateServiceIface interface {
 	NewExtractTemplateParams(id string, mode string) *ExtractTemplateParams
 	GetUploadParamsForTemplate(p *GetUploadParamsForTemplateParams) (*GetUploadParamsForTemplateResponse, error)
 	NewGetUploadParamsForTemplateParams(displaytext string, format string, hypervisor string, name string, zoneid string) *GetUploadParamsForTemplateParams
+	LinkUserDataToTemplate(p *LinkUserDataToTemplateParams) (*LinkUserDataToTemplateResponse, error)
+	NewLinkUserDataToTemplateParams() *LinkUserDataToTemplateParams
 	ListTemplatePermissions(p *ListTemplatePermissionsParams) (*ListTemplatePermissionsResponse, error)
 	NewListTemplatePermissionsParams(id string) *ListTemplatePermissionsParams
 	GetTemplatePermissionByID(id string, opts ...OptionFunc) (*TemplatePermission, int, error)
@@ -50,6 +52,8 @@ type TemplateServiceIface interface {
 	NewPrepareTemplateParams(templateid string, zoneid string) *PrepareTemplateParams
 	RegisterTemplate(p *RegisterTemplateParams) (*RegisterTemplateResponse, error)
 	NewRegisterTemplateParams(displaytext string, format string, hypervisor string, name string, url string) *RegisterTemplateParams
+	RevokeTemplateDirectDownloadCertificate(p *RevokeTemplateDirectDownloadCertificateParams) (*RevokeTemplateDirectDownloadCertificateResponse, error)
+	NewRevokeTemplateDirectDownloadCertificateParams(zoneid string) *RevokeTemplateDirectDownloadCertificateParams
 	UpdateTemplate(p *UpdateTemplateParams) (*UpdateTemplateResponse, error)
 	NewUpdateTemplateParams(id string) *UpdateTemplateParams
 	UpdateTemplatePermissions(p *UpdateTemplatePermissionsParams) (*UpdateTemplatePermissionsResponse, error)
@@ -61,6 +65,8 @@ type TemplateServiceIface interface {
 	GetTemplateDirectDownloadCertificateByID(id string, opts ...OptionFunc) (*TemplateDirectDownloadCertificate, int, error)
 	ProvisionTemplateDirectDownloadCertificate(p *ProvisionTemplateDirectDownloadCertificateParams) (*ProvisionTemplateDirectDownloadCertificateResponse, error)
 	NewProvisionTemplateDirectDownloadCertificateParams(hostid string, id string) *ProvisionTemplateDirectDownloadCertificateParams
+	UploadTemplateDirectDownloadCertificate(p *UploadTemplateDirectDownloadCertificateParams) (*UploadTemplateDirectDownloadCertificateResponse, error)
+	NewUploadTemplateDirectDownloadCertificateParams(certificate string, hypervisor string, name string, zoneid string) *UploadTemplateDirectDownloadCertificateParams
 }
 
 type CopyTemplateParams struct {
@@ -1827,6 +1833,221 @@ type GetUploadParamsForTemplateResponse struct {
 	Metadata  string `json:"metadata"`
 	PostURL   string `json:"postURL"`
 	Signature string `json:"signature"`
+}
+
+type LinkUserDataToTemplateParams struct {
+	p map[string]interface{}
+}
+
+func (p *LinkUserDataToTemplateParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["isoid"]; found {
+		u.Set("isoid", v.(string))
+	}
+	if v, found := p.p["templateid"]; found {
+		u.Set("templateid", v.(string))
+	}
+	if v, found := p.p["userdataid"]; found {
+		u.Set("userdataid", v.(string))
+	}
+	if v, found := p.p["userdatapolicy"]; found {
+		u.Set("userdatapolicy", v.(string))
+	}
+	return u
+}
+
+func (p *LinkUserDataToTemplateParams) SetIsoid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["isoid"] = v
+}
+
+func (p *LinkUserDataToTemplateParams) ResetIsoid() {
+	if p.p != nil && p.p["isoid"] != nil {
+		delete(p.p, "isoid")
+	}
+}
+
+func (p *LinkUserDataToTemplateParams) GetIsoid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["isoid"].(string)
+	return value, ok
+}
+
+func (p *LinkUserDataToTemplateParams) SetTemplateid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["templateid"] = v
+}
+
+func (p *LinkUserDataToTemplateParams) ResetTemplateid() {
+	if p.p != nil && p.p["templateid"] != nil {
+		delete(p.p, "templateid")
+	}
+}
+
+func (p *LinkUserDataToTemplateParams) GetTemplateid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["templateid"].(string)
+	return value, ok
+}
+
+func (p *LinkUserDataToTemplateParams) SetUserdataid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["userdataid"] = v
+}
+
+func (p *LinkUserDataToTemplateParams) ResetUserdataid() {
+	if p.p != nil && p.p["userdataid"] != nil {
+		delete(p.p, "userdataid")
+	}
+}
+
+func (p *LinkUserDataToTemplateParams) GetUserdataid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["userdataid"].(string)
+	return value, ok
+}
+
+func (p *LinkUserDataToTemplateParams) SetUserdatapolicy(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["userdatapolicy"] = v
+}
+
+func (p *LinkUserDataToTemplateParams) ResetUserdatapolicy() {
+	if p.p != nil && p.p["userdatapolicy"] != nil {
+		delete(p.p, "userdatapolicy")
+	}
+}
+
+func (p *LinkUserDataToTemplateParams) GetUserdatapolicy() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["userdatapolicy"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new LinkUserDataToTemplateParams instance,
+// as then you are sure you have configured all required params
+func (s *TemplateService) NewLinkUserDataToTemplateParams() *LinkUserDataToTemplateParams {
+	p := &LinkUserDataToTemplateParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// Link or unlink a userdata to a template.
+func (s *TemplateService) LinkUserDataToTemplate(p *LinkUserDataToTemplateParams) (*LinkUserDataToTemplateResponse, error) {
+	resp, err := s.cs.newRequest("linkUserDataToTemplate", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r LinkUserDataToTemplateResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type LinkUserDataToTemplateResponse struct {
+	Account               string              `json:"account"`
+	Accountid             string              `json:"accountid"`
+	Bits                  int                 `json:"bits"`
+	Bootable              bool                `json:"bootable"`
+	Checksum              string              `json:"checksum"`
+	Childtemplates        []interface{}       `json:"childtemplates"`
+	Created               string              `json:"created"`
+	CrossZones            bool                `json:"crossZones"`
+	Deployasis            bool                `json:"deployasis"`
+	Deployasisdetails     map[string]string   `json:"deployasisdetails"`
+	Details               map[string]string   `json:"details"`
+	Directdownload        bool                `json:"directdownload"`
+	Displaytext           string              `json:"displaytext"`
+	Domain                string              `json:"domain"`
+	Domainid              string              `json:"domainid"`
+	Downloaddetails       []map[string]string `json:"downloaddetails"`
+	Format                string              `json:"format"`
+	Hasannotations        bool                `json:"hasannotations"`
+	Hostid                string              `json:"hostid"`
+	Hostname              string              `json:"hostname"`
+	Hypervisor            string              `json:"hypervisor"`
+	Icon                  interface{}         `json:"icon"`
+	Id                    string              `json:"id"`
+	Isdynamicallyscalable bool                `json:"isdynamicallyscalable"`
+	Isextractable         bool                `json:"isextractable"`
+	Isfeatured            bool                `json:"isfeatured"`
+	Ispublic              bool                `json:"ispublic"`
+	Isready               bool                `json:"isready"`
+	JobID                 string              `json:"jobid"`
+	Jobstatus             int                 `json:"jobstatus"`
+	Name                  string              `json:"name"`
+	Ostypeid              string              `json:"ostypeid"`
+	Ostypename            string              `json:"ostypename"`
+	Parenttemplateid      string              `json:"parenttemplateid"`
+	Passwordenabled       bool                `json:"passwordenabled"`
+	Physicalsize          int64               `json:"physicalsize"`
+	Project               string              `json:"project"`
+	Projectid             string              `json:"projectid"`
+	Removed               string              `json:"removed"`
+	Requireshvm           bool                `json:"requireshvm"`
+	Size                  int64               `json:"size"`
+	Sourcetemplateid      string              `json:"sourcetemplateid"`
+	Sshkeyenabled         bool                `json:"sshkeyenabled"`
+	Status                string              `json:"status"`
+	Tags                  []Tags              `json:"tags"`
+	Templatetag           string              `json:"templatetag"`
+	Templatetype          string              `json:"templatetype"`
+	Url                   string              `json:"url"`
+	Userdataid            string              `json:"userdataid"`
+	Userdataname          string              `json:"userdataname"`
+	Userdataparams        string              `json:"userdataparams"`
+	Userdatapolicy        string              `json:"userdatapolicy"`
+	Zoneid                string              `json:"zoneid"`
+	Zonename              string              `json:"zonename"`
+}
+
+func (r *LinkUserDataToTemplateResponse) UnmarshalJSON(b []byte) error {
+	var m map[string]interface{}
+	err := json.Unmarshal(b, &m)
+	if err != nil {
+		return err
+	}
+
+	if success, ok := m["success"].(string); ok {
+		m["success"] = success == "true"
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	type alias LinkUserDataToTemplateResponse
+	return json.Unmarshal(b, (*alias)(r))
 }
 
 type ListTemplatePermissionsParams struct {
@@ -3699,6 +3920,171 @@ func (r *RegisterTemplate) UnmarshalJSON(b []byte) error {
 	return json.Unmarshal(b, (*alias)(r))
 }
 
+type RevokeTemplateDirectDownloadCertificateParams struct {
+	p map[string]interface{}
+}
+
+func (p *RevokeTemplateDirectDownloadCertificateParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["hostid"]; found {
+		u.Set("hostid", v.(string))
+	}
+	if v, found := p.p["hypervisor"]; found {
+		u.Set("hypervisor", v.(string))
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *RevokeTemplateDirectDownloadCertificateParams) SetHostid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["hostid"] = v
+}
+
+func (p *RevokeTemplateDirectDownloadCertificateParams) ResetHostid() {
+	if p.p != nil && p.p["hostid"] != nil {
+		delete(p.p, "hostid")
+	}
+}
+
+func (p *RevokeTemplateDirectDownloadCertificateParams) GetHostid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["hostid"].(string)
+	return value, ok
+}
+
+func (p *RevokeTemplateDirectDownloadCertificateParams) SetHypervisor(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["hypervisor"] = v
+}
+
+func (p *RevokeTemplateDirectDownloadCertificateParams) ResetHypervisor() {
+	if p.p != nil && p.p["hypervisor"] != nil {
+		delete(p.p, "hypervisor")
+	}
+}
+
+func (p *RevokeTemplateDirectDownloadCertificateParams) GetHypervisor() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["hypervisor"].(string)
+	return value, ok
+}
+
+func (p *RevokeTemplateDirectDownloadCertificateParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *RevokeTemplateDirectDownloadCertificateParams) ResetId() {
+	if p.p != nil && p.p["id"] != nil {
+		delete(p.p, "id")
+	}
+}
+
+func (p *RevokeTemplateDirectDownloadCertificateParams) GetId() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["id"].(string)
+	return value, ok
+}
+
+func (p *RevokeTemplateDirectDownloadCertificateParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+}
+
+func (p *RevokeTemplateDirectDownloadCertificateParams) ResetName() {
+	if p.p != nil && p.p["name"] != nil {
+		delete(p.p, "name")
+	}
+}
+
+func (p *RevokeTemplateDirectDownloadCertificateParams) GetName() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["name"].(string)
+	return value, ok
+}
+
+func (p *RevokeTemplateDirectDownloadCertificateParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+}
+
+func (p *RevokeTemplateDirectDownloadCertificateParams) ResetZoneid() {
+	if p.p != nil && p.p["zoneid"] != nil {
+		delete(p.p, "zoneid")
+	}
+}
+
+func (p *RevokeTemplateDirectDownloadCertificateParams) GetZoneid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["zoneid"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new RevokeTemplateDirectDownloadCertificateParams instance,
+// as then you are sure you have configured all required params
+func (s *TemplateService) NewRevokeTemplateDirectDownloadCertificateParams(zoneid string) *RevokeTemplateDirectDownloadCertificateParams {
+	p := &RevokeTemplateDirectDownloadCertificateParams{}
+	p.p = make(map[string]interface{})
+	p.p["zoneid"] = zoneid
+	return p
+}
+
+// Revoke a direct download certificate from hosts in a zone
+func (s *TemplateService) RevokeTemplateDirectDownloadCertificate(p *RevokeTemplateDirectDownloadCertificateParams) (*RevokeTemplateDirectDownloadCertificateResponse, error) {
+	resp, err := s.cs.newRequest("revokeTemplateDirectDownloadCertificate", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r RevokeTemplateDirectDownloadCertificateResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type RevokeTemplateDirectDownloadCertificateResponse struct {
+	Details   string `json:"details"`
+	Hostid    string `json:"hostid"`
+	Hostname  string `json:"hostname"`
+	JobID     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
+	Status    string `json:"status"`
+}
+
 type UpdateTemplateParams struct {
 	p map[string]interface{}
 }
@@ -4945,4 +5331,179 @@ type ProvisionTemplateDirectDownloadCertificateResponse struct {
 	JobID     string `json:"jobid"`
 	Jobstatus int    `json:"jobstatus"`
 	Status    string `json:"status"`
+}
+
+type UploadTemplateDirectDownloadCertificateParams struct {
+	p map[string]interface{}
+}
+
+func (p *UploadTemplateDirectDownloadCertificateParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["certificate"]; found {
+		u.Set("certificate", v.(string))
+	}
+	if v, found := p.p["hostid"]; found {
+		u.Set("hostid", v.(string))
+	}
+	if v, found := p.p["hypervisor"]; found {
+		u.Set("hypervisor", v.(string))
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *UploadTemplateDirectDownloadCertificateParams) SetCertificate(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["certificate"] = v
+}
+
+func (p *UploadTemplateDirectDownloadCertificateParams) ResetCertificate() {
+	if p.p != nil && p.p["certificate"] != nil {
+		delete(p.p, "certificate")
+	}
+}
+
+func (p *UploadTemplateDirectDownloadCertificateParams) GetCertificate() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["certificate"].(string)
+	return value, ok
+}
+
+func (p *UploadTemplateDirectDownloadCertificateParams) SetHostid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["hostid"] = v
+}
+
+func (p *UploadTemplateDirectDownloadCertificateParams) ResetHostid() {
+	if p.p != nil && p.p["hostid"] != nil {
+		delete(p.p, "hostid")
+	}
+}
+
+func (p *UploadTemplateDirectDownloadCertificateParams) GetHostid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["hostid"].(string)
+	return value, ok
+}
+
+func (p *UploadTemplateDirectDownloadCertificateParams) SetHypervisor(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["hypervisor"] = v
+}
+
+func (p *UploadTemplateDirectDownloadCertificateParams) ResetHypervisor() {
+	if p.p != nil && p.p["hypervisor"] != nil {
+		delete(p.p, "hypervisor")
+	}
+}
+
+func (p *UploadTemplateDirectDownloadCertificateParams) GetHypervisor() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["hypervisor"].(string)
+	return value, ok
+}
+
+func (p *UploadTemplateDirectDownloadCertificateParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+}
+
+func (p *UploadTemplateDirectDownloadCertificateParams) ResetName() {
+	if p.p != nil && p.p["name"] != nil {
+		delete(p.p, "name")
+	}
+}
+
+func (p *UploadTemplateDirectDownloadCertificateParams) GetName() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["name"].(string)
+	return value, ok
+}
+
+func (p *UploadTemplateDirectDownloadCertificateParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+}
+
+func (p *UploadTemplateDirectDownloadCertificateParams) ResetZoneid() {
+	if p.p != nil && p.p["zoneid"] != nil {
+		delete(p.p, "zoneid")
+	}
+}
+
+func (p *UploadTemplateDirectDownloadCertificateParams) GetZoneid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["zoneid"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new UploadTemplateDirectDownloadCertificateParams instance,
+// as then you are sure you have configured all required params
+func (s *TemplateService) NewUploadTemplateDirectDownloadCertificateParams(certificate string, hypervisor string, name string, zoneid string) *UploadTemplateDirectDownloadCertificateParams {
+	p := &UploadTemplateDirectDownloadCertificateParams{}
+	p.p = make(map[string]interface{})
+	p.p["certificate"] = certificate
+	p.p["hypervisor"] = hypervisor
+	p.p["name"] = name
+	p.p["zoneid"] = zoneid
+	return p
+}
+
+// Upload a certificate for HTTPS direct template download on KVM hosts
+func (s *TemplateService) UploadTemplateDirectDownloadCertificate(p *UploadTemplateDirectDownloadCertificateParams) (*UploadTemplateDirectDownloadCertificateResponse, error) {
+	resp, err := s.cs.newRequest("uploadTemplateDirectDownloadCertificate", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r UploadTemplateDirectDownloadCertificateResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type UploadTemplateDirectDownloadCertificateResponse struct {
+	Alias      string   `json:"alias"`
+	Hostsmap   []string `json:"hostsmap"`
+	Hypervisor string   `json:"hypervisor"`
+	Id         string   `json:"id"`
+	Issuer     string   `json:"issuer"`
+	JobID      string   `json:"jobid"`
+	Jobstatus  int      `json:"jobstatus"`
+	Serialnum  string   `json:"serialnum"`
+	Subject    string   `json:"subject"`
+	Validity   string   `json:"validity"`
+	Version    string   `json:"version"`
+	Zoneid     string   `json:"zoneid"`
+	Zonename   string   `json:"zonename"`
 }

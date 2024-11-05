@@ -24,522 +24,69 @@ import (
 	"fmt"
 	"net/url"
 	"strconv"
-	"strings"
 )
 
 type PoolServiceIface interface {
-	CreateStoragePool(p *CreateStoragePoolParams) (*CreateStoragePoolResponse, error)
-	NewCreateStoragePoolParams(name string, url string, zoneid string) *CreateStoragePoolParams
-	DeleteStoragePool(p *DeleteStoragePoolParams) (*DeleteStoragePoolResponse, error)
-	NewDeleteStoragePoolParams(id string) *DeleteStoragePoolParams
-	FindStoragePoolsForMigration(p *FindStoragePoolsForMigrationParams) (*FindStoragePoolsForMigrationResponse, error)
-	NewFindStoragePoolsForMigrationParams(id string) *FindStoragePoolsForMigrationParams
-	ListStoragePools(p *ListStoragePoolsParams) (*ListStoragePoolsResponse, error)
-	NewListStoragePoolsParams() *ListStoragePoolsParams
-	GetStoragePoolID(name string, opts ...OptionFunc) (string, int, error)
-	GetStoragePoolByName(name string, opts ...OptionFunc) (*StoragePool, int, error)
-	GetStoragePoolByID(id string, opts ...OptionFunc) (*StoragePool, int, error)
-	SyncStoragePool(p *SyncStoragePoolParams) (*SyncStoragePoolResponse, error)
-	NewSyncStoragePoolParams(id string) *SyncStoragePoolParams
-	UpdateStoragePool(p *UpdateStoragePoolParams) (*UpdateStoragePoolResponse, error)
-	NewUpdateStoragePoolParams(id string) *UpdateStoragePoolParams
+	ListElastistorPool(p *ListElastistorPoolParams) (*ListElastistorPoolResponse, error)
+	NewListElastistorPoolParams() *ListElastistorPoolParams
+	ListVsphereStoragePolicyCompatiblePools(p *ListVsphereStoragePolicyCompatiblePoolsParams) (*ListVsphereStoragePolicyCompatiblePoolsResponse, error)
+	NewListVsphereStoragePolicyCompatiblePoolsParams() *ListVsphereStoragePolicyCompatiblePoolsParams
+	GetVsphereStoragePolicyCompatiblePoolID(keyword string, opts ...OptionFunc) (string, int, error)
 }
 
-type CreateStoragePoolParams struct {
+type ListElastistorPoolParams struct {
 	p map[string]interface{}
 }
 
-func (p *CreateStoragePoolParams) toURLValues() url.Values {
+func (p *ListElastistorPoolParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
-	}
-	if v, found := p.p["capacitybytes"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
-		u.Set("capacitybytes", vv)
-	}
-	if v, found := p.p["capacityiops"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
-		u.Set("capacityiops", vv)
-	}
-	if v, found := p.p["clusterid"]; found {
-		u.Set("clusterid", v.(string))
-	}
-	if v, found := p.p["details"]; found {
-		m := v.(map[string]string)
-		for i, k := range getSortedKeysFromMap(m) {
-			u.Set(fmt.Sprintf("details[%d].%s", i, k), m[k])
-		}
-	}
-	if v, found := p.p["hypervisor"]; found {
-		u.Set("hypervisor", v.(string))
-	}
-	if v, found := p.p["istagarule"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("istagarule", vv)
-	}
-	if v, found := p.p["managed"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("managed", vv)
-	}
-	if v, found := p.p["name"]; found {
-		u.Set("name", v.(string))
-	}
-	if v, found := p.p["podid"]; found {
-		u.Set("podid", v.(string))
-	}
-	if v, found := p.p["provider"]; found {
-		u.Set("provider", v.(string))
-	}
-	if v, found := p.p["scope"]; found {
-		u.Set("scope", v.(string))
-	}
-	if v, found := p.p["tags"]; found {
-		u.Set("tags", v.(string))
-	}
-	if v, found := p.p["url"]; found {
-		u.Set("url", v.(string))
-	}
-	if v, found := p.p["zoneid"]; found {
-		u.Set("zoneid", v.(string))
-	}
-	return u
-}
-
-func (p *CreateStoragePoolParams) SetCapacitybytes(v int64) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["capacitybytes"] = v
-}
-
-func (p *CreateStoragePoolParams) ResetCapacitybytes() {
-	if p.p != nil && p.p["capacitybytes"] != nil {
-		delete(p.p, "capacitybytes")
-	}
-}
-
-func (p *CreateStoragePoolParams) GetCapacitybytes() (int64, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["capacitybytes"].(int64)
-	return value, ok
-}
-
-func (p *CreateStoragePoolParams) SetCapacityiops(v int64) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["capacityiops"] = v
-}
-
-func (p *CreateStoragePoolParams) ResetCapacityiops() {
-	if p.p != nil && p.p["capacityiops"] != nil {
-		delete(p.p, "capacityiops")
-	}
-}
-
-func (p *CreateStoragePoolParams) GetCapacityiops() (int64, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["capacityiops"].(int64)
-	return value, ok
-}
-
-func (p *CreateStoragePoolParams) SetClusterid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["clusterid"] = v
-}
-
-func (p *CreateStoragePoolParams) ResetClusterid() {
-	if p.p != nil && p.p["clusterid"] != nil {
-		delete(p.p, "clusterid")
-	}
-}
-
-func (p *CreateStoragePoolParams) GetClusterid() (string, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["clusterid"].(string)
-	return value, ok
-}
-
-func (p *CreateStoragePoolParams) SetDetails(v map[string]string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["details"] = v
-}
-
-func (p *CreateStoragePoolParams) ResetDetails() {
-	if p.p != nil && p.p["details"] != nil {
-		delete(p.p, "details")
-	}
-}
-
-func (p *CreateStoragePoolParams) GetDetails() (map[string]string, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["details"].(map[string]string)
-	return value, ok
-}
-
-func (p *CreateStoragePoolParams) SetHypervisor(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["hypervisor"] = v
-}
-
-func (p *CreateStoragePoolParams) ResetHypervisor() {
-	if p.p != nil && p.p["hypervisor"] != nil {
-		delete(p.p, "hypervisor")
-	}
-}
-
-func (p *CreateStoragePoolParams) GetHypervisor() (string, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["hypervisor"].(string)
-	return value, ok
-}
-
-func (p *CreateStoragePoolParams) SetIstagarule(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["istagarule"] = v
-}
-
-func (p *CreateStoragePoolParams) ResetIstagarule() {
-	if p.p != nil && p.p["istagarule"] != nil {
-		delete(p.p, "istagarule")
-	}
-}
-
-func (p *CreateStoragePoolParams) GetIstagarule() (bool, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["istagarule"].(bool)
-	return value, ok
-}
-
-func (p *CreateStoragePoolParams) SetManaged(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["managed"] = v
-}
-
-func (p *CreateStoragePoolParams) ResetManaged() {
-	if p.p != nil && p.p["managed"] != nil {
-		delete(p.p, "managed")
-	}
-}
-
-func (p *CreateStoragePoolParams) GetManaged() (bool, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["managed"].(bool)
-	return value, ok
-}
-
-func (p *CreateStoragePoolParams) SetName(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["name"] = v
-}
-
-func (p *CreateStoragePoolParams) ResetName() {
-	if p.p != nil && p.p["name"] != nil {
-		delete(p.p, "name")
-	}
-}
-
-func (p *CreateStoragePoolParams) GetName() (string, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["name"].(string)
-	return value, ok
-}
-
-func (p *CreateStoragePoolParams) SetPodid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["podid"] = v
-}
-
-func (p *CreateStoragePoolParams) ResetPodid() {
-	if p.p != nil && p.p["podid"] != nil {
-		delete(p.p, "podid")
-	}
-}
-
-func (p *CreateStoragePoolParams) GetPodid() (string, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["podid"].(string)
-	return value, ok
-}
-
-func (p *CreateStoragePoolParams) SetProvider(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["provider"] = v
-}
-
-func (p *CreateStoragePoolParams) ResetProvider() {
-	if p.p != nil && p.p["provider"] != nil {
-		delete(p.p, "provider")
-	}
-}
-
-func (p *CreateStoragePoolParams) GetProvider() (string, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["provider"].(string)
-	return value, ok
-}
-
-func (p *CreateStoragePoolParams) SetScope(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["scope"] = v
-}
-
-func (p *CreateStoragePoolParams) ResetScope() {
-	if p.p != nil && p.p["scope"] != nil {
-		delete(p.p, "scope")
-	}
-}
-
-func (p *CreateStoragePoolParams) GetScope() (string, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["scope"].(string)
-	return value, ok
-}
-
-func (p *CreateStoragePoolParams) SetTags(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["tags"] = v
-}
-
-func (p *CreateStoragePoolParams) ResetTags() {
-	if p.p != nil && p.p["tags"] != nil {
-		delete(p.p, "tags")
-	}
-}
-
-func (p *CreateStoragePoolParams) GetTags() (string, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["tags"].(string)
-	return value, ok
-}
-
-func (p *CreateStoragePoolParams) SetUrl(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["url"] = v
-}
-
-func (p *CreateStoragePoolParams) ResetUrl() {
-	if p.p != nil && p.p["url"] != nil {
-		delete(p.p, "url")
-	}
-}
-
-func (p *CreateStoragePoolParams) GetUrl() (string, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["url"].(string)
-	return value, ok
-}
-
-func (p *CreateStoragePoolParams) SetZoneid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["zoneid"] = v
-}
-
-func (p *CreateStoragePoolParams) ResetZoneid() {
-	if p.p != nil && p.p["zoneid"] != nil {
-		delete(p.p, "zoneid")
-	}
-}
-
-func (p *CreateStoragePoolParams) GetZoneid() (string, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["zoneid"].(string)
-	return value, ok
-}
-
-// You should always use this function to get a new CreateStoragePoolParams instance,
-// as then you are sure you have configured all required params
-func (s *PoolService) NewCreateStoragePoolParams(name string, url string, zoneid string) *CreateStoragePoolParams {
-	p := &CreateStoragePoolParams{}
-	p.p = make(map[string]interface{})
-	p.p["name"] = name
-	p.p["url"] = url
-	p.p["zoneid"] = zoneid
-	return p
-}
-
-// Creates a storage pool.
-func (s *PoolService) CreateStoragePool(p *CreateStoragePoolParams) (*CreateStoragePoolResponse, error) {
-	resp, err := s.cs.newRequest("createStoragePool", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	if resp, err = getRawValue(resp); err != nil {
-		return nil, err
-	}
-
-	var r CreateStoragePoolResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	return &r, nil
-}
-
-type CreateStoragePoolResponse struct {
-	Allocatediops        int64             `json:"allocatediops"`
-	Capacityiops         int64             `json:"capacityiops"`
-	Clusterid            string            `json:"clusterid"`
-	Clustername          string            `json:"clustername"`
-	Created              string            `json:"created"`
-	Disksizeallocated    int64             `json:"disksizeallocated"`
-	Disksizetotal        int64             `json:"disksizetotal"`
-	Disksizeused         int64             `json:"disksizeused"`
-	Hasannotations       bool              `json:"hasannotations"`
-	Hypervisor           string            `json:"hypervisor"`
-	Id                   string            `json:"id"`
-	Ipaddress            string            `json:"ipaddress"`
-	Istagarule           bool              `json:"istagarule"`
-	JobID                string            `json:"jobid"`
-	Jobstatus            int               `json:"jobstatus"`
-	Name                 string            `json:"name"`
-	Overprovisionfactor  string            `json:"overprovisionfactor"`
-	Path                 string            `json:"path"`
-	Podid                string            `json:"podid"`
-	Podname              string            `json:"podname"`
-	Provider             string            `json:"provider"`
-	Scope                string            `json:"scope"`
-	State                string            `json:"state"`
-	Storagecapabilities  map[string]string `json:"storagecapabilities"`
-	Suitableformigration bool              `json:"suitableformigration"`
-	Tags                 string            `json:"tags"`
-	Type                 string            `json:"type"`
-	Zoneid               string            `json:"zoneid"`
-	Zonename             string            `json:"zonename"`
-}
-
-type DeleteStoragePoolParams struct {
-	p map[string]interface{}
-}
-
-func (p *DeleteStoragePoolParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["forced"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("forced", vv)
 	}
 	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
+		vv := strconv.FormatInt(v.(int64), 10)
+		u.Set("id", vv)
 	}
 	return u
 }
 
-func (p *DeleteStoragePoolParams) SetForced(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["forced"] = v
-}
-
-func (p *DeleteStoragePoolParams) ResetForced() {
-	if p.p != nil && p.p["forced"] != nil {
-		delete(p.p, "forced")
-	}
-}
-
-func (p *DeleteStoragePoolParams) GetForced() (bool, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["forced"].(bool)
-	return value, ok
-}
-
-func (p *DeleteStoragePoolParams) SetId(v string) {
+func (p *ListElastistorPoolParams) SetId(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
 }
 
-func (p *DeleteStoragePoolParams) ResetId() {
+func (p *ListElastistorPoolParams) ResetId() {
 	if p.p != nil && p.p["id"] != nil {
 		delete(p.p, "id")
 	}
 }
 
-func (p *DeleteStoragePoolParams) GetId() (string, bool) {
+func (p *ListElastistorPoolParams) GetId() (int64, bool) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	value, ok := p.p["id"].(string)
+	value, ok := p.p["id"].(int64)
 	return value, ok
 }
 
-// You should always use this function to get a new DeleteStoragePoolParams instance,
+// You should always use this function to get a new ListElastistorPoolParams instance,
 // as then you are sure you have configured all required params
-func (s *PoolService) NewDeleteStoragePoolParams(id string) *DeleteStoragePoolParams {
-	p := &DeleteStoragePoolParams{}
+func (s *PoolService) NewListElastistorPoolParams() *ListElastistorPoolParams {
+	p := &ListElastistorPoolParams{}
 	p.p = make(map[string]interface{})
-	p.p["id"] = id
 	return p
 }
 
-// Deletes a storage pool.
-func (s *PoolService) DeleteStoragePool(p *DeleteStoragePoolParams) (*DeleteStoragePoolResponse, error) {
-	resp, err := s.cs.newRequest("deleteStoragePool", p.toURLValues())
+// Lists the pools of elastistor
+func (s *PoolService) ListElastistorPool(p *ListElastistorPoolParams) (*ListElastistorPoolResponse, error) {
+	resp, err := s.cs.newRequest("listElastistorPool", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r DeleteStoragePoolResponse
+	var r ListElastistorPoolResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
 	}
@@ -547,51 +94,31 @@ func (s *PoolService) DeleteStoragePool(p *DeleteStoragePoolParams) (*DeleteStor
 	return &r, nil
 }
 
-type DeleteStoragePoolResponse struct {
-	Displaytext string `json:"displaytext"`
-	JobID       string `json:"jobid"`
-	Jobstatus   int    `json:"jobstatus"`
-	Success     bool   `json:"success"`
+type ListElastistorPoolResponse struct {
+	Count          int               `json:"count"`
+	ElastistorPool []*ElastistorPool `json:"elastistorpool"`
 }
 
-func (r *DeleteStoragePoolResponse) UnmarshalJSON(b []byte) error {
-	var m map[string]interface{}
-	err := json.Unmarshal(b, &m)
-	if err != nil {
-		return err
-	}
-
-	if success, ok := m["success"].(string); ok {
-		m["success"] = success == "true"
-		b, err = json.Marshal(m)
-		if err != nil {
-			return err
-		}
-	}
-
-	if ostypeid, ok := m["ostypeid"].(float64); ok {
-		m["ostypeid"] = strconv.Itoa(int(ostypeid))
-		b, err = json.Marshal(m)
-		if err != nil {
-			return err
-		}
-	}
-
-	type alias DeleteStoragePoolResponse
-	return json.Unmarshal(b, (*alias)(r))
+type ElastistorPool struct {
+	Controllerid string `json:"controllerid"`
+	Gateway      string `json:"gateway"`
+	Id           string `json:"id"`
+	JobID        string `json:"jobid"`
+	Jobstatus    int    `json:"jobstatus"`
+	Maxiops      int64  `json:"maxiops"`
+	Name         string `json:"name"`
+	Size         int64  `json:"size"`
+	State        string `json:"state"`
 }
 
-type FindStoragePoolsForMigrationParams struct {
+type ListVsphereStoragePolicyCompatiblePoolsParams struct {
 	p map[string]interface{}
 }
 
-func (p *FindStoragePoolsForMigrationParams) toURLValues() url.Values {
+func (p *ListVsphereStoragePolicyCompatiblePoolsParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
 	}
 	if v, found := p.p["keyword"]; found {
 		u.Set("keyword", v.(string))
@@ -604,195 +131,8 @@ func (p *FindStoragePoolsForMigrationParams) toURLValues() url.Values {
 		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
-	return u
-}
-
-func (p *FindStoragePoolsForMigrationParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *FindStoragePoolsForMigrationParams) ResetId() {
-	if p.p != nil && p.p["id"] != nil {
-		delete(p.p, "id")
-	}
-}
-
-func (p *FindStoragePoolsForMigrationParams) GetId() (string, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["id"].(string)
-	return value, ok
-}
-
-func (p *FindStoragePoolsForMigrationParams) SetKeyword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["keyword"] = v
-}
-
-func (p *FindStoragePoolsForMigrationParams) ResetKeyword() {
-	if p.p != nil && p.p["keyword"] != nil {
-		delete(p.p, "keyword")
-	}
-}
-
-func (p *FindStoragePoolsForMigrationParams) GetKeyword() (string, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["keyword"].(string)
-	return value, ok
-}
-
-func (p *FindStoragePoolsForMigrationParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-}
-
-func (p *FindStoragePoolsForMigrationParams) ResetPage() {
-	if p.p != nil && p.p["page"] != nil {
-		delete(p.p, "page")
-	}
-}
-
-func (p *FindStoragePoolsForMigrationParams) GetPage() (int, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["page"].(int)
-	return value, ok
-}
-
-func (p *FindStoragePoolsForMigrationParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-}
-
-func (p *FindStoragePoolsForMigrationParams) ResetPagesize() {
-	if p.p != nil && p.p["pagesize"] != nil {
-		delete(p.p, "pagesize")
-	}
-}
-
-func (p *FindStoragePoolsForMigrationParams) GetPagesize() (int, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["pagesize"].(int)
-	return value, ok
-}
-
-// You should always use this function to get a new FindStoragePoolsForMigrationParams instance,
-// as then you are sure you have configured all required params
-func (s *PoolService) NewFindStoragePoolsForMigrationParams(id string) *FindStoragePoolsForMigrationParams {
-	p := &FindStoragePoolsForMigrationParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Lists storage pools available for migration of a volume.
-func (s *PoolService) FindStoragePoolsForMigration(p *FindStoragePoolsForMigrationParams) (*FindStoragePoolsForMigrationResponse, error) {
-	resp, err := s.cs.newRequest("findStoragePoolsForMigration", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r FindStoragePoolsForMigrationResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	return &r, nil
-}
-
-type FindStoragePoolsForMigrationResponse struct {
-	Allocatediops        int64             `json:"allocatediops"`
-	Capacityiops         int64             `json:"capacityiops"`
-	Clusterid            string            `json:"clusterid"`
-	Clustername          string            `json:"clustername"`
-	Created              string            `json:"created"`
-	Disksizeallocated    int64             `json:"disksizeallocated"`
-	Disksizetotal        int64             `json:"disksizetotal"`
-	Disksizeused         int64             `json:"disksizeused"`
-	Hasannotations       bool              `json:"hasannotations"`
-	Hypervisor           string            `json:"hypervisor"`
-	Id                   string            `json:"id"`
-	Ipaddress            string            `json:"ipaddress"`
-	Istagarule           bool              `json:"istagarule"`
-	JobID                string            `json:"jobid"`
-	Jobstatus            int               `json:"jobstatus"`
-	Name                 string            `json:"name"`
-	Overprovisionfactor  string            `json:"overprovisionfactor"`
-	Path                 string            `json:"path"`
-	Podid                string            `json:"podid"`
-	Podname              string            `json:"podname"`
-	Provider             string            `json:"provider"`
-	Scope                string            `json:"scope"`
-	State                string            `json:"state"`
-	Storagecapabilities  map[string]string `json:"storagecapabilities"`
-	Suitableformigration bool              `json:"suitableformigration"`
-	Tags                 string            `json:"tags"`
-	Type                 string            `json:"type"`
-	Zoneid               string            `json:"zoneid"`
-	Zonename             string            `json:"zonename"`
-}
-
-type ListStoragePoolsParams struct {
-	p map[string]interface{}
-}
-
-func (p *ListStoragePoolsParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["clusterid"]; found {
-		u.Set("clusterid", v.(string))
-	}
-	if v, found := p.p["hostid"]; found {
-		u.Set("hostid", v.(string))
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["ipaddress"]; found {
-		u.Set("ipaddress", v.(string))
-	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["name"]; found {
-		u.Set("name", v.(string))
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
-	}
-	if v, found := p.p["path"]; found {
-		u.Set("path", v.(string))
-	}
-	if v, found := p.p["podid"]; found {
-		u.Set("podid", v.(string))
-	}
-	if v, found := p.p["scope"]; found {
-		u.Set("scope", v.(string))
-	}
-	if v, found := p.p["status"]; found {
-		u.Set("status", v.(string))
+	if v, found := p.p["policyid"]; found {
+		u.Set("policyid", v.(string))
 	}
 	if v, found := p.p["zoneid"]; found {
 		u.Set("zoneid", v.(string))
@@ -800,104 +140,20 @@ func (p *ListStoragePoolsParams) toURLValues() url.Values {
 	return u
 }
 
-func (p *ListStoragePoolsParams) SetClusterid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["clusterid"] = v
-}
-
-func (p *ListStoragePoolsParams) ResetClusterid() {
-	if p.p != nil && p.p["clusterid"] != nil {
-		delete(p.p, "clusterid")
-	}
-}
-
-func (p *ListStoragePoolsParams) GetClusterid() (string, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["clusterid"].(string)
-	return value, ok
-}
-
-func (p *ListStoragePoolsParams) SetHostid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["hostid"] = v
-}
-
-func (p *ListStoragePoolsParams) ResetHostid() {
-	if p.p != nil && p.p["hostid"] != nil {
-		delete(p.p, "hostid")
-	}
-}
-
-func (p *ListStoragePoolsParams) GetHostid() (string, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["hostid"].(string)
-	return value, ok
-}
-
-func (p *ListStoragePoolsParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *ListStoragePoolsParams) ResetId() {
-	if p.p != nil && p.p["id"] != nil {
-		delete(p.p, "id")
-	}
-}
-
-func (p *ListStoragePoolsParams) GetId() (string, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["id"].(string)
-	return value, ok
-}
-
-func (p *ListStoragePoolsParams) SetIpaddress(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["ipaddress"] = v
-}
-
-func (p *ListStoragePoolsParams) ResetIpaddress() {
-	if p.p != nil && p.p["ipaddress"] != nil {
-		delete(p.p, "ipaddress")
-	}
-}
-
-func (p *ListStoragePoolsParams) GetIpaddress() (string, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["ipaddress"].(string)
-	return value, ok
-}
-
-func (p *ListStoragePoolsParams) SetKeyword(v string) {
+func (p *ListVsphereStoragePolicyCompatiblePoolsParams) SetKeyword(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
 }
 
-func (p *ListStoragePoolsParams) ResetKeyword() {
+func (p *ListVsphereStoragePolicyCompatiblePoolsParams) ResetKeyword() {
 	if p.p != nil && p.p["keyword"] != nil {
 		delete(p.p, "keyword")
 	}
 }
 
-func (p *ListStoragePoolsParams) GetKeyword() (string, bool) {
+func (p *ListVsphereStoragePolicyCompatiblePoolsParams) GetKeyword() (string, bool) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -905,41 +161,20 @@ func (p *ListStoragePoolsParams) GetKeyword() (string, bool) {
 	return value, ok
 }
 
-func (p *ListStoragePoolsParams) SetName(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["name"] = v
-}
-
-func (p *ListStoragePoolsParams) ResetName() {
-	if p.p != nil && p.p["name"] != nil {
-		delete(p.p, "name")
-	}
-}
-
-func (p *ListStoragePoolsParams) GetName() (string, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["name"].(string)
-	return value, ok
-}
-
-func (p *ListStoragePoolsParams) SetPage(v int) {
+func (p *ListVsphereStoragePolicyCompatiblePoolsParams) SetPage(v int) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
 }
 
-func (p *ListStoragePoolsParams) ResetPage() {
+func (p *ListVsphereStoragePolicyCompatiblePoolsParams) ResetPage() {
 	if p.p != nil && p.p["page"] != nil {
 		delete(p.p, "page")
 	}
 }
 
-func (p *ListStoragePoolsParams) GetPage() (int, bool) {
+func (p *ListVsphereStoragePolicyCompatiblePoolsParams) GetPage() (int, bool) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -947,20 +182,20 @@ func (p *ListStoragePoolsParams) GetPage() (int, bool) {
 	return value, ok
 }
 
-func (p *ListStoragePoolsParams) SetPagesize(v int) {
+func (p *ListVsphereStoragePolicyCompatiblePoolsParams) SetPagesize(v int) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
 }
 
-func (p *ListStoragePoolsParams) ResetPagesize() {
+func (p *ListVsphereStoragePolicyCompatiblePoolsParams) ResetPagesize() {
 	if p.p != nil && p.p["pagesize"] != nil {
 		delete(p.p, "pagesize")
 	}
 }
 
-func (p *ListStoragePoolsParams) GetPagesize() (int, bool) {
+func (p *ListVsphereStoragePolicyCompatiblePoolsParams) GetPagesize() (int, bool) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -968,104 +203,41 @@ func (p *ListStoragePoolsParams) GetPagesize() (int, bool) {
 	return value, ok
 }
 
-func (p *ListStoragePoolsParams) SetPath(v string) {
+func (p *ListVsphereStoragePolicyCompatiblePoolsParams) SetPolicyid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["path"] = v
+	p.p["policyid"] = v
 }
 
-func (p *ListStoragePoolsParams) ResetPath() {
-	if p.p != nil && p.p["path"] != nil {
-		delete(p.p, "path")
+func (p *ListVsphereStoragePolicyCompatiblePoolsParams) ResetPolicyid() {
+	if p.p != nil && p.p["policyid"] != nil {
+		delete(p.p, "policyid")
 	}
 }
 
-func (p *ListStoragePoolsParams) GetPath() (string, bool) {
+func (p *ListVsphereStoragePolicyCompatiblePoolsParams) GetPolicyid() (string, bool) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	value, ok := p.p["path"].(string)
+	value, ok := p.p["policyid"].(string)
 	return value, ok
 }
 
-func (p *ListStoragePoolsParams) SetPodid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["podid"] = v
-}
-
-func (p *ListStoragePoolsParams) ResetPodid() {
-	if p.p != nil && p.p["podid"] != nil {
-		delete(p.p, "podid")
-	}
-}
-
-func (p *ListStoragePoolsParams) GetPodid() (string, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["podid"].(string)
-	return value, ok
-}
-
-func (p *ListStoragePoolsParams) SetScope(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["scope"] = v
-}
-
-func (p *ListStoragePoolsParams) ResetScope() {
-	if p.p != nil && p.p["scope"] != nil {
-		delete(p.p, "scope")
-	}
-}
-
-func (p *ListStoragePoolsParams) GetScope() (string, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["scope"].(string)
-	return value, ok
-}
-
-func (p *ListStoragePoolsParams) SetStatus(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["status"] = v
-}
-
-func (p *ListStoragePoolsParams) ResetStatus() {
-	if p.p != nil && p.p["status"] != nil {
-		delete(p.p, "status")
-	}
-}
-
-func (p *ListStoragePoolsParams) GetStatus() (string, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["status"].(string)
-	return value, ok
-}
-
-func (p *ListStoragePoolsParams) SetZoneid(v string) {
+func (p *ListVsphereStoragePolicyCompatiblePoolsParams) SetZoneid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
 }
 
-func (p *ListStoragePoolsParams) ResetZoneid() {
+func (p *ListVsphereStoragePolicyCompatiblePoolsParams) ResetZoneid() {
 	if p.p != nil && p.p["zoneid"] != nil {
 		delete(p.p, "zoneid")
 	}
 }
 
-func (p *ListStoragePoolsParams) GetZoneid() (string, bool) {
+func (p *ListVsphereStoragePolicyCompatiblePoolsParams) GetZoneid() (string, bool) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -1073,20 +245,20 @@ func (p *ListStoragePoolsParams) GetZoneid() (string, bool) {
 	return value, ok
 }
 
-// You should always use this function to get a new ListStoragePoolsParams instance,
+// You should always use this function to get a new ListVsphereStoragePolicyCompatiblePoolsParams instance,
 // as then you are sure you have configured all required params
-func (s *PoolService) NewListStoragePoolsParams() *ListStoragePoolsParams {
-	p := &ListStoragePoolsParams{}
+func (s *PoolService) NewListVsphereStoragePolicyCompatiblePoolsParams() *ListVsphereStoragePolicyCompatiblePoolsParams {
+	p := &ListVsphereStoragePolicyCompatiblePoolsParams{}
 	p.p = make(map[string]interface{})
 	return p
 }
 
 // This is a courtesy helper function, which in some cases may not work as expected!
-func (s *PoolService) GetStoragePoolID(name string, opts ...OptionFunc) (string, int, error) {
-	p := &ListStoragePoolsParams{}
+func (s *PoolService) GetVsphereStoragePolicyCompatiblePoolID(keyword string, opts ...OptionFunc) (string, int, error) {
+	p := &ListVsphereStoragePolicyCompatiblePoolsParams{}
 	p.p = make(map[string]interface{})
 
-	p.p["name"] = name
+	p.p["keyword"] = keyword
 
 	for _, fn := range append(s.cs.options, opts...) {
 		if err := fn(s.cs, p); err != nil {
@@ -1094,84 +266,37 @@ func (s *PoolService) GetStoragePoolID(name string, opts ...OptionFunc) (string,
 		}
 	}
 
-	l, err := s.ListStoragePools(p)
+	l, err := s.ListVsphereStoragePolicyCompatiblePools(p)
 	if err != nil {
 		return "", -1, err
 	}
 
 	if l.Count == 0 {
-		return "", l.Count, fmt.Errorf("No match found for %s: %+v", name, l)
+		return "", l.Count, fmt.Errorf("No match found for %s: %+v", keyword, l)
 	}
 
 	if l.Count == 1 {
-		return l.StoragePools[0].Id, l.Count, nil
+		return l.VsphereStoragePolicyCompatiblePools[0].Id, l.Count, nil
 	}
 
 	if l.Count > 1 {
-		for _, v := range l.StoragePools {
-			if v.Name == name {
+		for _, v := range l.VsphereStoragePolicyCompatiblePools {
+			if v.Name == keyword {
 				return v.Id, l.Count, nil
 			}
 		}
 	}
-	return "", l.Count, fmt.Errorf("Could not find an exact match for %s: %+v", name, l)
+	return "", l.Count, fmt.Errorf("Could not find an exact match for %s: %+v", keyword, l)
 }
 
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *PoolService) GetStoragePoolByName(name string, opts ...OptionFunc) (*StoragePool, int, error) {
-	id, count, err := s.GetStoragePoolID(name, opts...)
-	if err != nil {
-		return nil, count, err
-	}
-
-	r, count, err := s.GetStoragePoolByID(id, opts...)
-	if err != nil {
-		return nil, count, err
-	}
-	return r, count, nil
-}
-
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *PoolService) GetStoragePoolByID(id string, opts ...OptionFunc) (*StoragePool, int, error) {
-	p := &ListStoragePoolsParams{}
-	p.p = make(map[string]interface{})
-
-	p.p["id"] = id
-
-	for _, fn := range append(s.cs.options, opts...) {
-		if err := fn(s.cs, p); err != nil {
-			return nil, -1, err
-		}
-	}
-
-	l, err := s.ListStoragePools(p)
-	if err != nil {
-		if strings.Contains(err.Error(), fmt.Sprintf(
-			"Invalid parameter id value=%s due to incorrect long value format, "+
-				"or entity does not exist", id)) {
-			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-		}
-		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
-	}
-
-	if l.Count == 1 {
-		return l.StoragePools[0], l.Count, nil
-	}
-	return nil, l.Count, fmt.Errorf("There is more then one result for StoragePool UUID: %s!", id)
-}
-
-// Lists storage pools.
-func (s *PoolService) ListStoragePools(p *ListStoragePoolsParams) (*ListStoragePoolsResponse, error) {
-	resp, err := s.cs.newRequest("listStoragePools", p.toURLValues())
+// List storage pools compatible with a vSphere storage policy
+func (s *PoolService) ListVsphereStoragePolicyCompatiblePools(p *ListVsphereStoragePolicyCompatiblePoolsParams) (*ListVsphereStoragePolicyCompatiblePoolsResponse, error) {
+	resp, err := s.cs.newRequest("listVsphereStoragePolicyCompatiblePools", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r ListStoragePoolsResponse
+	var r ListVsphereStoragePolicyCompatiblePoolsResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
 	}
@@ -1179,12 +304,12 @@ func (s *PoolService) ListStoragePools(p *ListStoragePoolsParams) (*ListStorageP
 	return &r, nil
 }
 
-type ListStoragePoolsResponse struct {
-	Count        int            `json:"count"`
-	StoragePools []*StoragePool `json:"storagepool"`
+type ListVsphereStoragePolicyCompatiblePoolsResponse struct {
+	Count                               int                                   `json:"count"`
+	VsphereStoragePolicyCompatiblePools []*VsphereStoragePolicyCompatiblePool `json:"vspherestoragepolicycompatiblepool"`
 }
 
-type StoragePool struct {
+type VsphereStoragePolicyCompatiblePool struct {
 	Allocatediops        int64             `json:"allocatediops"`
 	Capacityiops         int64             `json:"capacityiops"`
 	Clusterid            string            `json:"clusterid"`
@@ -1201,6 +326,7 @@ type StoragePool struct {
 	JobID                string            `json:"jobid"`
 	Jobstatus            int               `json:"jobstatus"`
 	Name                 string            `json:"name"`
+	Nfsmountopts         string            `json:"nfsmountopts"`
 	Overprovisionfactor  string            `json:"overprovisionfactor"`
 	Path                 string            `json:"path"`
 	Podid                string            `json:"podid"`
@@ -1209,410 +335,7 @@ type StoragePool struct {
 	Scope                string            `json:"scope"`
 	State                string            `json:"state"`
 	Storagecapabilities  map[string]string `json:"storagecapabilities"`
-	Suitableformigration bool              `json:"suitableformigration"`
-	Tags                 string            `json:"tags"`
-	Type                 string            `json:"type"`
-	Zoneid               string            `json:"zoneid"`
-	Zonename             string            `json:"zonename"`
-}
-
-type SyncStoragePoolParams struct {
-	p map[string]interface{}
-}
-
-func (p *SyncStoragePoolParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *SyncStoragePoolParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *SyncStoragePoolParams) ResetId() {
-	if p.p != nil && p.p["id"] != nil {
-		delete(p.p, "id")
-	}
-}
-
-func (p *SyncStoragePoolParams) GetId() (string, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["id"].(string)
-	return value, ok
-}
-
-// You should always use this function to get a new SyncStoragePoolParams instance,
-// as then you are sure you have configured all required params
-func (s *PoolService) NewSyncStoragePoolParams(id string) *SyncStoragePoolParams {
-	p := &SyncStoragePoolParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Sync storage pool with management server (currently supported for Datastore Cluster in VMware and syncs the datastores in it)
-func (s *PoolService) SyncStoragePool(p *SyncStoragePoolParams) (*SyncStoragePoolResponse, error) {
-	resp, err := s.cs.newRequest("syncStoragePool", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r SyncStoragePoolResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-
-	return &r, nil
-}
-
-type SyncStoragePoolResponse struct {
-	Allocatediops        int64             `json:"allocatediops"`
-	Capacityiops         int64             `json:"capacityiops"`
-	Clusterid            string            `json:"clusterid"`
-	Clustername          string            `json:"clustername"`
-	Created              string            `json:"created"`
-	Disksizeallocated    int64             `json:"disksizeallocated"`
-	Disksizetotal        int64             `json:"disksizetotal"`
-	Disksizeused         int64             `json:"disksizeused"`
-	Hasannotations       bool              `json:"hasannotations"`
-	Hypervisor           string            `json:"hypervisor"`
-	Id                   string            `json:"id"`
-	Ipaddress            string            `json:"ipaddress"`
-	Istagarule           bool              `json:"istagarule"`
-	JobID                string            `json:"jobid"`
-	Jobstatus            int               `json:"jobstatus"`
-	Name                 string            `json:"name"`
-	Overprovisionfactor  string            `json:"overprovisionfactor"`
-	Path                 string            `json:"path"`
-	Podid                string            `json:"podid"`
-	Podname              string            `json:"podname"`
-	Provider             string            `json:"provider"`
-	Scope                string            `json:"scope"`
-	State                string            `json:"state"`
-	Storagecapabilities  map[string]string `json:"storagecapabilities"`
-	Suitableformigration bool              `json:"suitableformigration"`
-	Tags                 string            `json:"tags"`
-	Type                 string            `json:"type"`
-	Zoneid               string            `json:"zoneid"`
-	Zonename             string            `json:"zonename"`
-}
-
-type UpdateStoragePoolParams struct {
-	p map[string]interface{}
-}
-
-func (p *UpdateStoragePoolParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["capacitybytes"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
-		u.Set("capacitybytes", vv)
-	}
-	if v, found := p.p["capacityiops"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
-		u.Set("capacityiops", vv)
-	}
-	if v, found := p.p["details"]; found {
-		m := v.(map[string]string)
-		for i, k := range getSortedKeysFromMap(m) {
-			u.Set(fmt.Sprintf("details[%d].%s", i, k), m[k])
-		}
-	}
-	if v, found := p.p["enabled"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("enabled", vv)
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["istagarule"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("istagarule", vv)
-	}
-	if v, found := p.p["name"]; found {
-		u.Set("name", v.(string))
-	}
-	if v, found := p.p["tags"]; found {
-		vv := strings.Join(v.([]string), ",")
-		u.Set("tags", vv)
-	}
-	if v, found := p.p["url"]; found {
-		u.Set("url", v.(string))
-	}
-	return u
-}
-
-func (p *UpdateStoragePoolParams) SetCapacitybytes(v int64) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["capacitybytes"] = v
-}
-
-func (p *UpdateStoragePoolParams) ResetCapacitybytes() {
-	if p.p != nil && p.p["capacitybytes"] != nil {
-		delete(p.p, "capacitybytes")
-	}
-}
-
-func (p *UpdateStoragePoolParams) GetCapacitybytes() (int64, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["capacitybytes"].(int64)
-	return value, ok
-}
-
-func (p *UpdateStoragePoolParams) SetCapacityiops(v int64) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["capacityiops"] = v
-}
-
-func (p *UpdateStoragePoolParams) ResetCapacityiops() {
-	if p.p != nil && p.p["capacityiops"] != nil {
-		delete(p.p, "capacityiops")
-	}
-}
-
-func (p *UpdateStoragePoolParams) GetCapacityiops() (int64, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["capacityiops"].(int64)
-	return value, ok
-}
-
-func (p *UpdateStoragePoolParams) SetDetails(v map[string]string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["details"] = v
-}
-
-func (p *UpdateStoragePoolParams) ResetDetails() {
-	if p.p != nil && p.p["details"] != nil {
-		delete(p.p, "details")
-	}
-}
-
-func (p *UpdateStoragePoolParams) GetDetails() (map[string]string, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["details"].(map[string]string)
-	return value, ok
-}
-
-func (p *UpdateStoragePoolParams) SetEnabled(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["enabled"] = v
-}
-
-func (p *UpdateStoragePoolParams) ResetEnabled() {
-	if p.p != nil && p.p["enabled"] != nil {
-		delete(p.p, "enabled")
-	}
-}
-
-func (p *UpdateStoragePoolParams) GetEnabled() (bool, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["enabled"].(bool)
-	return value, ok
-}
-
-func (p *UpdateStoragePoolParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *UpdateStoragePoolParams) ResetId() {
-	if p.p != nil && p.p["id"] != nil {
-		delete(p.p, "id")
-	}
-}
-
-func (p *UpdateStoragePoolParams) GetId() (string, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["id"].(string)
-	return value, ok
-}
-
-func (p *UpdateStoragePoolParams) SetIstagarule(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["istagarule"] = v
-}
-
-func (p *UpdateStoragePoolParams) ResetIstagarule() {
-	if p.p != nil && p.p["istagarule"] != nil {
-		delete(p.p, "istagarule")
-	}
-}
-
-func (p *UpdateStoragePoolParams) GetIstagarule() (bool, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["istagarule"].(bool)
-	return value, ok
-}
-
-func (p *UpdateStoragePoolParams) SetName(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["name"] = v
-}
-
-func (p *UpdateStoragePoolParams) ResetName() {
-	if p.p != nil && p.p["name"] != nil {
-		delete(p.p, "name")
-	}
-}
-
-func (p *UpdateStoragePoolParams) GetName() (string, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["name"].(string)
-	return value, ok
-}
-
-func (p *UpdateStoragePoolParams) SetTags(v []string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["tags"] = v
-}
-
-func (p *UpdateStoragePoolParams) ResetTags() {
-	if p.p != nil && p.p["tags"] != nil {
-		delete(p.p, "tags")
-	}
-}
-
-func (p *UpdateStoragePoolParams) GetTags() ([]string, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["tags"].([]string)
-	return value, ok
-}
-
-func (p *UpdateStoragePoolParams) SetUrl(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["url"] = v
-}
-
-func (p *UpdateStoragePoolParams) ResetUrl() {
-	if p.p != nil && p.p["url"] != nil {
-		delete(p.p, "url")
-	}
-}
-
-func (p *UpdateStoragePoolParams) GetUrl() (string, bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	value, ok := p.p["url"].(string)
-	return value, ok
-}
-
-// You should always use this function to get a new UpdateStoragePoolParams instance,
-// as then you are sure you have configured all required params
-func (s *PoolService) NewUpdateStoragePoolParams(id string) *UpdateStoragePoolParams {
-	p := &UpdateStoragePoolParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Updates a storage pool.
-func (s *PoolService) UpdateStoragePool(p *UpdateStoragePoolParams) (*UpdateStoragePoolResponse, error) {
-	resp, err := s.cs.newRequest("updateStoragePool", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r UpdateStoragePoolResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	return &r, nil
-}
-
-type UpdateStoragePoolResponse struct {
-	Allocatediops        int64             `json:"allocatediops"`
-	Capacityiops         int64             `json:"capacityiops"`
-	Clusterid            string            `json:"clusterid"`
-	Clustername          string            `json:"clustername"`
-	Created              string            `json:"created"`
-	Disksizeallocated    int64             `json:"disksizeallocated"`
-	Disksizetotal        int64             `json:"disksizetotal"`
-	Disksizeused         int64             `json:"disksizeused"`
-	Hasannotations       bool              `json:"hasannotations"`
-	Hypervisor           string            `json:"hypervisor"`
-	Id                   string            `json:"id"`
-	Ipaddress            string            `json:"ipaddress"`
-	Istagarule           bool              `json:"istagarule"`
-	JobID                string            `json:"jobid"`
-	Jobstatus            int               `json:"jobstatus"`
-	Name                 string            `json:"name"`
-	Overprovisionfactor  string            `json:"overprovisionfactor"`
-	Path                 string            `json:"path"`
-	Podid                string            `json:"podid"`
-	Podname              string            `json:"podname"`
-	Provider             string            `json:"provider"`
-	Scope                string            `json:"scope"`
-	State                string            `json:"state"`
-	Storagecapabilities  map[string]string `json:"storagecapabilities"`
+	Storagecustomstats   map[string]string `json:"storagecustomstats"`
 	Suitableformigration bool              `json:"suitableformigration"`
 	Tags                 string            `json:"tags"`
 	Type                 string            `json:"type"`

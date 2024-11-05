@@ -145,6 +145,69 @@ func (mr *MockSystemVMServiceIfaceMockRecorder) GetSystemVmID(name interface{}, 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetSystemVmID", reflect.TypeOf((*MockSystemVMServiceIface)(nil).GetSystemVmID), varargs...)
 }
 
+// GetSystemVmsUsageHistoryByID mocks base method.
+func (m *MockSystemVMServiceIface) GetSystemVmsUsageHistoryByID(id string, opts ...OptionFunc) (*SystemVmsUsageHistory, int, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{id}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "GetSystemVmsUsageHistoryByID", varargs...)
+	ret0, _ := ret[0].(*SystemVmsUsageHistory)
+	ret1, _ := ret[1].(int)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
+}
+
+// GetSystemVmsUsageHistoryByID indicates an expected call of GetSystemVmsUsageHistoryByID.
+func (mr *MockSystemVMServiceIfaceMockRecorder) GetSystemVmsUsageHistoryByID(id interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{id}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetSystemVmsUsageHistoryByID", reflect.TypeOf((*MockSystemVMServiceIface)(nil).GetSystemVmsUsageHistoryByID), varargs...)
+}
+
+// GetSystemVmsUsageHistoryByName mocks base method.
+func (m *MockSystemVMServiceIface) GetSystemVmsUsageHistoryByName(name string, opts ...OptionFunc) (*SystemVmsUsageHistory, int, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{name}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "GetSystemVmsUsageHistoryByName", varargs...)
+	ret0, _ := ret[0].(*SystemVmsUsageHistory)
+	ret1, _ := ret[1].(int)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
+}
+
+// GetSystemVmsUsageHistoryByName indicates an expected call of GetSystemVmsUsageHistoryByName.
+func (mr *MockSystemVMServiceIfaceMockRecorder) GetSystemVmsUsageHistoryByName(name interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{name}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetSystemVmsUsageHistoryByName", reflect.TypeOf((*MockSystemVMServiceIface)(nil).GetSystemVmsUsageHistoryByName), varargs...)
+}
+
+// GetSystemVmsUsageHistoryID mocks base method.
+func (m *MockSystemVMServiceIface) GetSystemVmsUsageHistoryID(name string, opts ...OptionFunc) (string, int, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{name}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "GetSystemVmsUsageHistoryID", varargs...)
+	ret0, _ := ret[0].(string)
+	ret1, _ := ret[1].(int)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
+}
+
+// GetSystemVmsUsageHistoryID indicates an expected call of GetSystemVmsUsageHistoryID.
+func (mr *MockSystemVMServiceIfaceMockRecorder) GetSystemVmsUsageHistoryID(name interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{name}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetSystemVmsUsageHistoryID", reflect.TypeOf((*MockSystemVMServiceIface)(nil).GetSystemVmsUsageHistoryID), varargs...)
+}
+
 // ListSystemVms mocks base method.
 func (m *MockSystemVMServiceIface) ListSystemVms(p *ListSystemVmsParams) (*ListSystemVmsResponse, error) {
 	m.ctrl.T.Helper()
@@ -158,6 +221,21 @@ func (m *MockSystemVMServiceIface) ListSystemVms(p *ListSystemVmsParams) (*ListS
 func (mr *MockSystemVMServiceIfaceMockRecorder) ListSystemVms(p interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListSystemVms", reflect.TypeOf((*MockSystemVMServiceIface)(nil).ListSystemVms), p)
+}
+
+// ListSystemVmsUsageHistory mocks base method.
+func (m *MockSystemVMServiceIface) ListSystemVmsUsageHistory(p *ListSystemVmsUsageHistoryParams) (*ListSystemVmsUsageHistoryResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListSystemVmsUsageHistory", p)
+	ret0, _ := ret[0].(*ListSystemVmsUsageHistoryResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListSystemVmsUsageHistory indicates an expected call of ListSystemVmsUsageHistory.
+func (mr *MockSystemVMServiceIfaceMockRecorder) ListSystemVmsUsageHistory(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListSystemVmsUsageHistory", reflect.TypeOf((*MockSystemVMServiceIface)(nil).ListSystemVmsUsageHistory), p)
 }
 
 // MigrateSystemVm mocks base method.
@@ -215,6 +293,20 @@ func (m *MockSystemVMServiceIface) NewListSystemVmsParams() *ListSystemVmsParams
 func (mr *MockSystemVMServiceIfaceMockRecorder) NewListSystemVmsParams() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListSystemVmsParams", reflect.TypeOf((*MockSystemVMServiceIface)(nil).NewListSystemVmsParams))
+}
+
+// NewListSystemVmsUsageHistoryParams mocks base method.
+func (m *MockSystemVMServiceIface) NewListSystemVmsUsageHistoryParams() *ListSystemVmsUsageHistoryParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewListSystemVmsUsageHistoryParams")
+	ret0, _ := ret[0].(*ListSystemVmsUsageHistoryParams)
+	return ret0
+}
+
+// NewListSystemVmsUsageHistoryParams indicates an expected call of NewListSystemVmsUsageHistoryParams.
+func (mr *MockSystemVMServiceIfaceMockRecorder) NewListSystemVmsUsageHistoryParams() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListSystemVmsUsageHistoryParams", reflect.TypeOf((*MockSystemVMServiceIface)(nil).NewListSystemVmsUsageHistoryParams))
 }
 
 // NewMigrateSystemVmParams mocks base method.

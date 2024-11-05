@@ -52,239 +52,81 @@ func (m *MockPoolServiceIface) EXPECT() *MockPoolServiceIfaceMockRecorder {
 	return m.recorder
 }
 
-// CreateStoragePool mocks base method.
-func (m *MockPoolServiceIface) CreateStoragePool(p *CreateStoragePoolParams) (*CreateStoragePoolResponse, error) {
+// GetVsphereStoragePolicyCompatiblePoolID mocks base method.
+func (m *MockPoolServiceIface) GetVsphereStoragePolicyCompatiblePoolID(keyword string, opts ...OptionFunc) (string, int, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CreateStoragePool", p)
-	ret0, _ := ret[0].(*CreateStoragePoolResponse)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// CreateStoragePool indicates an expected call of CreateStoragePool.
-func (mr *MockPoolServiceIfaceMockRecorder) CreateStoragePool(p interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateStoragePool", reflect.TypeOf((*MockPoolServiceIface)(nil).CreateStoragePool), p)
-}
-
-// DeleteStoragePool mocks base method.
-func (m *MockPoolServiceIface) DeleteStoragePool(p *DeleteStoragePoolParams) (*DeleteStoragePoolResponse, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "DeleteStoragePool", p)
-	ret0, _ := ret[0].(*DeleteStoragePoolResponse)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// DeleteStoragePool indicates an expected call of DeleteStoragePool.
-func (mr *MockPoolServiceIfaceMockRecorder) DeleteStoragePool(p interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteStoragePool", reflect.TypeOf((*MockPoolServiceIface)(nil).DeleteStoragePool), p)
-}
-
-// FindStoragePoolsForMigration mocks base method.
-func (m *MockPoolServiceIface) FindStoragePoolsForMigration(p *FindStoragePoolsForMigrationParams) (*FindStoragePoolsForMigrationResponse, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "FindStoragePoolsForMigration", p)
-	ret0, _ := ret[0].(*FindStoragePoolsForMigrationResponse)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// FindStoragePoolsForMigration indicates an expected call of FindStoragePoolsForMigration.
-func (mr *MockPoolServiceIfaceMockRecorder) FindStoragePoolsForMigration(p interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindStoragePoolsForMigration", reflect.TypeOf((*MockPoolServiceIface)(nil).FindStoragePoolsForMigration), p)
-}
-
-// GetStoragePoolByID mocks base method.
-func (m *MockPoolServiceIface) GetStoragePoolByID(id string, opts ...OptionFunc) (*StoragePool, int, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{id}
+	varargs := []interface{}{keyword}
 	for _, a := range opts {
 		varargs = append(varargs, a)
 	}
-	ret := m.ctrl.Call(m, "GetStoragePoolByID", varargs...)
-	ret0, _ := ret[0].(*StoragePool)
-	ret1, _ := ret[1].(int)
-	ret2, _ := ret[2].(error)
-	return ret0, ret1, ret2
-}
-
-// GetStoragePoolByID indicates an expected call of GetStoragePoolByID.
-func (mr *MockPoolServiceIfaceMockRecorder) GetStoragePoolByID(id interface{}, opts ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{id}, opts...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetStoragePoolByID", reflect.TypeOf((*MockPoolServiceIface)(nil).GetStoragePoolByID), varargs...)
-}
-
-// GetStoragePoolByName mocks base method.
-func (m *MockPoolServiceIface) GetStoragePoolByName(name string, opts ...OptionFunc) (*StoragePool, int, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{name}
-	for _, a := range opts {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "GetStoragePoolByName", varargs...)
-	ret0, _ := ret[0].(*StoragePool)
-	ret1, _ := ret[1].(int)
-	ret2, _ := ret[2].(error)
-	return ret0, ret1, ret2
-}
-
-// GetStoragePoolByName indicates an expected call of GetStoragePoolByName.
-func (mr *MockPoolServiceIfaceMockRecorder) GetStoragePoolByName(name interface{}, opts ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{name}, opts...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetStoragePoolByName", reflect.TypeOf((*MockPoolServiceIface)(nil).GetStoragePoolByName), varargs...)
-}
-
-// GetStoragePoolID mocks base method.
-func (m *MockPoolServiceIface) GetStoragePoolID(name string, opts ...OptionFunc) (string, int, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{name}
-	for _, a := range opts {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "GetStoragePoolID", varargs...)
+	ret := m.ctrl.Call(m, "GetVsphereStoragePolicyCompatiblePoolID", varargs...)
 	ret0, _ := ret[0].(string)
 	ret1, _ := ret[1].(int)
 	ret2, _ := ret[2].(error)
 	return ret0, ret1, ret2
 }
 
-// GetStoragePoolID indicates an expected call of GetStoragePoolID.
-func (mr *MockPoolServiceIfaceMockRecorder) GetStoragePoolID(name interface{}, opts ...interface{}) *gomock.Call {
+// GetVsphereStoragePolicyCompatiblePoolID indicates an expected call of GetVsphereStoragePolicyCompatiblePoolID.
+func (mr *MockPoolServiceIfaceMockRecorder) GetVsphereStoragePolicyCompatiblePoolID(keyword interface{}, opts ...interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{name}, opts...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetStoragePoolID", reflect.TypeOf((*MockPoolServiceIface)(nil).GetStoragePoolID), varargs...)
+	varargs := append([]interface{}{keyword}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetVsphereStoragePolicyCompatiblePoolID", reflect.TypeOf((*MockPoolServiceIface)(nil).GetVsphereStoragePolicyCompatiblePoolID), varargs...)
 }
 
-// ListStoragePools mocks base method.
-func (m *MockPoolServiceIface) ListStoragePools(p *ListStoragePoolsParams) (*ListStoragePoolsResponse, error) {
+// ListElastistorPool mocks base method.
+func (m *MockPoolServiceIface) ListElastistorPool(p *ListElastistorPoolParams) (*ListElastistorPoolResponse, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ListStoragePools", p)
-	ret0, _ := ret[0].(*ListStoragePoolsResponse)
+	ret := m.ctrl.Call(m, "ListElastistorPool", p)
+	ret0, _ := ret[0].(*ListElastistorPoolResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// ListStoragePools indicates an expected call of ListStoragePools.
-func (mr *MockPoolServiceIfaceMockRecorder) ListStoragePools(p interface{}) *gomock.Call {
+// ListElastistorPool indicates an expected call of ListElastistorPool.
+func (mr *MockPoolServiceIfaceMockRecorder) ListElastistorPool(p interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListStoragePools", reflect.TypeOf((*MockPoolServiceIface)(nil).ListStoragePools), p)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListElastistorPool", reflect.TypeOf((*MockPoolServiceIface)(nil).ListElastistorPool), p)
 }
 
-// NewCreateStoragePoolParams mocks base method.
-func (m *MockPoolServiceIface) NewCreateStoragePoolParams(name, url, zoneid string) *CreateStoragePoolParams {
+// ListVsphereStoragePolicyCompatiblePools mocks base method.
+func (m *MockPoolServiceIface) ListVsphereStoragePolicyCompatiblePools(p *ListVsphereStoragePolicyCompatiblePoolsParams) (*ListVsphereStoragePolicyCompatiblePoolsResponse, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "NewCreateStoragePoolParams", name, url, zoneid)
-	ret0, _ := ret[0].(*CreateStoragePoolParams)
-	return ret0
-}
-
-// NewCreateStoragePoolParams indicates an expected call of NewCreateStoragePoolParams.
-func (mr *MockPoolServiceIfaceMockRecorder) NewCreateStoragePoolParams(name, url, zoneid interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewCreateStoragePoolParams", reflect.TypeOf((*MockPoolServiceIface)(nil).NewCreateStoragePoolParams), name, url, zoneid)
-}
-
-// NewDeleteStoragePoolParams mocks base method.
-func (m *MockPoolServiceIface) NewDeleteStoragePoolParams(id string) *DeleteStoragePoolParams {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "NewDeleteStoragePoolParams", id)
-	ret0, _ := ret[0].(*DeleteStoragePoolParams)
-	return ret0
-}
-
-// NewDeleteStoragePoolParams indicates an expected call of NewDeleteStoragePoolParams.
-func (mr *MockPoolServiceIfaceMockRecorder) NewDeleteStoragePoolParams(id interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewDeleteStoragePoolParams", reflect.TypeOf((*MockPoolServiceIface)(nil).NewDeleteStoragePoolParams), id)
-}
-
-// NewFindStoragePoolsForMigrationParams mocks base method.
-func (m *MockPoolServiceIface) NewFindStoragePoolsForMigrationParams(id string) *FindStoragePoolsForMigrationParams {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "NewFindStoragePoolsForMigrationParams", id)
-	ret0, _ := ret[0].(*FindStoragePoolsForMigrationParams)
-	return ret0
-}
-
-// NewFindStoragePoolsForMigrationParams indicates an expected call of NewFindStoragePoolsForMigrationParams.
-func (mr *MockPoolServiceIfaceMockRecorder) NewFindStoragePoolsForMigrationParams(id interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewFindStoragePoolsForMigrationParams", reflect.TypeOf((*MockPoolServiceIface)(nil).NewFindStoragePoolsForMigrationParams), id)
-}
-
-// NewListStoragePoolsParams mocks base method.
-func (m *MockPoolServiceIface) NewListStoragePoolsParams() *ListStoragePoolsParams {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "NewListStoragePoolsParams")
-	ret0, _ := ret[0].(*ListStoragePoolsParams)
-	return ret0
-}
-
-// NewListStoragePoolsParams indicates an expected call of NewListStoragePoolsParams.
-func (mr *MockPoolServiceIfaceMockRecorder) NewListStoragePoolsParams() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListStoragePoolsParams", reflect.TypeOf((*MockPoolServiceIface)(nil).NewListStoragePoolsParams))
-}
-
-// NewSyncStoragePoolParams mocks base method.
-func (m *MockPoolServiceIface) NewSyncStoragePoolParams(id string) *SyncStoragePoolParams {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "NewSyncStoragePoolParams", id)
-	ret0, _ := ret[0].(*SyncStoragePoolParams)
-	return ret0
-}
-
-// NewSyncStoragePoolParams indicates an expected call of NewSyncStoragePoolParams.
-func (mr *MockPoolServiceIfaceMockRecorder) NewSyncStoragePoolParams(id interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewSyncStoragePoolParams", reflect.TypeOf((*MockPoolServiceIface)(nil).NewSyncStoragePoolParams), id)
-}
-
-// NewUpdateStoragePoolParams mocks base method.
-func (m *MockPoolServiceIface) NewUpdateStoragePoolParams(id string) *UpdateStoragePoolParams {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "NewUpdateStoragePoolParams", id)
-	ret0, _ := ret[0].(*UpdateStoragePoolParams)
-	return ret0
-}
-
-// NewUpdateStoragePoolParams indicates an expected call of NewUpdateStoragePoolParams.
-func (mr *MockPoolServiceIfaceMockRecorder) NewUpdateStoragePoolParams(id interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewUpdateStoragePoolParams", reflect.TypeOf((*MockPoolServiceIface)(nil).NewUpdateStoragePoolParams), id)
-}
-
-// SyncStoragePool mocks base method.
-func (m *MockPoolServiceIface) SyncStoragePool(p *SyncStoragePoolParams) (*SyncStoragePoolResponse, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "SyncStoragePool", p)
-	ret0, _ := ret[0].(*SyncStoragePoolResponse)
+	ret := m.ctrl.Call(m, "ListVsphereStoragePolicyCompatiblePools", p)
+	ret0, _ := ret[0].(*ListVsphereStoragePolicyCompatiblePoolsResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// SyncStoragePool indicates an expected call of SyncStoragePool.
-func (mr *MockPoolServiceIfaceMockRecorder) SyncStoragePool(p interface{}) *gomock.Call {
+// ListVsphereStoragePolicyCompatiblePools indicates an expected call of ListVsphereStoragePolicyCompatiblePools.
+func (mr *MockPoolServiceIfaceMockRecorder) ListVsphereStoragePolicyCompatiblePools(p interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SyncStoragePool", reflect.TypeOf((*MockPoolServiceIface)(nil).SyncStoragePool), p)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListVsphereStoragePolicyCompatiblePools", reflect.TypeOf((*MockPoolServiceIface)(nil).ListVsphereStoragePolicyCompatiblePools), p)
 }
 
-// UpdateStoragePool mocks base method.
-func (m *MockPoolServiceIface) UpdateStoragePool(p *UpdateStoragePoolParams) (*UpdateStoragePoolResponse, error) {
+// NewListElastistorPoolParams mocks base method.
+func (m *MockPoolServiceIface) NewListElastistorPoolParams() *ListElastistorPoolParams {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "UpdateStoragePool", p)
-	ret0, _ := ret[0].(*UpdateStoragePoolResponse)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	ret := m.ctrl.Call(m, "NewListElastistorPoolParams")
+	ret0, _ := ret[0].(*ListElastistorPoolParams)
+	return ret0
 }
 
-// UpdateStoragePool indicates an expected call of UpdateStoragePool.
-func (mr *MockPoolServiceIfaceMockRecorder) UpdateStoragePool(p interface{}) *gomock.Call {
+// NewListElastistorPoolParams indicates an expected call of NewListElastistorPoolParams.
+func (mr *MockPoolServiceIfaceMockRecorder) NewListElastistorPoolParams() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateStoragePool", reflect.TypeOf((*MockPoolServiceIface)(nil).UpdateStoragePool), p)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListElastistorPoolParams", reflect.TypeOf((*MockPoolServiceIface)(nil).NewListElastistorPoolParams))
+}
+
+// NewListVsphereStoragePolicyCompatiblePoolsParams mocks base method.
+func (m *MockPoolServiceIface) NewListVsphereStoragePolicyCompatiblePoolsParams() *ListVsphereStoragePolicyCompatiblePoolsParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewListVsphereStoragePolicyCompatiblePoolsParams")
+	ret0, _ := ret[0].(*ListVsphereStoragePolicyCompatiblePoolsParams)
+	return ret0
+}
+
+// NewListVsphereStoragePolicyCompatiblePoolsParams indicates an expected call of NewListVsphereStoragePolicyCompatiblePoolsParams.
+func (mr *MockPoolServiceIfaceMockRecorder) NewListVsphereStoragePolicyCompatiblePoolsParams() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListVsphereStoragePolicyCompatiblePoolsParams", reflect.TypeOf((*MockPoolServiceIface)(nil).NewListVsphereStoragePolicyCompatiblePoolsParams))
 }

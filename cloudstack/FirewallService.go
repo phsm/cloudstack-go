@@ -88,6 +88,10 @@ type FirewallServiceIface interface {
 	NewCreateFirewallRuleParams(ipaddressid string, protocol string) *CreateFirewallRuleParams
 	CreatePortForwardingRule(p *CreatePortForwardingRuleParams) (*CreatePortForwardingRuleResponse, error)
 	NewCreatePortForwardingRuleParams(ipaddressid string, privateport int, protocol string, publicport int, virtualmachineid string) *CreatePortForwardingRuleParams
+	CreateTungstenFabricFirewallPolicy(p *CreateTungstenFabricFirewallPolicyParams) (*CreateTungstenFabricFirewallPolicyResponse, error)
+	NewCreateTungstenFabricFirewallPolicyParams(name string, sequence int, zoneid string) *CreateTungstenFabricFirewallPolicyParams
+	CreateTungstenFabricFirewallRule(p *CreateTungstenFabricFirewallRuleParams) (*CreateTungstenFabricFirewallRuleResponse, error)
+	NewCreateTungstenFabricFirewallRuleParams(action string, direction string, firewallpolicyuuid string, name string, sequence int, servicegroupuuid string, zoneid string) *CreateTungstenFabricFirewallRuleParams
 	DeleteEgressFirewallRule(p *DeleteEgressFirewallRuleParams) (*DeleteEgressFirewallRuleResponse, error)
 	NewDeleteEgressFirewallRuleParams(id string) *DeleteEgressFirewallRuleParams
 	DeleteFirewallRule(p *DeleteFirewallRuleParams) (*DeleteFirewallRuleResponse, error)
@@ -96,6 +100,8 @@ type FirewallServiceIface interface {
 	NewDeletePaloAltoFirewallParams(fwdeviceid string) *DeletePaloAltoFirewallParams
 	DeletePortForwardingRule(p *DeletePortForwardingRuleParams) (*DeletePortForwardingRuleResponse, error)
 	NewDeletePortForwardingRuleParams(id string) *DeletePortForwardingRuleParams
+	DeleteTungstenFabricFirewallPolicy(p *DeleteTungstenFabricFirewallPolicyParams) (*DeleteTungstenFabricFirewallPolicyResponse, error)
+	NewDeleteTungstenFabricFirewallPolicyParams(firewallpolicyuuid string, zoneid string) *DeleteTungstenFabricFirewallPolicyParams
 	ListEgressFirewallRules(p *ListEgressFirewallRulesParams) (*ListEgressFirewallRulesResponse, error)
 	NewListEgressFirewallRulesParams() *ListEgressFirewallRulesParams
 	GetEgressFirewallRuleByID(id string, opts ...OptionFunc) (*EgressFirewallRule, int, error)
@@ -107,6 +113,10 @@ type FirewallServiceIface interface {
 	ListPortForwardingRules(p *ListPortForwardingRulesParams) (*ListPortForwardingRulesResponse, error)
 	NewListPortForwardingRulesParams() *ListPortForwardingRulesParams
 	GetPortForwardingRuleByID(id string, opts ...OptionFunc) (*PortForwardingRule, int, error)
+	ListTungstenFabricFirewallPolicy(p *ListTungstenFabricFirewallPolicyParams) (*ListTungstenFabricFirewallPolicyResponse, error)
+	NewListTungstenFabricFirewallPolicyParams() *ListTungstenFabricFirewallPolicyParams
+	ListTungstenFabricFirewallRule(p *ListTungstenFabricFirewallRuleParams) (*ListTungstenFabricFirewallRuleResponse, error)
+	NewListTungstenFabricFirewallRuleParams() *ListTungstenFabricFirewallRuleParams
 	UpdateEgressFirewallRule(p *UpdateEgressFirewallRuleParams) (*UpdateEgressFirewallRuleResponse, error)
 	NewUpdateEgressFirewallRuleParams(id string) *UpdateEgressFirewallRuleParams
 	UpdateFirewallRule(p *UpdateFirewallRuleParams) (*UpdateFirewallRuleResponse, error)
@@ -1476,6 +1486,599 @@ type CreatePortForwardingRuleResponse struct {
 	Vmguestip                 string `json:"vmguestip"`
 }
 
+type CreateTungstenFabricFirewallPolicyParams struct {
+	p map[string]interface{}
+}
+
+func (p *CreateTungstenFabricFirewallPolicyParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["applicationpolicysetuuid"]; found {
+		u.Set("applicationpolicysetuuid", v.(string))
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	if v, found := p.p["sequence"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("sequence", vv)
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *CreateTungstenFabricFirewallPolicyParams) SetApplicationpolicysetuuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["applicationpolicysetuuid"] = v
+}
+
+func (p *CreateTungstenFabricFirewallPolicyParams) ResetApplicationpolicysetuuid() {
+	if p.p != nil && p.p["applicationpolicysetuuid"] != nil {
+		delete(p.p, "applicationpolicysetuuid")
+	}
+}
+
+func (p *CreateTungstenFabricFirewallPolicyParams) GetApplicationpolicysetuuid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["applicationpolicysetuuid"].(string)
+	return value, ok
+}
+
+func (p *CreateTungstenFabricFirewallPolicyParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+}
+
+func (p *CreateTungstenFabricFirewallPolicyParams) ResetName() {
+	if p.p != nil && p.p["name"] != nil {
+		delete(p.p, "name")
+	}
+}
+
+func (p *CreateTungstenFabricFirewallPolicyParams) GetName() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["name"].(string)
+	return value, ok
+}
+
+func (p *CreateTungstenFabricFirewallPolicyParams) SetSequence(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["sequence"] = v
+}
+
+func (p *CreateTungstenFabricFirewallPolicyParams) ResetSequence() {
+	if p.p != nil && p.p["sequence"] != nil {
+		delete(p.p, "sequence")
+	}
+}
+
+func (p *CreateTungstenFabricFirewallPolicyParams) GetSequence() (int, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["sequence"].(int)
+	return value, ok
+}
+
+func (p *CreateTungstenFabricFirewallPolicyParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+}
+
+func (p *CreateTungstenFabricFirewallPolicyParams) ResetZoneid() {
+	if p.p != nil && p.p["zoneid"] != nil {
+		delete(p.p, "zoneid")
+	}
+}
+
+func (p *CreateTungstenFabricFirewallPolicyParams) GetZoneid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["zoneid"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new CreateTungstenFabricFirewallPolicyParams instance,
+// as then you are sure you have configured all required params
+func (s *FirewallService) NewCreateTungstenFabricFirewallPolicyParams(name string, sequence int, zoneid string) *CreateTungstenFabricFirewallPolicyParams {
+	p := &CreateTungstenFabricFirewallPolicyParams{}
+	p.p = make(map[string]interface{})
+	p.p["name"] = name
+	p.p["sequence"] = sequence
+	p.p["zoneid"] = zoneid
+	return p
+}
+
+// create Tungsten-Fabric firewall policy
+func (s *FirewallService) CreateTungstenFabricFirewallPolicy(p *CreateTungstenFabricFirewallPolicyParams) (*CreateTungstenFabricFirewallPolicyResponse, error) {
+	resp, err := s.cs.newRequest("createTungstenFabricFirewallPolicy", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r CreateTungstenFabricFirewallPolicyResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err = convertFirewallServiceResponse(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type CreateTungstenFabricFirewallPolicyResponse struct {
+	Firewallrule []string `json:"firewallrule"`
+	JobID        string   `json:"jobid"`
+	Jobstatus    int      `json:"jobstatus"`
+	Name         string   `json:"name"`
+	Uuid         string   `json:"uuid"`
+	Zoneid       int64    `json:"zoneid"`
+	Zonename     string   `json:"zonename"`
+}
+
+type CreateTungstenFabricFirewallRuleParams struct {
+	p map[string]interface{}
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["action"]; found {
+		u.Set("action", v.(string))
+	}
+	if v, found := p.p["destaddressgroupuuid"]; found {
+		u.Set("destaddressgroupuuid", v.(string))
+	}
+	if v, found := p.p["destnetworkuuid"]; found {
+		u.Set("destnetworkuuid", v.(string))
+	}
+	if v, found := p.p["desttaguuid"]; found {
+		u.Set("desttaguuid", v.(string))
+	}
+	if v, found := p.p["direction"]; found {
+		u.Set("direction", v.(string))
+	}
+	if v, found := p.p["firewallpolicyuuid"]; found {
+		u.Set("firewallpolicyuuid", v.(string))
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	if v, found := p.p["sequence"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("sequence", vv)
+	}
+	if v, found := p.p["servicegroupuuid"]; found {
+		u.Set("servicegroupuuid", v.(string))
+	}
+	if v, found := p.p["srcaddressgroupuuid"]; found {
+		u.Set("srcaddressgroupuuid", v.(string))
+	}
+	if v, found := p.p["srcnetworkuuid"]; found {
+		u.Set("srcnetworkuuid", v.(string))
+	}
+	if v, found := p.p["srctaguuid"]; found {
+		u.Set("srctaguuid", v.(string))
+	}
+	if v, found := p.p["tagtypeuuid"]; found {
+		u.Set("tagtypeuuid", v.(string))
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) SetAction(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["action"] = v
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) ResetAction() {
+	if p.p != nil && p.p["action"] != nil {
+		delete(p.p, "action")
+	}
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) GetAction() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["action"].(string)
+	return value, ok
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) SetDestaddressgroupuuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["destaddressgroupuuid"] = v
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) ResetDestaddressgroupuuid() {
+	if p.p != nil && p.p["destaddressgroupuuid"] != nil {
+		delete(p.p, "destaddressgroupuuid")
+	}
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) GetDestaddressgroupuuid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["destaddressgroupuuid"].(string)
+	return value, ok
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) SetDestnetworkuuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["destnetworkuuid"] = v
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) ResetDestnetworkuuid() {
+	if p.p != nil && p.p["destnetworkuuid"] != nil {
+		delete(p.p, "destnetworkuuid")
+	}
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) GetDestnetworkuuid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["destnetworkuuid"].(string)
+	return value, ok
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) SetDesttaguuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["desttaguuid"] = v
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) ResetDesttaguuid() {
+	if p.p != nil && p.p["desttaguuid"] != nil {
+		delete(p.p, "desttaguuid")
+	}
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) GetDesttaguuid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["desttaguuid"].(string)
+	return value, ok
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) SetDirection(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["direction"] = v
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) ResetDirection() {
+	if p.p != nil && p.p["direction"] != nil {
+		delete(p.p, "direction")
+	}
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) GetDirection() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["direction"].(string)
+	return value, ok
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) SetFirewallpolicyuuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["firewallpolicyuuid"] = v
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) ResetFirewallpolicyuuid() {
+	if p.p != nil && p.p["firewallpolicyuuid"] != nil {
+		delete(p.p, "firewallpolicyuuid")
+	}
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) GetFirewallpolicyuuid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["firewallpolicyuuid"].(string)
+	return value, ok
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) ResetName() {
+	if p.p != nil && p.p["name"] != nil {
+		delete(p.p, "name")
+	}
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) GetName() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["name"].(string)
+	return value, ok
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) SetSequence(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["sequence"] = v
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) ResetSequence() {
+	if p.p != nil && p.p["sequence"] != nil {
+		delete(p.p, "sequence")
+	}
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) GetSequence() (int, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["sequence"].(int)
+	return value, ok
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) SetServicegroupuuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["servicegroupuuid"] = v
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) ResetServicegroupuuid() {
+	if p.p != nil && p.p["servicegroupuuid"] != nil {
+		delete(p.p, "servicegroupuuid")
+	}
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) GetServicegroupuuid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["servicegroupuuid"].(string)
+	return value, ok
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) SetSrcaddressgroupuuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["srcaddressgroupuuid"] = v
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) ResetSrcaddressgroupuuid() {
+	if p.p != nil && p.p["srcaddressgroupuuid"] != nil {
+		delete(p.p, "srcaddressgroupuuid")
+	}
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) GetSrcaddressgroupuuid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["srcaddressgroupuuid"].(string)
+	return value, ok
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) SetSrcnetworkuuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["srcnetworkuuid"] = v
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) ResetSrcnetworkuuid() {
+	if p.p != nil && p.p["srcnetworkuuid"] != nil {
+		delete(p.p, "srcnetworkuuid")
+	}
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) GetSrcnetworkuuid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["srcnetworkuuid"].(string)
+	return value, ok
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) SetSrctaguuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["srctaguuid"] = v
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) ResetSrctaguuid() {
+	if p.p != nil && p.p["srctaguuid"] != nil {
+		delete(p.p, "srctaguuid")
+	}
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) GetSrctaguuid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["srctaguuid"].(string)
+	return value, ok
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) SetTagtypeuuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["tagtypeuuid"] = v
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) ResetTagtypeuuid() {
+	if p.p != nil && p.p["tagtypeuuid"] != nil {
+		delete(p.p, "tagtypeuuid")
+	}
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) GetTagtypeuuid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["tagtypeuuid"].(string)
+	return value, ok
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) ResetZoneid() {
+	if p.p != nil && p.p["zoneid"] != nil {
+		delete(p.p, "zoneid")
+	}
+}
+
+func (p *CreateTungstenFabricFirewallRuleParams) GetZoneid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["zoneid"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new CreateTungstenFabricFirewallRuleParams instance,
+// as then you are sure you have configured all required params
+func (s *FirewallService) NewCreateTungstenFabricFirewallRuleParams(action string, direction string, firewallpolicyuuid string, name string, sequence int, servicegroupuuid string, zoneid string) *CreateTungstenFabricFirewallRuleParams {
+	p := &CreateTungstenFabricFirewallRuleParams{}
+	p.p = make(map[string]interface{})
+	p.p["action"] = action
+	p.p["direction"] = direction
+	p.p["firewallpolicyuuid"] = firewallpolicyuuid
+	p.p["name"] = name
+	p.p["sequence"] = sequence
+	p.p["servicegroupuuid"] = servicegroupuuid
+	p.p["zoneid"] = zoneid
+	return p
+}
+
+// create Tungsten-Fabric firewall
+func (s *FirewallService) CreateTungstenFabricFirewallRule(p *CreateTungstenFabricFirewallRuleParams) (*CreateTungstenFabricFirewallRuleResponse, error) {
+	resp, err := s.cs.newRequest("createTungstenFabricFirewallRule", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r CreateTungstenFabricFirewallRuleResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err = convertFirewallServiceResponse(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type CreateTungstenFabricFirewallRuleResponse struct {
+	Action           string `json:"action"`
+	Destaddressgroup string `json:"destaddressgroup"`
+	Destnetwork      string `json:"destnetwork"`
+	Desttag          string `json:"desttag"`
+	Direction        string `json:"direction"`
+	JobID            string `json:"jobid"`
+	Jobstatus        int    `json:"jobstatus"`
+	Name             string `json:"name"`
+	Servicegroup     string `json:"servicegroup"`
+	Srcaddressgroup  string `json:"srcaddressgroup"`
+	Srcnetwork       string `json:"srcnetwork"`
+	Srctag           string `json:"srctag"`
+	Tagtype          string `json:"tagtype"`
+	Uuid             string `json:"uuid"`
+	Zoneid           int64  `json:"zoneid"`
+	Zonename         string `json:"zonename"`
+}
+
 type DeleteEgressFirewallRuleParams struct {
 	p map[string]interface{}
 }
@@ -1818,6 +2421,118 @@ func (s *FirewallService) DeletePortForwardingRule(p *DeletePortForwardingRulePa
 }
 
 type DeletePortForwardingRuleResponse struct {
+	Displaytext string `json:"displaytext"`
+	JobID       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
+	Success     bool   `json:"success"`
+}
+
+type DeleteTungstenFabricFirewallPolicyParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeleteTungstenFabricFirewallPolicyParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["firewallpolicyuuid"]; found {
+		u.Set("firewallpolicyuuid", v.(string))
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *DeleteTungstenFabricFirewallPolicyParams) SetFirewallpolicyuuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["firewallpolicyuuid"] = v
+}
+
+func (p *DeleteTungstenFabricFirewallPolicyParams) ResetFirewallpolicyuuid() {
+	if p.p != nil && p.p["firewallpolicyuuid"] != nil {
+		delete(p.p, "firewallpolicyuuid")
+	}
+}
+
+func (p *DeleteTungstenFabricFirewallPolicyParams) GetFirewallpolicyuuid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["firewallpolicyuuid"].(string)
+	return value, ok
+}
+
+func (p *DeleteTungstenFabricFirewallPolicyParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+}
+
+func (p *DeleteTungstenFabricFirewallPolicyParams) ResetZoneid() {
+	if p.p != nil && p.p["zoneid"] != nil {
+		delete(p.p, "zoneid")
+	}
+}
+
+func (p *DeleteTungstenFabricFirewallPolicyParams) GetZoneid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["zoneid"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new DeleteTungstenFabricFirewallPolicyParams instance,
+// as then you are sure you have configured all required params
+func (s *FirewallService) NewDeleteTungstenFabricFirewallPolicyParams(firewallpolicyuuid string, zoneid string) *DeleteTungstenFabricFirewallPolicyParams {
+	p := &DeleteTungstenFabricFirewallPolicyParams{}
+	p.p = make(map[string]interface{})
+	p.p["firewallpolicyuuid"] = firewallpolicyuuid
+	p.p["zoneid"] = zoneid
+	return p
+}
+
+// delete Tungsten-Fabric firewall policy
+func (s *FirewallService) DeleteTungstenFabricFirewallPolicy(p *DeleteTungstenFabricFirewallPolicyParams) (*DeleteTungstenFabricFirewallPolicyResponse, error) {
+	resp, err := s.cs.newRequest("deleteTungstenFabricFirewallPolicy", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeleteTungstenFabricFirewallPolicyResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = convertFirewallServiceResponse(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type DeleteTungstenFabricFirewallPolicyResponse struct {
 	Displaytext string `json:"displaytext"`
 	JobID       string `json:"jobid"`
 	Jobstatus   int    `json:"jobstatus"`
@@ -3269,6 +3984,417 @@ type PortForwardingRule struct {
 	Virtualmachineid          string `json:"virtualmachineid"`
 	Virtualmachinename        string `json:"virtualmachinename"`
 	Vmguestip                 string `json:"vmguestip"`
+}
+
+type ListTungstenFabricFirewallPolicyParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListTungstenFabricFirewallPolicyParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["applicationpolicysetuuid"]; found {
+		u.Set("applicationpolicysetuuid", v.(string))
+	}
+	if v, found := p.p["firewallpolicyuuid"]; found {
+		u.Set("firewallpolicyuuid", v.(string))
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *ListTungstenFabricFirewallPolicyParams) SetApplicationpolicysetuuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["applicationpolicysetuuid"] = v
+}
+
+func (p *ListTungstenFabricFirewallPolicyParams) ResetApplicationpolicysetuuid() {
+	if p.p != nil && p.p["applicationpolicysetuuid"] != nil {
+		delete(p.p, "applicationpolicysetuuid")
+	}
+}
+
+func (p *ListTungstenFabricFirewallPolicyParams) GetApplicationpolicysetuuid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["applicationpolicysetuuid"].(string)
+	return value, ok
+}
+
+func (p *ListTungstenFabricFirewallPolicyParams) SetFirewallpolicyuuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["firewallpolicyuuid"] = v
+}
+
+func (p *ListTungstenFabricFirewallPolicyParams) ResetFirewallpolicyuuid() {
+	if p.p != nil && p.p["firewallpolicyuuid"] != nil {
+		delete(p.p, "firewallpolicyuuid")
+	}
+}
+
+func (p *ListTungstenFabricFirewallPolicyParams) GetFirewallpolicyuuid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["firewallpolicyuuid"].(string)
+	return value, ok
+}
+
+func (p *ListTungstenFabricFirewallPolicyParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+}
+
+func (p *ListTungstenFabricFirewallPolicyParams) ResetKeyword() {
+	if p.p != nil && p.p["keyword"] != nil {
+		delete(p.p, "keyword")
+	}
+}
+
+func (p *ListTungstenFabricFirewallPolicyParams) GetKeyword() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["keyword"].(string)
+	return value, ok
+}
+
+func (p *ListTungstenFabricFirewallPolicyParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+}
+
+func (p *ListTungstenFabricFirewallPolicyParams) ResetPage() {
+	if p.p != nil && p.p["page"] != nil {
+		delete(p.p, "page")
+	}
+}
+
+func (p *ListTungstenFabricFirewallPolicyParams) GetPage() (int, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["page"].(int)
+	return value, ok
+}
+
+func (p *ListTungstenFabricFirewallPolicyParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+}
+
+func (p *ListTungstenFabricFirewallPolicyParams) ResetPagesize() {
+	if p.p != nil && p.p["pagesize"] != nil {
+		delete(p.p, "pagesize")
+	}
+}
+
+func (p *ListTungstenFabricFirewallPolicyParams) GetPagesize() (int, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["pagesize"].(int)
+	return value, ok
+}
+
+func (p *ListTungstenFabricFirewallPolicyParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+}
+
+func (p *ListTungstenFabricFirewallPolicyParams) ResetZoneid() {
+	if p.p != nil && p.p["zoneid"] != nil {
+		delete(p.p, "zoneid")
+	}
+}
+
+func (p *ListTungstenFabricFirewallPolicyParams) GetZoneid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["zoneid"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new ListTungstenFabricFirewallPolicyParams instance,
+// as then you are sure you have configured all required params
+func (s *FirewallService) NewListTungstenFabricFirewallPolicyParams() *ListTungstenFabricFirewallPolicyParams {
+	p := &ListTungstenFabricFirewallPolicyParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// list Tungsten-Fabric firewall policy
+func (s *FirewallService) ListTungstenFabricFirewallPolicy(p *ListTungstenFabricFirewallPolicyParams) (*ListTungstenFabricFirewallPolicyResponse, error) {
+	resp, err := s.cs.newRequest("listTungstenFabricFirewallPolicy", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err = convertFirewallServiceResponse(resp)
+	if err != nil {
+		return nil, err
+	}
+
+	var r ListTungstenFabricFirewallPolicyResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type ListTungstenFabricFirewallPolicyResponse struct {
+	Count                        int                             `json:"count"`
+	TungstenFabricFirewallPolicy []*TungstenFabricFirewallPolicy `json:"tungstenfabricfirewallpolicy"`
+}
+
+type TungstenFabricFirewallPolicy struct {
+	Firewallrule []string `json:"firewallrule"`
+	JobID        string   `json:"jobid"`
+	Jobstatus    int      `json:"jobstatus"`
+	Name         string   `json:"name"`
+	Uuid         string   `json:"uuid"`
+	Zoneid       int64    `json:"zoneid"`
+	Zonename     string   `json:"zonename"`
+}
+
+type ListTungstenFabricFirewallRuleParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListTungstenFabricFirewallRuleParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["firewallpolicyuuid"]; found {
+		u.Set("firewallpolicyuuid", v.(string))
+	}
+	if v, found := p.p["firewallruleuuid"]; found {
+		u.Set("firewallruleuuid", v.(string))
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *ListTungstenFabricFirewallRuleParams) SetFirewallpolicyuuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["firewallpolicyuuid"] = v
+}
+
+func (p *ListTungstenFabricFirewallRuleParams) ResetFirewallpolicyuuid() {
+	if p.p != nil && p.p["firewallpolicyuuid"] != nil {
+		delete(p.p, "firewallpolicyuuid")
+	}
+}
+
+func (p *ListTungstenFabricFirewallRuleParams) GetFirewallpolicyuuid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["firewallpolicyuuid"].(string)
+	return value, ok
+}
+
+func (p *ListTungstenFabricFirewallRuleParams) SetFirewallruleuuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["firewallruleuuid"] = v
+}
+
+func (p *ListTungstenFabricFirewallRuleParams) ResetFirewallruleuuid() {
+	if p.p != nil && p.p["firewallruleuuid"] != nil {
+		delete(p.p, "firewallruleuuid")
+	}
+}
+
+func (p *ListTungstenFabricFirewallRuleParams) GetFirewallruleuuid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["firewallruleuuid"].(string)
+	return value, ok
+}
+
+func (p *ListTungstenFabricFirewallRuleParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+}
+
+func (p *ListTungstenFabricFirewallRuleParams) ResetKeyword() {
+	if p.p != nil && p.p["keyword"] != nil {
+		delete(p.p, "keyword")
+	}
+}
+
+func (p *ListTungstenFabricFirewallRuleParams) GetKeyword() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["keyword"].(string)
+	return value, ok
+}
+
+func (p *ListTungstenFabricFirewallRuleParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+}
+
+func (p *ListTungstenFabricFirewallRuleParams) ResetPage() {
+	if p.p != nil && p.p["page"] != nil {
+		delete(p.p, "page")
+	}
+}
+
+func (p *ListTungstenFabricFirewallRuleParams) GetPage() (int, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["page"].(int)
+	return value, ok
+}
+
+func (p *ListTungstenFabricFirewallRuleParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+}
+
+func (p *ListTungstenFabricFirewallRuleParams) ResetPagesize() {
+	if p.p != nil && p.p["pagesize"] != nil {
+		delete(p.p, "pagesize")
+	}
+}
+
+func (p *ListTungstenFabricFirewallRuleParams) GetPagesize() (int, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["pagesize"].(int)
+	return value, ok
+}
+
+func (p *ListTungstenFabricFirewallRuleParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+}
+
+func (p *ListTungstenFabricFirewallRuleParams) ResetZoneid() {
+	if p.p != nil && p.p["zoneid"] != nil {
+		delete(p.p, "zoneid")
+	}
+}
+
+func (p *ListTungstenFabricFirewallRuleParams) GetZoneid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["zoneid"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new ListTungstenFabricFirewallRuleParams instance,
+// as then you are sure you have configured all required params
+func (s *FirewallService) NewListTungstenFabricFirewallRuleParams() *ListTungstenFabricFirewallRuleParams {
+	p := &ListTungstenFabricFirewallRuleParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// list Tungsten-Fabric firewall rule
+func (s *FirewallService) ListTungstenFabricFirewallRule(p *ListTungstenFabricFirewallRuleParams) (*ListTungstenFabricFirewallRuleResponse, error) {
+	resp, err := s.cs.newRequest("listTungstenFabricFirewallRule", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err = convertFirewallServiceResponse(resp)
+	if err != nil {
+		return nil, err
+	}
+
+	var r ListTungstenFabricFirewallRuleResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type ListTungstenFabricFirewallRuleResponse struct {
+	Count                      int                           `json:"count"`
+	TungstenFabricFirewallRule []*TungstenFabricFirewallRule `json:"tungstenfabricfirewallrule"`
+}
+
+type TungstenFabricFirewallRule struct {
+	Action           string `json:"action"`
+	Destaddressgroup string `json:"destaddressgroup"`
+	Destnetwork      string `json:"destnetwork"`
+	Desttag          string `json:"desttag"`
+	Direction        string `json:"direction"`
+	JobID            string `json:"jobid"`
+	Jobstatus        int    `json:"jobstatus"`
+	Name             string `json:"name"`
+	Servicegroup     string `json:"servicegroup"`
+	Srcaddressgroup  string `json:"srcaddressgroup"`
+	Srcnetwork       string `json:"srcnetwork"`
+	Srctag           string `json:"srctag"`
+	Tagtype          string `json:"tagtype"`
+	Uuid             string `json:"uuid"`
+	Zoneid           int64  `json:"zoneid"`
+	Zonename         string `json:"zonename"`
 }
 
 type UpdateEgressFirewallRuleParams struct {

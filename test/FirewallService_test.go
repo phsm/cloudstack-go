@@ -104,6 +104,30 @@ func TestFirewallService(t *testing.T) {
 	}
 	t.Run("CreatePortForwardingRule", testcreatePortForwardingRule)
 
+	testcreateTungstenFabricFirewallPolicy := func(t *testing.T) {
+		if _, ok := response["createTungstenFabricFirewallPolicy"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Firewall.NewCreateTungstenFabricFirewallPolicyParams("name", 0, "zoneid")
+		_, err := client.Firewall.CreateTungstenFabricFirewallPolicy(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("CreateTungstenFabricFirewallPolicy", testcreateTungstenFabricFirewallPolicy)
+
+	testcreateTungstenFabricFirewallRule := func(t *testing.T) {
+		if _, ok := response["createTungstenFabricFirewallRule"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Firewall.NewCreateTungstenFabricFirewallRuleParams("action", "direction", "firewallpolicyuuid", "name", 0, "servicegroupuuid", "zoneid")
+		_, err := client.Firewall.CreateTungstenFabricFirewallRule(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("CreateTungstenFabricFirewallRule", testcreateTungstenFabricFirewallRule)
+
 	testdeleteEgressFirewallRule := func(t *testing.T) {
 		if _, ok := response["deleteEgressFirewallRule"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")
@@ -152,6 +176,18 @@ func TestFirewallService(t *testing.T) {
 	}
 	t.Run("DeletePortForwardingRule", testdeletePortForwardingRule)
 
+	testdeleteTungstenFabricFirewallPolicy := func(t *testing.T) {
+		if _, ok := response["deleteTungstenFabricFirewallPolicy"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Firewall.NewDeleteTungstenFabricFirewallPolicyParams("firewallpolicyuuid", "zoneid")
+		_, err := client.Firewall.DeleteTungstenFabricFirewallPolicy(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("DeleteTungstenFabricFirewallPolicy", testdeleteTungstenFabricFirewallPolicy)
+
 	testlistEgressFirewallRules := func(t *testing.T) {
 		if _, ok := response["listEgressFirewallRules"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")
@@ -199,6 +235,30 @@ func TestFirewallService(t *testing.T) {
 		}
 	}
 	t.Run("ListPortForwardingRules", testlistPortForwardingRules)
+
+	testlistTungstenFabricFirewallPolicy := func(t *testing.T) {
+		if _, ok := response["listTungstenFabricFirewallPolicy"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Firewall.NewListTungstenFabricFirewallPolicyParams()
+		_, err := client.Firewall.ListTungstenFabricFirewallPolicy(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("ListTungstenFabricFirewallPolicy", testlistTungstenFabricFirewallPolicy)
+
+	testlistTungstenFabricFirewallRule := func(t *testing.T) {
+		if _, ok := response["listTungstenFabricFirewallRule"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Firewall.NewListTungstenFabricFirewallRuleParams()
+		_, err := client.Firewall.ListTungstenFabricFirewallRule(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("ListTungstenFabricFirewallRule", testlistTungstenFabricFirewallRule)
 
 	testupdateEgressFirewallRule := func(t *testing.T) {
 		if _, ok := response["updateEgressFirewallRule"]; !ok {

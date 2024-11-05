@@ -92,6 +92,21 @@ func TestHostService(t *testing.T) {
 	}
 	t.Run("AddSecondaryStorage", testaddSecondaryStorage)
 
+	testcancelHostAsDegraded := func(t *testing.T) {
+		if _, ok := response["cancelHostAsDegraded"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Host.NewCancelHostAsDegradedParams("id")
+		r, err := client.Host.CancelHostAsDegraded(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+		if r.Id == "" {
+			t.Errorf("Failed to parse response. ID not found")
+		}
+	}
+	t.Run("CancelHostAsDegraded", testcancelHostAsDegraded)
+
 	testcancelHostMaintenance := func(t *testing.T) {
 		if _, ok := response["cancelHostMaintenance"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")
@@ -119,6 +134,21 @@ func TestHostService(t *testing.T) {
 	}
 	t.Run("ConfigureHAForHost", testconfigureHAForHost)
 
+	testcreateSecondaryStorageSelector := func(t *testing.T) {
+		if _, ok := response["createSecondaryStorageSelector"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Host.NewCreateSecondaryStorageSelectorParams("description", "heuristicrule", "name", "type", "zoneid")
+		r, err := client.Host.CreateSecondaryStorageSelector(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+		if r.Id == "" {
+			t.Errorf("Failed to parse response. ID not found")
+		}
+	}
+	t.Run("CreateSecondaryStorageSelector", testcreateSecondaryStorageSelector)
+
 	testenableHAForHost := func(t *testing.T) {
 		if _, ok := response["enableHAForHost"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")
@@ -130,6 +160,21 @@ func TestHostService(t *testing.T) {
 		}
 	}
 	t.Run("EnableHAForHost", testenableHAForHost)
+
+	testdeclareHostAsDegraded := func(t *testing.T) {
+		if _, ok := response["declareHostAsDegraded"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Host.NewDeclareHostAsDegradedParams("id")
+		r, err := client.Host.DeclareHostAsDegraded(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+		if r.Id == "" {
+			t.Errorf("Failed to parse response. ID not found")
+		}
+	}
+	t.Run("DeclareHostAsDegraded", testdeclareHostAsDegraded)
 
 	testdedicateHost := func(t *testing.T) {
 		if _, ok := response["dedicateHost"]; !ok {
@@ -157,6 +202,18 @@ func TestHostService(t *testing.T) {
 		}
 	}
 	t.Run("DeleteHost", testdeleteHost)
+
+	testdisableHAForHost := func(t *testing.T) {
+		if _, ok := response["disableHAForHost"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Host.NewDisableHAForHostParams("hostid")
+		_, err := client.Host.DisableHAForHost(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("DisableHAForHost", testdisableHAForHost)
 
 	testdisableOutOfBandManagementForHost := func(t *testing.T) {
 		if _, ok := response["disableOutOfBandManagementForHost"]; !ok {
@@ -206,6 +263,30 @@ func TestHostService(t *testing.T) {
 	}
 	t.Run("ListDedicatedHosts", testlistDedicatedHosts)
 
+	testlistHostHAProviders := func(t *testing.T) {
+		if _, ok := response["listHostHAProviders"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Host.NewListHostHAProvidersParams("hypervisor")
+		_, err := client.Host.ListHostHAProviders(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("ListHostHAProviders", testlistHostHAProviders)
+
+	testlistHostHAResources := func(t *testing.T) {
+		if _, ok := response["listHostHAResources"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Host.NewListHostHAResourcesParams()
+		_, err := client.Host.ListHostHAResources(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("ListHostHAResources", testlistHostHAResources)
+
 	testlistHostTags := func(t *testing.T) {
 		if _, ok := response["listHostTags"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")
@@ -241,6 +322,42 @@ func TestHostService(t *testing.T) {
 		}
 	}
 	t.Run("ListHostsMetrics", testlistHostsMetrics)
+
+	testlistSecondaryStorageSelectors := func(t *testing.T) {
+		if _, ok := response["listSecondaryStorageSelectors"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Host.NewListSecondaryStorageSelectorsParams("zoneid")
+		_, err := client.Host.ListSecondaryStorageSelectors(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("ListSecondaryStorageSelectors", testlistSecondaryStorageSelectors)
+
+	testmigrateResourceToAnotherSecondaryStorage := func(t *testing.T) {
+		if _, ok := response["migrateResourceToAnotherSecondaryStorage"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Host.NewMigrateResourceToAnotherSecondaryStorageParams("destpool", "srcpool")
+		_, err := client.Host.MigrateResourceToAnotherSecondaryStorage(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("MigrateResourceToAnotherSecondaryStorage", testmigrateResourceToAnotherSecondaryStorage)
+
+	testmigrateSecondaryStorageData := func(t *testing.T) {
+		if _, ok := response["migrateSecondaryStorageData"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Host.NewMigrateSecondaryStorageDataParams([]string{}, "srcpool")
+		_, err := client.Host.MigrateSecondaryStorageData(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("MigrateSecondaryStorageData", testmigrateSecondaryStorageData)
 
 	testprepareHostForMaintenance := func(t *testing.T) {
 		if _, ok := response["prepareHostForMaintenance"]; !ok {
@@ -296,6 +413,21 @@ func TestHostService(t *testing.T) {
 	}
 	t.Run("ReleaseHostReservation", testreleaseHostReservation)
 
+	testremoveSecondaryStorageSelector := func(t *testing.T) {
+		if _, ok := response["removeSecondaryStorageSelector"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Host.NewRemoveSecondaryStorageSelectorParams("id")
+		r, err := client.Host.RemoveSecondaryStorageSelector(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+		if r.Id == "" {
+			t.Errorf("Failed to parse response. ID not found")
+		}
+	}
+	t.Run("RemoveSecondaryStorageSelector", testremoveSecondaryStorageSelector)
+
 	testupdateHost := func(t *testing.T) {
 		if _, ok := response["updateHost"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")
@@ -322,5 +454,20 @@ func TestHostService(t *testing.T) {
 		}
 	}
 	t.Run("UpdateHostPassword", testupdateHostPassword)
+
+	testupdateSecondaryStorageSelector := func(t *testing.T) {
+		if _, ok := response["updateSecondaryStorageSelector"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Host.NewUpdateSecondaryStorageSelectorParams("heuristicrule", "id")
+		r, err := client.Host.UpdateSecondaryStorageSelector(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+		if r.Id == "" {
+			t.Errorf("Failed to parse response. ID not found")
+		}
+	}
+	t.Run("UpdateSecondaryStorageSelector", testupdateSecondaryStorageSelector)
 
 }

@@ -35,6 +35,21 @@ func TestRoleService(t *testing.T) {
 	client := cloudstack.NewClient(server.URL, "APIKEY", "SECRETKEY", true)
 	defer server.Close()
 
+	testcreateProjectRole := func(t *testing.T) {
+		if _, ok := response["createProjectRole"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Role.NewCreateProjectRoleParams("name", "projectid")
+		r, err := client.Role.CreateProjectRole(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+		if r.Id == "" {
+			t.Errorf("Failed to parse response. ID not found")
+		}
+	}
+	t.Run("CreateProjectRole", testcreateProjectRole)
+
 	testcreateRole := func(t *testing.T) {
 		if _, ok := response["createRole"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")
@@ -64,6 +79,18 @@ func TestRoleService(t *testing.T) {
 		}
 	}
 	t.Run("CreateRolePermission", testcreateRolePermission)
+
+	testdeleteProjectRole := func(t *testing.T) {
+		if _, ok := response["deleteProjectRole"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Role.NewDeleteProjectRoleParams("id", "projectid")
+		_, err := client.Role.DeleteProjectRole(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("DeleteProjectRole", testdeleteProjectRole)
 
 	testdeleteRole := func(t *testing.T) {
 		if _, ok := response["deleteRole"]; !ok {
@@ -104,6 +131,18 @@ func TestRoleService(t *testing.T) {
 	}
 	t.Run("ImportRole", testimportRole)
 
+	testlistProjectRoles := func(t *testing.T) {
+		if _, ok := response["listProjectRoles"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Role.NewListProjectRolesParams("projectid")
+		_, err := client.Role.ListProjectRoles(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("ListProjectRoles", testlistProjectRoles)
+
 	testlistRolePermissions := func(t *testing.T) {
 		if _, ok := response["listRolePermissions"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")
@@ -127,6 +166,21 @@ func TestRoleService(t *testing.T) {
 		}
 	}
 	t.Run("ListRoles", testlistRoles)
+
+	testupdateProjectRole := func(t *testing.T) {
+		if _, ok := response["updateProjectRole"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Role.NewUpdateProjectRoleParams("id", "projectid")
+		r, err := client.Role.UpdateProjectRole(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+		if r.Id == "" {
+			t.Errorf("Failed to parse response. ID not found")
+		}
+	}
+	t.Run("UpdateProjectRole", testupdateProjectRole)
 
 	testupdateRole := func(t *testing.T) {
 		if _, ok := response["updateRole"]; !ok {

@@ -52,6 +52,36 @@ func (m *MockSnapshotServiceIface) EXPECT() *MockSnapshotServiceIfaceMockRecorde
 	return m.recorder
 }
 
+// ArchiveSnapshot mocks base method.
+func (m *MockSnapshotServiceIface) ArchiveSnapshot(p *ArchiveSnapshotParams) (*ArchiveSnapshotResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ArchiveSnapshot", p)
+	ret0, _ := ret[0].(*ArchiveSnapshotResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ArchiveSnapshot indicates an expected call of ArchiveSnapshot.
+func (mr *MockSnapshotServiceIfaceMockRecorder) ArchiveSnapshot(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ArchiveSnapshot", reflect.TypeOf((*MockSnapshotServiceIface)(nil).ArchiveSnapshot), p)
+}
+
+// CopySnapshot mocks base method.
+func (m *MockSnapshotServiceIface) CopySnapshot(p *CopySnapshotParams) (*CopySnapshotResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CopySnapshot", p)
+	ret0, _ := ret[0].(*CopySnapshotResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CopySnapshot indicates an expected call of CopySnapshot.
+func (mr *MockSnapshotServiceIfaceMockRecorder) CopySnapshot(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CopySnapshot", reflect.TypeOf((*MockSnapshotServiceIface)(nil).CopySnapshot), p)
+}
+
 // CreateSnapshot mocks base method.
 func (m *MockSnapshotServiceIface) CreateSnapshot(p *CreateSnapshotParams) (*CreateSnapshotResponse, error) {
 	m.ctrl.T.Helper()
@@ -290,6 +320,34 @@ func (m *MockSnapshotServiceIface) ListVMSnapshot(p *ListVMSnapshotParams) (*Lis
 func (mr *MockSnapshotServiceIfaceMockRecorder) ListVMSnapshot(p interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListVMSnapshot", reflect.TypeOf((*MockSnapshotServiceIface)(nil).ListVMSnapshot), p)
+}
+
+// NewArchiveSnapshotParams mocks base method.
+func (m *MockSnapshotServiceIface) NewArchiveSnapshotParams(id string) *ArchiveSnapshotParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewArchiveSnapshotParams", id)
+	ret0, _ := ret[0].(*ArchiveSnapshotParams)
+	return ret0
+}
+
+// NewArchiveSnapshotParams indicates an expected call of NewArchiveSnapshotParams.
+func (mr *MockSnapshotServiceIfaceMockRecorder) NewArchiveSnapshotParams(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewArchiveSnapshotParams", reflect.TypeOf((*MockSnapshotServiceIface)(nil).NewArchiveSnapshotParams), id)
+}
+
+// NewCopySnapshotParams mocks base method.
+func (m *MockSnapshotServiceIface) NewCopySnapshotParams(id string) *CopySnapshotParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewCopySnapshotParams", id)
+	ret0, _ := ret[0].(*CopySnapshotParams)
+	return ret0
+}
+
+// NewCopySnapshotParams indicates an expected call of NewCopySnapshotParams.
+func (mr *MockSnapshotServiceIfaceMockRecorder) NewCopySnapshotParams(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewCopySnapshotParams", reflect.TypeOf((*MockSnapshotServiceIface)(nil).NewCopySnapshotParams), id)
 }
 
 // NewCreateSnapshotParams mocks base method.

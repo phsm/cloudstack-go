@@ -34,6 +34,8 @@ type AlertServiceIface interface {
 	NewDeleteAlertsParams() *DeleteAlertsParams
 	GenerateAlert(p *GenerateAlertParams) (*GenerateAlertResponse, error)
 	NewGenerateAlertParams(description string, name string, alertType int) *GenerateAlertParams
+	ListAlertTypes(p *ListAlertTypesParams) (*ListAlertTypesResponse, error)
+	NewListAlertTypesParams() *ListAlertTypesParams
 	ListAlerts(p *ListAlertsParams) (*ListAlertsResponse, error)
 	NewListAlertsParams() *ListAlertsParams
 	GetAlertID(name string, opts ...OptionFunc) (string, int, error)
@@ -552,6 +554,56 @@ type GenerateAlertResponse struct {
 	JobID       string `json:"jobid"`
 	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
+}
+
+type ListAlertTypesParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListAlertTypesParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	return u
+}
+
+// You should always use this function to get a new ListAlertTypesParams instance,
+// as then you are sure you have configured all required params
+func (s *AlertService) NewListAlertTypesParams() *ListAlertTypesParams {
+	p := &ListAlertTypesParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// Lists all alerts types
+func (s *AlertService) ListAlertTypes(p *ListAlertTypesParams) (*ListAlertTypesResponse, error) {
+	resp, err := s.cs.newRequest("listAlertTypes", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ListAlertTypesResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type ListAlertTypesResponse struct {
+	Count      int          `json:"count"`
+	AlertTypes []*AlertType `json:"alerttype"`
+}
+
+type AlertType struct {
+	Description string `json:"description"`
+	Id          string `json:"id"`
+	JobID       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
+	Name        string `json:"name"`
+	Sent        string `json:"sent"`
+	Type        int    `json:"type"`
 }
 
 type ListAlertsParams struct {

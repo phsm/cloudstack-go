@@ -400,6 +400,21 @@ func (mr *MockVPCServiceIfaceMockRecorder) ListVPCs(p interface{}) *gomock.Call 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListVPCs", reflect.TypeOf((*MockVPCServiceIface)(nil).ListVPCs), p)
 }
 
+// MigrateVPC mocks base method.
+func (m *MockVPCServiceIface) MigrateVPC(p *MigrateVPCParams) (*MigrateVPCResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "MigrateVPC", p)
+	ret0, _ := ret[0].(*MigrateVPCResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// MigrateVPC indicates an expected call of MigrateVPC.
+func (mr *MockVPCServiceIfaceMockRecorder) MigrateVPC(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MigrateVPC", reflect.TypeOf((*MockVPCServiceIface)(nil).MigrateVPC), p)
+}
+
 // NewCreatePrivateGatewayParams mocks base method.
 func (m *MockVPCServiceIface) NewCreatePrivateGatewayParams(gateway, ipaddress, netmask, vpcid string) *CreatePrivateGatewayParams {
 	m.ctrl.T.Helper()
@@ -566,6 +581,20 @@ func (m *MockVPCServiceIface) NewListVPCsParams() *ListVPCsParams {
 func (mr *MockVPCServiceIfaceMockRecorder) NewListVPCsParams() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListVPCsParams", reflect.TypeOf((*MockVPCServiceIface)(nil).NewListVPCsParams))
+}
+
+// NewMigrateVPCParams mocks base method.
+func (m *MockVPCServiceIface) NewMigrateVPCParams(vpcid, vpcofferingid string) *MigrateVPCParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewMigrateVPCParams", vpcid, vpcofferingid)
+	ret0, _ := ret[0].(*MigrateVPCParams)
+	return ret0
+}
+
+// NewMigrateVPCParams indicates an expected call of NewMigrateVPCParams.
+func (mr *MockVPCServiceIfaceMockRecorder) NewMigrateVPCParams(vpcid, vpcofferingid interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewMigrateVPCParams", reflect.TypeOf((*MockVPCServiceIface)(nil).NewMigrateVPCParams), vpcid, vpcofferingid)
 }
 
 // NewRestartVPCParams mocks base method.

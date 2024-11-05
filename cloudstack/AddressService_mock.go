@@ -52,6 +52,21 @@ func (m *MockAddressServiceIface) EXPECT() *MockAddressServiceIfaceMockRecorder 
 	return m.recorder
 }
 
+// AcquirePodIpAddress mocks base method.
+func (m *MockAddressServiceIface) AcquirePodIpAddress(p *AcquirePodIpAddressParams) (*AcquirePodIpAddressResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "AcquirePodIpAddress", p)
+	ret0, _ := ret[0].(*AcquirePodIpAddressResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AcquirePodIpAddress indicates an expected call of AcquirePodIpAddress.
+func (mr *MockAddressServiceIfaceMockRecorder) AcquirePodIpAddress(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AcquirePodIpAddress", reflect.TypeOf((*MockAddressServiceIface)(nil).AcquirePodIpAddress), p)
+}
+
 // AssociateIpAddress mocks base method.
 func (m *MockAddressServiceIface) AssociateIpAddress(p *AssociateIpAddressParams) (*AssociateIpAddressResponse, error) {
 	m.ctrl.T.Helper()
@@ -118,6 +133,20 @@ func (mr *MockAddressServiceIfaceMockRecorder) ListPublicIpAddresses(p interface
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListPublicIpAddresses", reflect.TypeOf((*MockAddressServiceIface)(nil).ListPublicIpAddresses), p)
 }
 
+// NewAcquirePodIpAddressParams mocks base method.
+func (m *MockAddressServiceIface) NewAcquirePodIpAddressParams(zoneid string) *AcquirePodIpAddressParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewAcquirePodIpAddressParams", zoneid)
+	ret0, _ := ret[0].(*AcquirePodIpAddressParams)
+	return ret0
+}
+
+// NewAcquirePodIpAddressParams indicates an expected call of NewAcquirePodIpAddressParams.
+func (mr *MockAddressServiceIfaceMockRecorder) NewAcquirePodIpAddressParams(zoneid interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewAcquirePodIpAddressParams", reflect.TypeOf((*MockAddressServiceIface)(nil).NewAcquirePodIpAddressParams), zoneid)
+}
+
 // NewAssociateIpAddressParams mocks base method.
 func (m *MockAddressServiceIface) NewAssociateIpAddressParams() *AssociateIpAddressParams {
 	m.ctrl.T.Helper()
@@ -174,6 +203,34 @@ func (mr *MockAddressServiceIfaceMockRecorder) NewReleaseIpAddressParams(id inte
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewReleaseIpAddressParams", reflect.TypeOf((*MockAddressServiceIface)(nil).NewReleaseIpAddressParams), id)
 }
 
+// NewReleasePodIpAddressParams mocks base method.
+func (m *MockAddressServiceIface) NewReleasePodIpAddressParams(id int64) *ReleasePodIpAddressParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewReleasePodIpAddressParams", id)
+	ret0, _ := ret[0].(*ReleasePodIpAddressParams)
+	return ret0
+}
+
+// NewReleasePodIpAddressParams indicates an expected call of NewReleasePodIpAddressParams.
+func (mr *MockAddressServiceIfaceMockRecorder) NewReleasePodIpAddressParams(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewReleasePodIpAddressParams", reflect.TypeOf((*MockAddressServiceIface)(nil).NewReleasePodIpAddressParams), id)
+}
+
+// NewReserveIpAddressParams mocks base method.
+func (m *MockAddressServiceIface) NewReserveIpAddressParams(id string) *ReserveIpAddressParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewReserveIpAddressParams", id)
+	ret0, _ := ret[0].(*ReserveIpAddressParams)
+	return ret0
+}
+
+// NewReserveIpAddressParams indicates an expected call of NewReserveIpAddressParams.
+func (mr *MockAddressServiceIfaceMockRecorder) NewReserveIpAddressParams(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewReserveIpAddressParams", reflect.TypeOf((*MockAddressServiceIface)(nil).NewReserveIpAddressParams), id)
+}
+
 // NewUpdateIpAddressParams mocks base method.
 func (m *MockAddressServiceIface) NewUpdateIpAddressParams(id string) *UpdateIpAddressParams {
 	m.ctrl.T.Helper()
@@ -201,6 +258,36 @@ func (m *MockAddressServiceIface) ReleaseIpAddress(p *ReleaseIpAddressParams) (*
 func (mr *MockAddressServiceIfaceMockRecorder) ReleaseIpAddress(p interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ReleaseIpAddress", reflect.TypeOf((*MockAddressServiceIface)(nil).ReleaseIpAddress), p)
+}
+
+// ReleasePodIpAddress mocks base method.
+func (m *MockAddressServiceIface) ReleasePodIpAddress(p *ReleasePodIpAddressParams) (*ReleasePodIpAddressResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ReleasePodIpAddress", p)
+	ret0, _ := ret[0].(*ReleasePodIpAddressResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ReleasePodIpAddress indicates an expected call of ReleasePodIpAddress.
+func (mr *MockAddressServiceIfaceMockRecorder) ReleasePodIpAddress(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ReleasePodIpAddress", reflect.TypeOf((*MockAddressServiceIface)(nil).ReleasePodIpAddress), p)
+}
+
+// ReserveIpAddress mocks base method.
+func (m *MockAddressServiceIface) ReserveIpAddress(p *ReserveIpAddressParams) (*ReserveIpAddressResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ReserveIpAddress", p)
+	ret0, _ := ret[0].(*ReserveIpAddressResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ReserveIpAddress indicates an expected call of ReserveIpAddress.
+func (mr *MockAddressServiceIfaceMockRecorder) ReserveIpAddress(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ReserveIpAddress", reflect.TypeOf((*MockAddressServiceIface)(nil).ReserveIpAddress), p)
 }
 
 // UpdateIpAddress mocks base method.

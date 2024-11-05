@@ -770,7 +770,7 @@ func (s *VLANService) NewDeleteVlanIpRangeParams(id string) *DeleteVlanIpRangePa
 	return p
 }
 
-// Creates a VLAN IP range.
+// Deletes a VLAN IP range.
 func (s *VLANService) DeleteVlanIpRange(p *DeleteVlanIpRangeParams) (*DeleteVlanIpRangeResponse, error) {
 	resp, err := s.cs.newRequest("deleteVlanIpRange", p.toURLValues())
 	if err != nil {

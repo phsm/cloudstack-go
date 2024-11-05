@@ -47,6 +47,18 @@ func TestConfigurationService(t *testing.T) {
 	}
 	t.Run("ListCapabilities", testlistCapabilities)
 
+	testlistConfigurationGroups := func(t *testing.T) {
+		if _, ok := response["listConfigurationGroups"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Configuration.NewListConfigurationGroupsParams()
+		_, err := client.Configuration.ListConfigurationGroups(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("ListConfigurationGroups", testlistConfigurationGroups)
+
 	testlistConfigurations := func(t *testing.T) {
 		if _, ok := response["listConfigurations"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")
@@ -70,6 +82,21 @@ func TestConfigurationService(t *testing.T) {
 		}
 	}
 	t.Run("ListDeploymentPlanners", testlistDeploymentPlanners)
+
+	testupdateStorageCapabilities := func(t *testing.T) {
+		if _, ok := response["updateStorageCapabilities"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Configuration.NewUpdateStorageCapabilitiesParams("id")
+		r, err := client.Configuration.UpdateStorageCapabilities(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+		if r.Id == "" {
+			t.Errorf("Failed to parse response. ID not found")
+		}
+	}
+	t.Run("UpdateStorageCapabilities", testupdateStorageCapabilities)
 
 	testupdateConfiguration := func(t *testing.T) {
 		if _, ok := response["updateConfiguration"]; !ok {

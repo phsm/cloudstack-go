@@ -97,6 +97,21 @@ func (mr *MockNetworkServiceIfaceMockRecorder) CreateGuestNetworkIpv6Prefix(p in
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateGuestNetworkIpv6Prefix", reflect.TypeOf((*MockNetworkServiceIface)(nil).CreateGuestNetworkIpv6Prefix), p)
 }
 
+// CreateManagementNetworkIpRange mocks base method.
+func (m *MockNetworkServiceIface) CreateManagementNetworkIpRange(p *CreateManagementNetworkIpRangeParams) (*CreateManagementNetworkIpRangeResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateManagementNetworkIpRange", p)
+	ret0, _ := ret[0].(*CreateManagementNetworkIpRangeResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateManagementNetworkIpRange indicates an expected call of CreateManagementNetworkIpRange.
+func (mr *MockNetworkServiceIfaceMockRecorder) CreateManagementNetworkIpRange(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateManagementNetworkIpRange", reflect.TypeOf((*MockNetworkServiceIface)(nil).CreateManagementNetworkIpRange), p)
+}
+
 // CreateNetwork mocks base method.
 func (m *MockNetworkServiceIface) CreateNetwork(p *CreateNetworkParams) (*CreateNetworkResponse, error) {
 	m.ctrl.T.Helper()
@@ -172,6 +187,36 @@ func (mr *MockNetworkServiceIfaceMockRecorder) CreateStorageNetworkIpRange(p int
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateStorageNetworkIpRange", reflect.TypeOf((*MockNetworkServiceIface)(nil).CreateStorageNetworkIpRange), p)
 }
 
+// CreateTungstenFabricManagementNetwork mocks base method.
+func (m *MockNetworkServiceIface) CreateTungstenFabricManagementNetwork(p *CreateTungstenFabricManagementNetworkParams) (*CreateTungstenFabricManagementNetworkResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateTungstenFabricManagementNetwork", p)
+	ret0, _ := ret[0].(*CreateTungstenFabricManagementNetworkResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateTungstenFabricManagementNetwork indicates an expected call of CreateTungstenFabricManagementNetwork.
+func (mr *MockNetworkServiceIfaceMockRecorder) CreateTungstenFabricManagementNetwork(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateTungstenFabricManagementNetwork", reflect.TypeOf((*MockNetworkServiceIface)(nil).CreateTungstenFabricManagementNetwork), p)
+}
+
+// CreateTungstenFabricPublicNetwork mocks base method.
+func (m *MockNetworkServiceIface) CreateTungstenFabricPublicNetwork(p *CreateTungstenFabricPublicNetworkParams) (*CreateTungstenFabricPublicNetworkResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateTungstenFabricPublicNetwork", p)
+	ret0, _ := ret[0].(*CreateTungstenFabricPublicNetworkResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateTungstenFabricPublicNetwork indicates an expected call of CreateTungstenFabricPublicNetwork.
+func (mr *MockNetworkServiceIfaceMockRecorder) CreateTungstenFabricPublicNetwork(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateTungstenFabricPublicNetwork", reflect.TypeOf((*MockNetworkServiceIface)(nil).CreateTungstenFabricPublicNetwork), p)
+}
+
 // DedicatePublicIpRange mocks base method.
 func (m *MockNetworkServiceIface) DedicatePublicIpRange(p *DedicatePublicIpRangeParams) (*DedicatePublicIpRangeResponse, error) {
 	m.ctrl.T.Helper()
@@ -200,6 +245,21 @@ func (m *MockNetworkServiceIface) DeleteGuestNetworkIpv6Prefix(p *DeleteGuestNet
 func (mr *MockNetworkServiceIfaceMockRecorder) DeleteGuestNetworkIpv6Prefix(p interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteGuestNetworkIpv6Prefix", reflect.TypeOf((*MockNetworkServiceIface)(nil).DeleteGuestNetworkIpv6Prefix), p)
+}
+
+// DeleteManagementNetworkIpRange mocks base method.
+func (m *MockNetworkServiceIface) DeleteManagementNetworkIpRange(p *DeleteManagementNetworkIpRangeParams) (*DeleteManagementNetworkIpRangeResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteManagementNetworkIpRange", p)
+	ret0, _ := ret[0].(*DeleteManagementNetworkIpRangeResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteManagementNetworkIpRange indicates an expected call of DeleteManagementNetworkIpRange.
+func (mr *MockNetworkServiceIfaceMockRecorder) DeleteManagementNetworkIpRange(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteManagementNetworkIpRange", reflect.TypeOf((*MockNetworkServiceIface)(nil).DeleteManagementNetworkIpRange), p)
 }
 
 // DeleteNetwork mocks base method.
@@ -275,6 +335,21 @@ func (m *MockNetworkServiceIface) DeleteStorageNetworkIpRange(p *DeleteStorageNe
 func (mr *MockNetworkServiceIfaceMockRecorder) DeleteStorageNetworkIpRange(p interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteStorageNetworkIpRange", reflect.TypeOf((*MockNetworkServiceIface)(nil).DeleteStorageNetworkIpRange), p)
+}
+
+// DeleteTungstenFabricFirewallRule mocks base method.
+func (m *MockNetworkServiceIface) DeleteTungstenFabricFirewallRule(p *DeleteTungstenFabricFirewallRuleParams) (*DeleteTungstenFabricFirewallRuleResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteTungstenFabricFirewallRule", p)
+	ret0, _ := ret[0].(*DeleteTungstenFabricFirewallRuleResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteTungstenFabricFirewallRule indicates an expected call of DeleteTungstenFabricFirewallRule.
+func (mr *MockNetworkServiceIfaceMockRecorder) DeleteTungstenFabricFirewallRule(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteTungstenFabricFirewallRule", reflect.TypeOf((*MockNetworkServiceIface)(nil).DeleteTungstenFabricFirewallRule), p)
 }
 
 // GetGuestNetworkIpv6PrefixeByID mocks base method.
@@ -730,6 +805,51 @@ func (mr *MockNetworkServiceIfaceMockRecorder) ListSupportedNetworkServices(p in
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListSupportedNetworkServices", reflect.TypeOf((*MockNetworkServiceIface)(nil).ListSupportedNetworkServices), p)
 }
 
+// ListTungstenFabricNetwork mocks base method.
+func (m *MockNetworkServiceIface) ListTungstenFabricNetwork(p *ListTungstenFabricNetworkParams) (*ListTungstenFabricNetworkResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListTungstenFabricNetwork", p)
+	ret0, _ := ret[0].(*ListTungstenFabricNetworkResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListTungstenFabricNetwork indicates an expected call of ListTungstenFabricNetwork.
+func (mr *MockNetworkServiceIfaceMockRecorder) ListTungstenFabricNetwork(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListTungstenFabricNetwork", reflect.TypeOf((*MockNetworkServiceIface)(nil).ListTungstenFabricNetwork), p)
+}
+
+// MigrateNetwork mocks base method.
+func (m *MockNetworkServiceIface) MigrateNetwork(p *MigrateNetworkParams) (*MigrateNetworkResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "MigrateNetwork", p)
+	ret0, _ := ret[0].(*MigrateNetworkResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// MigrateNetwork indicates an expected call of MigrateNetwork.
+func (mr *MockNetworkServiceIfaceMockRecorder) MigrateNetwork(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MigrateNetwork", reflect.TypeOf((*MockNetworkServiceIface)(nil).MigrateNetwork), p)
+}
+
+// MoveNetworkAclItem mocks base method.
+func (m *MockNetworkServiceIface) MoveNetworkAclItem(p *MoveNetworkAclItemParams) (*MoveNetworkAclItemResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "MoveNetworkAclItem", p)
+	ret0, _ := ret[0].(*MoveNetworkAclItemResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// MoveNetworkAclItem indicates an expected call of MoveNetworkAclItem.
+func (mr *MockNetworkServiceIfaceMockRecorder) MoveNetworkAclItem(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MoveNetworkAclItem", reflect.TypeOf((*MockNetworkServiceIface)(nil).MoveNetworkAclItem), p)
+}
+
 // NewAddNetworkServiceProviderParams mocks base method.
 func (m *MockNetworkServiceIface) NewAddNetworkServiceProviderParams(name, physicalnetworkid string) *AddNetworkServiceProviderParams {
 	m.ctrl.T.Helper()
@@ -770,6 +890,20 @@ func (m *MockNetworkServiceIface) NewCreateGuestNetworkIpv6PrefixParams(prefix, 
 func (mr *MockNetworkServiceIfaceMockRecorder) NewCreateGuestNetworkIpv6PrefixParams(prefix, zoneid interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewCreateGuestNetworkIpv6PrefixParams", reflect.TypeOf((*MockNetworkServiceIface)(nil).NewCreateGuestNetworkIpv6PrefixParams), prefix, zoneid)
+}
+
+// NewCreateManagementNetworkIpRangeParams mocks base method.
+func (m *MockNetworkServiceIface) NewCreateManagementNetworkIpRangeParams(gateway, netmask, podid, startip string) *CreateManagementNetworkIpRangeParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewCreateManagementNetworkIpRangeParams", gateway, netmask, podid, startip)
+	ret0, _ := ret[0].(*CreateManagementNetworkIpRangeParams)
+	return ret0
+}
+
+// NewCreateManagementNetworkIpRangeParams indicates an expected call of NewCreateManagementNetworkIpRangeParams.
+func (mr *MockNetworkServiceIfaceMockRecorder) NewCreateManagementNetworkIpRangeParams(gateway, netmask, podid, startip interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewCreateManagementNetworkIpRangeParams", reflect.TypeOf((*MockNetworkServiceIface)(nil).NewCreateManagementNetworkIpRangeParams), gateway, netmask, podid, startip)
 }
 
 // NewCreateNetworkParams mocks base method.
@@ -842,6 +976,34 @@ func (mr *MockNetworkServiceIfaceMockRecorder) NewCreateStorageNetworkIpRangePar
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewCreateStorageNetworkIpRangeParams", reflect.TypeOf((*MockNetworkServiceIface)(nil).NewCreateStorageNetworkIpRangeParams), gateway, netmask, podid, startip)
 }
 
+// NewCreateTungstenFabricManagementNetworkParams mocks base method.
+func (m *MockNetworkServiceIface) NewCreateTungstenFabricManagementNetworkParams(podid string) *CreateTungstenFabricManagementNetworkParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewCreateTungstenFabricManagementNetworkParams", podid)
+	ret0, _ := ret[0].(*CreateTungstenFabricManagementNetworkParams)
+	return ret0
+}
+
+// NewCreateTungstenFabricManagementNetworkParams indicates an expected call of NewCreateTungstenFabricManagementNetworkParams.
+func (mr *MockNetworkServiceIfaceMockRecorder) NewCreateTungstenFabricManagementNetworkParams(podid interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewCreateTungstenFabricManagementNetworkParams", reflect.TypeOf((*MockNetworkServiceIface)(nil).NewCreateTungstenFabricManagementNetworkParams), podid)
+}
+
+// NewCreateTungstenFabricPublicNetworkParams mocks base method.
+func (m *MockNetworkServiceIface) NewCreateTungstenFabricPublicNetworkParams(zoneid string) *CreateTungstenFabricPublicNetworkParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewCreateTungstenFabricPublicNetworkParams", zoneid)
+	ret0, _ := ret[0].(*CreateTungstenFabricPublicNetworkParams)
+	return ret0
+}
+
+// NewCreateTungstenFabricPublicNetworkParams indicates an expected call of NewCreateTungstenFabricPublicNetworkParams.
+func (mr *MockNetworkServiceIfaceMockRecorder) NewCreateTungstenFabricPublicNetworkParams(zoneid interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewCreateTungstenFabricPublicNetworkParams", reflect.TypeOf((*MockNetworkServiceIface)(nil).NewCreateTungstenFabricPublicNetworkParams), zoneid)
+}
+
 // NewDedicatePublicIpRangeParams mocks base method.
 func (m *MockNetworkServiceIface) NewDedicatePublicIpRangeParams(domainid, id string) *DedicatePublicIpRangeParams {
 	m.ctrl.T.Helper()
@@ -868,6 +1030,20 @@ func (m *MockNetworkServiceIface) NewDeleteGuestNetworkIpv6PrefixParams(id strin
 func (mr *MockNetworkServiceIfaceMockRecorder) NewDeleteGuestNetworkIpv6PrefixParams(id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewDeleteGuestNetworkIpv6PrefixParams", reflect.TypeOf((*MockNetworkServiceIface)(nil).NewDeleteGuestNetworkIpv6PrefixParams), id)
+}
+
+// NewDeleteManagementNetworkIpRangeParams mocks base method.
+func (m *MockNetworkServiceIface) NewDeleteManagementNetworkIpRangeParams(endip, podid, startip, vlan string) *DeleteManagementNetworkIpRangeParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewDeleteManagementNetworkIpRangeParams", endip, podid, startip, vlan)
+	ret0, _ := ret[0].(*DeleteManagementNetworkIpRangeParams)
+	return ret0
+}
+
+// NewDeleteManagementNetworkIpRangeParams indicates an expected call of NewDeleteManagementNetworkIpRangeParams.
+func (mr *MockNetworkServiceIfaceMockRecorder) NewDeleteManagementNetworkIpRangeParams(endip, podid, startip, vlan interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewDeleteManagementNetworkIpRangeParams", reflect.TypeOf((*MockNetworkServiceIface)(nil).NewDeleteManagementNetworkIpRangeParams), endip, podid, startip, vlan)
 }
 
 // NewDeleteNetworkParams mocks base method.
@@ -938,6 +1114,20 @@ func (m *MockNetworkServiceIface) NewDeleteStorageNetworkIpRangeParams(id string
 func (mr *MockNetworkServiceIfaceMockRecorder) NewDeleteStorageNetworkIpRangeParams(id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewDeleteStorageNetworkIpRangeParams", reflect.TypeOf((*MockNetworkServiceIface)(nil).NewDeleteStorageNetworkIpRangeParams), id)
+}
+
+// NewDeleteTungstenFabricFirewallRuleParams mocks base method.
+func (m *MockNetworkServiceIface) NewDeleteTungstenFabricFirewallRuleParams(firewallruleuuid, zoneid string) *DeleteTungstenFabricFirewallRuleParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewDeleteTungstenFabricFirewallRuleParams", firewallruleuuid, zoneid)
+	ret0, _ := ret[0].(*DeleteTungstenFabricFirewallRuleParams)
+	return ret0
+}
+
+// NewDeleteTungstenFabricFirewallRuleParams indicates an expected call of NewDeleteTungstenFabricFirewallRuleParams.
+func (mr *MockNetworkServiceIfaceMockRecorder) NewDeleteTungstenFabricFirewallRuleParams(firewallruleuuid, zoneid interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewDeleteTungstenFabricFirewallRuleParams", reflect.TypeOf((*MockNetworkServiceIface)(nil).NewDeleteTungstenFabricFirewallRuleParams), firewallruleuuid, zoneid)
 }
 
 // NewListGuestNetworkIpv6PrefixesParams mocks base method.
@@ -1106,6 +1296,48 @@ func (m *MockNetworkServiceIface) NewListSupportedNetworkServicesParams() *ListS
 func (mr *MockNetworkServiceIfaceMockRecorder) NewListSupportedNetworkServicesParams() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListSupportedNetworkServicesParams", reflect.TypeOf((*MockNetworkServiceIface)(nil).NewListSupportedNetworkServicesParams))
+}
+
+// NewListTungstenFabricNetworkParams mocks base method.
+func (m *MockNetworkServiceIface) NewListTungstenFabricNetworkParams() *ListTungstenFabricNetworkParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewListTungstenFabricNetworkParams")
+	ret0, _ := ret[0].(*ListTungstenFabricNetworkParams)
+	return ret0
+}
+
+// NewListTungstenFabricNetworkParams indicates an expected call of NewListTungstenFabricNetworkParams.
+func (mr *MockNetworkServiceIfaceMockRecorder) NewListTungstenFabricNetworkParams() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListTungstenFabricNetworkParams", reflect.TypeOf((*MockNetworkServiceIface)(nil).NewListTungstenFabricNetworkParams))
+}
+
+// NewMigrateNetworkParams mocks base method.
+func (m *MockNetworkServiceIface) NewMigrateNetworkParams(networkid, networkofferingid string) *MigrateNetworkParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewMigrateNetworkParams", networkid, networkofferingid)
+	ret0, _ := ret[0].(*MigrateNetworkParams)
+	return ret0
+}
+
+// NewMigrateNetworkParams indicates an expected call of NewMigrateNetworkParams.
+func (mr *MockNetworkServiceIfaceMockRecorder) NewMigrateNetworkParams(networkid, networkofferingid interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewMigrateNetworkParams", reflect.TypeOf((*MockNetworkServiceIface)(nil).NewMigrateNetworkParams), networkid, networkofferingid)
+}
+
+// NewMoveNetworkAclItemParams mocks base method.
+func (m *MockNetworkServiceIface) NewMoveNetworkAclItemParams(id string) *MoveNetworkAclItemParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewMoveNetworkAclItemParams", id)
+	ret0, _ := ret[0].(*MoveNetworkAclItemParams)
+	return ret0
+}
+
+// NewMoveNetworkAclItemParams indicates an expected call of NewMoveNetworkAclItemParams.
+func (mr *MockNetworkServiceIfaceMockRecorder) NewMoveNetworkAclItemParams(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewMoveNetworkAclItemParams", reflect.TypeOf((*MockNetworkServiceIface)(nil).NewMoveNetworkAclItemParams), id)
 }
 
 // NewReleasePublicIpRangeParams mocks base method.

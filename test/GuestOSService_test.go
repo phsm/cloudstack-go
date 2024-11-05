@@ -65,6 +65,18 @@ func TestGuestOSService(t *testing.T) {
 	}
 	t.Run("AddGuestOsMapping", testaddGuestOsMapping)
 
+	testgetHypervisorGuestOsNames := func(t *testing.T) {
+		if _, ok := response["getHypervisorGuestOsNames"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.GuestOS.NewGetHypervisorGuestOsNamesParams("hypervisor", "hypervisorversion")
+		_, err := client.GuestOS.GetHypervisorGuestOsNames(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("GetHypervisorGuestOsNames", testgetHypervisorGuestOsNames)
+
 	testlistGuestOsMapping := func(t *testing.T) {
 		if _, ok := response["listGuestOsMapping"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")

@@ -886,6 +886,7 @@ type CreateDiskOfferingResponse struct {
 	Miniops                     int64             `json:"miniops"`
 	Name                        string            `json:"name"`
 	Provisioningtype            string            `json:"provisioningtype"`
+	State                       string            `json:"state"`
 	Storagetype                 string            `json:"storagetype"`
 	Tags                        string            `json:"tags"`
 	Vspherestoragepolicy        string            `json:"vspherestoragepolicy"`
@@ -1033,6 +1034,9 @@ func (p *ListDiskOfferingsParams) toURLValues() url.Values {
 	}
 	if v, found := p.p["projectid"]; found {
 		u.Set("projectid", v.(string))
+	}
+	if v, found := p.p["state"]; found {
+		u.Set("state", v.(string))
 	}
 	if v, found := p.p["storageid"]; found {
 		u.Set("storageid", v.(string))
@@ -1280,6 +1284,27 @@ func (p *ListDiskOfferingsParams) GetProjectid() (string, bool) {
 	return value, ok
 }
 
+func (p *ListDiskOfferingsParams) SetState(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["state"] = v
+}
+
+func (p *ListDiskOfferingsParams) ResetState() {
+	if p.p != nil && p.p["state"] != nil {
+		delete(p.p, "state")
+	}
+}
+
+func (p *ListDiskOfferingsParams) GetState() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["state"].(string)
+	return value, ok
+}
+
 func (p *ListDiskOfferingsParams) SetStorageid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
@@ -1509,6 +1534,7 @@ type DiskOffering struct {
 	Miniops                     int64             `json:"miniops"`
 	Name                        string            `json:"name"`
 	Provisioningtype            string            `json:"provisioningtype"`
+	State                       string            `json:"state"`
 	Storagetype                 string            `json:"storagetype"`
 	Tags                        string            `json:"tags"`
 	Vspherestoragepolicy        string            `json:"vspherestoragepolicy"`
@@ -1595,6 +1621,9 @@ func (p *UpdateDiskOfferingParams) toURLValues() url.Values {
 	if v, found := p.p["sortkey"]; found {
 		vv := strconv.Itoa(v.(int))
 		u.Set("sortkey", vv)
+	}
+	if v, found := p.p["state"]; found {
+		u.Set("state", v.(string))
 	}
 	if v, found := p.p["tags"]; found {
 		u.Set("tags", v.(string))
@@ -2004,6 +2033,27 @@ func (p *UpdateDiskOfferingParams) GetSortkey() (int, bool) {
 	return value, ok
 }
 
+func (p *UpdateDiskOfferingParams) SetState(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["state"] = v
+}
+
+func (p *UpdateDiskOfferingParams) ResetState() {
+	if p.p != nil && p.p["state"] != nil {
+		delete(p.p, "state")
+	}
+}
+
+func (p *UpdateDiskOfferingParams) GetState() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["state"].(string)
+	return value, ok
+}
+
 func (p *UpdateDiskOfferingParams) SetTags(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
@@ -2104,6 +2154,7 @@ type UpdateDiskOfferingResponse struct {
 	Miniops                     int64             `json:"miniops"`
 	Name                        string            `json:"name"`
 	Provisioningtype            string            `json:"provisioningtype"`
+	State                       string            `json:"state"`
 	Storagetype                 string            `json:"storagetype"`
 	Tags                        string            `json:"tags"`
 	Vspherestoragepolicy        string            `json:"vspherestoragepolicy"`

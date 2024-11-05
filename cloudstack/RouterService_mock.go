@@ -52,6 +52,21 @@ func (m *MockRouterServiceIface) EXPECT() *MockRouterServiceIfaceMockRecorder {
 	return m.recorder
 }
 
+// AddTungstenFabricNetworkGatewayToLogicalRouter mocks base method.
+func (m *MockRouterServiceIface) AddTungstenFabricNetworkGatewayToLogicalRouter(p *AddTungstenFabricNetworkGatewayToLogicalRouterParams) (*AddTungstenFabricNetworkGatewayToLogicalRouterResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "AddTungstenFabricNetworkGatewayToLogicalRouter", p)
+	ret0, _ := ret[0].(*AddTungstenFabricNetworkGatewayToLogicalRouterResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AddTungstenFabricNetworkGatewayToLogicalRouter indicates an expected call of AddTungstenFabricNetworkGatewayToLogicalRouter.
+func (mr *MockRouterServiceIfaceMockRecorder) AddTungstenFabricNetworkGatewayToLogicalRouter(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddTungstenFabricNetworkGatewayToLogicalRouter", reflect.TypeOf((*MockRouterServiceIface)(nil).AddTungstenFabricNetworkGatewayToLogicalRouter), p)
+}
+
 // ChangeServiceForRouter mocks base method.
 func (m *MockRouterServiceIface) ChangeServiceForRouter(p *ChangeServiceForRouterParams) (*ChangeServiceForRouterResponse, error) {
 	m.ctrl.T.Helper()
@@ -82,6 +97,21 @@ func (mr *MockRouterServiceIfaceMockRecorder) ConfigureVirtualRouterElement(p in
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ConfigureVirtualRouterElement", reflect.TypeOf((*MockRouterServiceIface)(nil).ConfigureVirtualRouterElement), p)
 }
 
+// CreateTungstenFabricLogicalRouter mocks base method.
+func (m *MockRouterServiceIface) CreateTungstenFabricLogicalRouter(p *CreateTungstenFabricLogicalRouterParams) (*CreateTungstenFabricLogicalRouterResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateTungstenFabricLogicalRouter", p)
+	ret0, _ := ret[0].(*CreateTungstenFabricLogicalRouterResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateTungstenFabricLogicalRouter indicates an expected call of CreateTungstenFabricLogicalRouter.
+func (mr *MockRouterServiceIfaceMockRecorder) CreateTungstenFabricLogicalRouter(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateTungstenFabricLogicalRouter", reflect.TypeOf((*MockRouterServiceIface)(nil).CreateTungstenFabricLogicalRouter), p)
+}
+
 // CreateVirtualRouterElement mocks base method.
 func (m *MockRouterServiceIface) CreateVirtualRouterElement(p *CreateVirtualRouterElementParams) (*CreateVirtualRouterElementResponse, error) {
 	m.ctrl.T.Helper()
@@ -95,6 +125,21 @@ func (m *MockRouterServiceIface) CreateVirtualRouterElement(p *CreateVirtualRout
 func (mr *MockRouterServiceIfaceMockRecorder) CreateVirtualRouterElement(p interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateVirtualRouterElement", reflect.TypeOf((*MockRouterServiceIface)(nil).CreateVirtualRouterElement), p)
+}
+
+// DeleteTungstenFabricLogicalRouter mocks base method.
+func (m *MockRouterServiceIface) DeleteTungstenFabricLogicalRouter(p *DeleteTungstenFabricLogicalRouterParams) (*DeleteTungstenFabricLogicalRouterResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteTungstenFabricLogicalRouter", p)
+	ret0, _ := ret[0].(*DeleteTungstenFabricLogicalRouterResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteTungstenFabricLogicalRouter indicates an expected call of DeleteTungstenFabricLogicalRouter.
+func (mr *MockRouterServiceIfaceMockRecorder) DeleteTungstenFabricLogicalRouter(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteTungstenFabricLogicalRouter", reflect.TypeOf((*MockRouterServiceIface)(nil).DeleteTungstenFabricLogicalRouter), p)
 }
 
 // DestroyRouter mocks base method.
@@ -154,6 +199,21 @@ func (mr *MockRouterServiceIfaceMockRecorder) GetRouterByName(name interface{}, 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetRouterByName", reflect.TypeOf((*MockRouterServiceIface)(nil).GetRouterByName), varargs...)
 }
 
+// GetRouterHealthCheckResults mocks base method.
+func (m *MockRouterServiceIface) GetRouterHealthCheckResults(p *GetRouterHealthCheckResultsParams) (*GetRouterHealthCheckResultsResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetRouterHealthCheckResults", p)
+	ret0, _ := ret[0].(*GetRouterHealthCheckResultsResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetRouterHealthCheckResults indicates an expected call of GetRouterHealthCheckResults.
+func (mr *MockRouterServiceIfaceMockRecorder) GetRouterHealthCheckResults(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetRouterHealthCheckResults", reflect.TypeOf((*MockRouterServiceIface)(nil).GetRouterHealthCheckResults), p)
+}
+
 // GetRouterID mocks base method.
 func (m *MockRouterServiceIface) GetRouterID(name string, opts ...OptionFunc) (string, int, error) {
 	m.ctrl.T.Helper()
@@ -211,6 +271,21 @@ func (mr *MockRouterServiceIfaceMockRecorder) ListRouters(p interface{}) *gomock
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListRouters", reflect.TypeOf((*MockRouterServiceIface)(nil).ListRouters), p)
 }
 
+// ListTungstenFabricLogicalRouter mocks base method.
+func (m *MockRouterServiceIface) ListTungstenFabricLogicalRouter(p *ListTungstenFabricLogicalRouterParams) (*ListTungstenFabricLogicalRouterResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListTungstenFabricLogicalRouter", p)
+	ret0, _ := ret[0].(*ListTungstenFabricLogicalRouterResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListTungstenFabricLogicalRouter indicates an expected call of ListTungstenFabricLogicalRouter.
+func (mr *MockRouterServiceIfaceMockRecorder) ListTungstenFabricLogicalRouter(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListTungstenFabricLogicalRouter", reflect.TypeOf((*MockRouterServiceIface)(nil).ListTungstenFabricLogicalRouter), p)
+}
+
 // ListVirtualRouterElements mocks base method.
 func (m *MockRouterServiceIface) ListVirtualRouterElements(p *ListVirtualRouterElementsParams) (*ListVirtualRouterElementsResponse, error) {
 	m.ctrl.T.Helper()
@@ -224,6 +299,20 @@ func (m *MockRouterServiceIface) ListVirtualRouterElements(p *ListVirtualRouterE
 func (mr *MockRouterServiceIfaceMockRecorder) ListVirtualRouterElements(p interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListVirtualRouterElements", reflect.TypeOf((*MockRouterServiceIface)(nil).ListVirtualRouterElements), p)
+}
+
+// NewAddTungstenFabricNetworkGatewayToLogicalRouterParams mocks base method.
+func (m *MockRouterServiceIface) NewAddTungstenFabricNetworkGatewayToLogicalRouterParams(logicalrouteruuid, networkuuid, zoneid string) *AddTungstenFabricNetworkGatewayToLogicalRouterParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewAddTungstenFabricNetworkGatewayToLogicalRouterParams", logicalrouteruuid, networkuuid, zoneid)
+	ret0, _ := ret[0].(*AddTungstenFabricNetworkGatewayToLogicalRouterParams)
+	return ret0
+}
+
+// NewAddTungstenFabricNetworkGatewayToLogicalRouterParams indicates an expected call of NewAddTungstenFabricNetworkGatewayToLogicalRouterParams.
+func (mr *MockRouterServiceIfaceMockRecorder) NewAddTungstenFabricNetworkGatewayToLogicalRouterParams(logicalrouteruuid, networkuuid, zoneid interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewAddTungstenFabricNetworkGatewayToLogicalRouterParams", reflect.TypeOf((*MockRouterServiceIface)(nil).NewAddTungstenFabricNetworkGatewayToLogicalRouterParams), logicalrouteruuid, networkuuid, zoneid)
 }
 
 // NewChangeServiceForRouterParams mocks base method.
@@ -254,6 +343,20 @@ func (mr *MockRouterServiceIfaceMockRecorder) NewConfigureVirtualRouterElementPa
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewConfigureVirtualRouterElementParams", reflect.TypeOf((*MockRouterServiceIface)(nil).NewConfigureVirtualRouterElementParams), enabled, id)
 }
 
+// NewCreateTungstenFabricLogicalRouterParams mocks base method.
+func (m *MockRouterServiceIface) NewCreateTungstenFabricLogicalRouterParams(name, zoneid string) *CreateTungstenFabricLogicalRouterParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewCreateTungstenFabricLogicalRouterParams", name, zoneid)
+	ret0, _ := ret[0].(*CreateTungstenFabricLogicalRouterParams)
+	return ret0
+}
+
+// NewCreateTungstenFabricLogicalRouterParams indicates an expected call of NewCreateTungstenFabricLogicalRouterParams.
+func (mr *MockRouterServiceIfaceMockRecorder) NewCreateTungstenFabricLogicalRouterParams(name, zoneid interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewCreateTungstenFabricLogicalRouterParams", reflect.TypeOf((*MockRouterServiceIface)(nil).NewCreateTungstenFabricLogicalRouterParams), name, zoneid)
+}
+
 // NewCreateVirtualRouterElementParams mocks base method.
 func (m *MockRouterServiceIface) NewCreateVirtualRouterElementParams(nspid string) *CreateVirtualRouterElementParams {
 	m.ctrl.T.Helper()
@@ -266,6 +369,20 @@ func (m *MockRouterServiceIface) NewCreateVirtualRouterElementParams(nspid strin
 func (mr *MockRouterServiceIfaceMockRecorder) NewCreateVirtualRouterElementParams(nspid interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewCreateVirtualRouterElementParams", reflect.TypeOf((*MockRouterServiceIface)(nil).NewCreateVirtualRouterElementParams), nspid)
+}
+
+// NewDeleteTungstenFabricLogicalRouterParams mocks base method.
+func (m *MockRouterServiceIface) NewDeleteTungstenFabricLogicalRouterParams(logicalrouteruuid, zoneid string) *DeleteTungstenFabricLogicalRouterParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewDeleteTungstenFabricLogicalRouterParams", logicalrouteruuid, zoneid)
+	ret0, _ := ret[0].(*DeleteTungstenFabricLogicalRouterParams)
+	return ret0
+}
+
+// NewDeleteTungstenFabricLogicalRouterParams indicates an expected call of NewDeleteTungstenFabricLogicalRouterParams.
+func (mr *MockRouterServiceIfaceMockRecorder) NewDeleteTungstenFabricLogicalRouterParams(logicalrouteruuid, zoneid interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewDeleteTungstenFabricLogicalRouterParams", reflect.TypeOf((*MockRouterServiceIface)(nil).NewDeleteTungstenFabricLogicalRouterParams), logicalrouteruuid, zoneid)
 }
 
 // NewDestroyRouterParams mocks base method.
@@ -282,6 +399,20 @@ func (mr *MockRouterServiceIfaceMockRecorder) NewDestroyRouterParams(id interfac
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewDestroyRouterParams", reflect.TypeOf((*MockRouterServiceIface)(nil).NewDestroyRouterParams), id)
 }
 
+// NewGetRouterHealthCheckResultsParams mocks base method.
+func (m *MockRouterServiceIface) NewGetRouterHealthCheckResultsParams(routerid string) *GetRouterHealthCheckResultsParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewGetRouterHealthCheckResultsParams", routerid)
+	ret0, _ := ret[0].(*GetRouterHealthCheckResultsParams)
+	return ret0
+}
+
+// NewGetRouterHealthCheckResultsParams indicates an expected call of NewGetRouterHealthCheckResultsParams.
+func (mr *MockRouterServiceIfaceMockRecorder) NewGetRouterHealthCheckResultsParams(routerid interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewGetRouterHealthCheckResultsParams", reflect.TypeOf((*MockRouterServiceIface)(nil).NewGetRouterHealthCheckResultsParams), routerid)
+}
+
 // NewListRoutersParams mocks base method.
 func (m *MockRouterServiceIface) NewListRoutersParams() *ListRoutersParams {
 	m.ctrl.T.Helper()
@@ -294,6 +425,20 @@ func (m *MockRouterServiceIface) NewListRoutersParams() *ListRoutersParams {
 func (mr *MockRouterServiceIfaceMockRecorder) NewListRoutersParams() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListRoutersParams", reflect.TypeOf((*MockRouterServiceIface)(nil).NewListRoutersParams))
+}
+
+// NewListTungstenFabricLogicalRouterParams mocks base method.
+func (m *MockRouterServiceIface) NewListTungstenFabricLogicalRouterParams() *ListTungstenFabricLogicalRouterParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewListTungstenFabricLogicalRouterParams")
+	ret0, _ := ret[0].(*ListTungstenFabricLogicalRouterParams)
+	return ret0
+}
+
+// NewListTungstenFabricLogicalRouterParams indicates an expected call of NewListTungstenFabricLogicalRouterParams.
+func (mr *MockRouterServiceIfaceMockRecorder) NewListTungstenFabricLogicalRouterParams() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListTungstenFabricLogicalRouterParams", reflect.TypeOf((*MockRouterServiceIface)(nil).NewListTungstenFabricLogicalRouterParams))
 }
 
 // NewListVirtualRouterElementsParams mocks base method.
@@ -322,6 +467,20 @@ func (m *MockRouterServiceIface) NewRebootRouterParams(id string) *RebootRouterP
 func (mr *MockRouterServiceIfaceMockRecorder) NewRebootRouterParams(id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewRebootRouterParams", reflect.TypeOf((*MockRouterServiceIface)(nil).NewRebootRouterParams), id)
+}
+
+// NewRemoveTungstenFabricNetworkGatewayFromLogicalRouterParams mocks base method.
+func (m *MockRouterServiceIface) NewRemoveTungstenFabricNetworkGatewayFromLogicalRouterParams(logicalrouteruuid, networkuuid, zoneid string) *RemoveTungstenFabricNetworkGatewayFromLogicalRouterParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewRemoveTungstenFabricNetworkGatewayFromLogicalRouterParams", logicalrouteruuid, networkuuid, zoneid)
+	ret0, _ := ret[0].(*RemoveTungstenFabricNetworkGatewayFromLogicalRouterParams)
+	return ret0
+}
+
+// NewRemoveTungstenFabricNetworkGatewayFromLogicalRouterParams indicates an expected call of NewRemoveTungstenFabricNetworkGatewayFromLogicalRouterParams.
+func (mr *MockRouterServiceIfaceMockRecorder) NewRemoveTungstenFabricNetworkGatewayFromLogicalRouterParams(logicalrouteruuid, networkuuid, zoneid interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewRemoveTungstenFabricNetworkGatewayFromLogicalRouterParams", reflect.TypeOf((*MockRouterServiceIface)(nil).NewRemoveTungstenFabricNetworkGatewayFromLogicalRouterParams), logicalrouteruuid, networkuuid, zoneid)
 }
 
 // NewStartRouterParams mocks base method.
@@ -365,6 +524,21 @@ func (m *MockRouterServiceIface) RebootRouter(p *RebootRouterParams) (*RebootRou
 func (mr *MockRouterServiceIfaceMockRecorder) RebootRouter(p interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RebootRouter", reflect.TypeOf((*MockRouterServiceIface)(nil).RebootRouter), p)
+}
+
+// RemoveTungstenFabricNetworkGatewayFromLogicalRouter mocks base method.
+func (m *MockRouterServiceIface) RemoveTungstenFabricNetworkGatewayFromLogicalRouter(p *RemoveTungstenFabricNetworkGatewayFromLogicalRouterParams) (*RemoveTungstenFabricNetworkGatewayFromLogicalRouterResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RemoveTungstenFabricNetworkGatewayFromLogicalRouter", p)
+	ret0, _ := ret[0].(*RemoveTungstenFabricNetworkGatewayFromLogicalRouterResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RemoveTungstenFabricNetworkGatewayFromLogicalRouter indicates an expected call of RemoveTungstenFabricNetworkGatewayFromLogicalRouter.
+func (mr *MockRouterServiceIfaceMockRecorder) RemoveTungstenFabricNetworkGatewayFromLogicalRouter(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RemoveTungstenFabricNetworkGatewayFromLogicalRouter", reflect.TypeOf((*MockRouterServiceIface)(nil).RemoveTungstenFabricNetworkGatewayFromLogicalRouter), p)
 }
 
 // StartRouter mocks base method.

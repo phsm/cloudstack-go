@@ -35,6 +35,66 @@ func TestCertificateService(t *testing.T) {
 	client := cloudstack.NewClient(server.URL, "APIKEY", "SECRETKEY", true)
 	defer server.Close()
 
+	testlistCaCertificate := func(t *testing.T) {
+		if _, ok := response["listCaCertificate"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Certificate.NewListCaCertificateParams()
+		_, err := client.Certificate.ListCaCertificate(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("ListCaCertificate", testlistCaCertificate)
+
+	testissueCertificate := func(t *testing.T) {
+		if _, ok := response["issueCertificate"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Certificate.NewIssueCertificateParams()
+		_, err := client.Certificate.IssueCertificate(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("IssueCertificate", testissueCertificate)
+
+	testlistCAProviders := func(t *testing.T) {
+		if _, ok := response["listCAProviders"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Certificate.NewListCAProvidersParams()
+		_, err := client.Certificate.ListCAProviders(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("ListCAProviders", testlistCAProviders)
+
+	testprovisionCertificate := func(t *testing.T) {
+		if _, ok := response["provisionCertificate"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Certificate.NewProvisionCertificateParams("hostid")
+		_, err := client.Certificate.ProvisionCertificate(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("ProvisionCertificate", testprovisionCertificate)
+
+	testrevokeCertificate := func(t *testing.T) {
+		if _, ok := response["revokeCertificate"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Certificate.NewRevokeCertificateParams("serial")
+		_, err := client.Certificate.RevokeCertificate(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("RevokeCertificate", testrevokeCertificate)
+
 	testuploadCustomCertificate := func(t *testing.T) {
 		if _, ok := response["uploadCustomCertificate"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")

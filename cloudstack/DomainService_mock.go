@@ -238,6 +238,21 @@ func (mr *MockDomainServiceIfaceMockRecorder) ListDomains(p interface{}) *gomock
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListDomains", reflect.TypeOf((*MockDomainServiceIface)(nil).ListDomains), p)
 }
 
+// MoveDomain mocks base method.
+func (m *MockDomainServiceIface) MoveDomain(p *MoveDomainParams) (*MoveDomainResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "MoveDomain", p)
+	ret0, _ := ret[0].(*MoveDomainResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// MoveDomain indicates an expected call of MoveDomain.
+func (mr *MockDomainServiceIfaceMockRecorder) MoveDomain(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MoveDomain", reflect.TypeOf((*MockDomainServiceIface)(nil).MoveDomain), p)
+}
+
 // NewCreateDomainParams mocks base method.
 func (m *MockDomainServiceIface) NewCreateDomainParams(name string) *CreateDomainParams {
 	m.ctrl.T.Helper()
@@ -292,6 +307,20 @@ func (m *MockDomainServiceIface) NewListDomainsParams() *ListDomainsParams {
 func (mr *MockDomainServiceIfaceMockRecorder) NewListDomainsParams() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListDomainsParams", reflect.TypeOf((*MockDomainServiceIface)(nil).NewListDomainsParams))
+}
+
+// NewMoveDomainParams mocks base method.
+func (m *MockDomainServiceIface) NewMoveDomainParams(domainid, parentdomainid string) *MoveDomainParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewMoveDomainParams", domainid, parentdomainid)
+	ret0, _ := ret[0].(*MoveDomainParams)
+	return ret0
+}
+
+// NewMoveDomainParams indicates an expected call of NewMoveDomainParams.
+func (mr *MockDomainServiceIfaceMockRecorder) NewMoveDomainParams(domainid, parentdomainid interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewMoveDomainParams", reflect.TypeOf((*MockDomainServiceIface)(nil).NewMoveDomainParams), domainid, parentdomainid)
 }
 
 // NewUpdateDomainParams mocks base method.

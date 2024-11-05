@@ -211,6 +211,36 @@ func (mr *MockAccountServiceIfaceMockRecorder) GetSolidFireAccountId(p interface
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetSolidFireAccountId", reflect.TypeOf((*MockAccountServiceIface)(nil).GetSolidFireAccountId), p)
 }
 
+// IsAccountAllowedToCreateOfferingsWithTags mocks base method.
+func (m *MockAccountServiceIface) IsAccountAllowedToCreateOfferingsWithTags(p *IsAccountAllowedToCreateOfferingsWithTagsParams) (*IsAccountAllowedToCreateOfferingsWithTagsResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "IsAccountAllowedToCreateOfferingsWithTags", p)
+	ret0, _ := ret[0].(*IsAccountAllowedToCreateOfferingsWithTagsResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// IsAccountAllowedToCreateOfferingsWithTags indicates an expected call of IsAccountAllowedToCreateOfferingsWithTags.
+func (mr *MockAccountServiceIfaceMockRecorder) IsAccountAllowedToCreateOfferingsWithTags(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "IsAccountAllowedToCreateOfferingsWithTags", reflect.TypeOf((*MockAccountServiceIface)(nil).IsAccountAllowedToCreateOfferingsWithTags), p)
+}
+
+// LinkAccountToLdap mocks base method.
+func (m *MockAccountServiceIface) LinkAccountToLdap(p *LinkAccountToLdapParams) (*LinkAccountToLdapResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "LinkAccountToLdap", p)
+	ret0, _ := ret[0].(*LinkAccountToLdapResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// LinkAccountToLdap indicates an expected call of LinkAccountToLdap.
+func (mr *MockAccountServiceIfaceMockRecorder) LinkAccountToLdap(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LinkAccountToLdap", reflect.TypeOf((*MockAccountServiceIface)(nil).LinkAccountToLdap), p)
+}
+
 // ListAccounts mocks base method.
 func (m *MockAccountServiceIface) ListAccounts(p *ListAccountsParams) (*ListAccountsResponse, error) {
 	m.ctrl.T.Helper()
@@ -339,6 +369,34 @@ func (m *MockAccountServiceIface) NewGetSolidFireAccountIdParams(accountid, stor
 func (mr *MockAccountServiceIfaceMockRecorder) NewGetSolidFireAccountIdParams(accountid, storageid interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewGetSolidFireAccountIdParams", reflect.TypeOf((*MockAccountServiceIface)(nil).NewGetSolidFireAccountIdParams), accountid, storageid)
+}
+
+// NewIsAccountAllowedToCreateOfferingsWithTagsParams mocks base method.
+func (m *MockAccountServiceIface) NewIsAccountAllowedToCreateOfferingsWithTagsParams() *IsAccountAllowedToCreateOfferingsWithTagsParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewIsAccountAllowedToCreateOfferingsWithTagsParams")
+	ret0, _ := ret[0].(*IsAccountAllowedToCreateOfferingsWithTagsParams)
+	return ret0
+}
+
+// NewIsAccountAllowedToCreateOfferingsWithTagsParams indicates an expected call of NewIsAccountAllowedToCreateOfferingsWithTagsParams.
+func (mr *MockAccountServiceIfaceMockRecorder) NewIsAccountAllowedToCreateOfferingsWithTagsParams() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewIsAccountAllowedToCreateOfferingsWithTagsParams", reflect.TypeOf((*MockAccountServiceIface)(nil).NewIsAccountAllowedToCreateOfferingsWithTagsParams))
+}
+
+// NewLinkAccountToLdapParams mocks base method.
+func (m *MockAccountServiceIface) NewLinkAccountToLdapParams(account, domainid, ldapdomain string) *LinkAccountToLdapParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewLinkAccountToLdapParams", account, domainid, ldapdomain)
+	ret0, _ := ret[0].(*LinkAccountToLdapParams)
+	return ret0
+}
+
+// NewLinkAccountToLdapParams indicates an expected call of NewLinkAccountToLdapParams.
+func (mr *MockAccountServiceIfaceMockRecorder) NewLinkAccountToLdapParams(account, domainid, ldapdomain interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewLinkAccountToLdapParams", reflect.TypeOf((*MockAccountServiceIface)(nil).NewLinkAccountToLdapParams), account, domainid, ldapdomain)
 }
 
 // NewListAccountsParams mocks base method.

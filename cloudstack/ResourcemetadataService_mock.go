@@ -67,19 +67,19 @@ func (mr *MockResourcemetadataServiceIfaceMockRecorder) AddResourceDetail(p inte
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddResourceDetail", reflect.TypeOf((*MockResourcemetadataServiceIface)(nil).AddResourceDetail), p)
 }
 
-// GetVolumeSnapshotDetails mocks base method.
-func (m *MockResourcemetadataServiceIface) GetVolumeSnapshotDetails(p *GetVolumeSnapshotDetailsParams) (*GetVolumeSnapshotDetailsResponse, error) {
+// ListDetailOptions mocks base method.
+func (m *MockResourcemetadataServiceIface) ListDetailOptions(p *ListDetailOptionsParams) (*ListDetailOptionsResponse, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetVolumeSnapshotDetails", p)
-	ret0, _ := ret[0].(*GetVolumeSnapshotDetailsResponse)
+	ret := m.ctrl.Call(m, "ListDetailOptions", p)
+	ret0, _ := ret[0].(*ListDetailOptionsResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// GetVolumeSnapshotDetails indicates an expected call of GetVolumeSnapshotDetails.
-func (mr *MockResourcemetadataServiceIfaceMockRecorder) GetVolumeSnapshotDetails(p interface{}) *gomock.Call {
+// ListDetailOptions indicates an expected call of ListDetailOptions.
+func (mr *MockResourcemetadataServiceIfaceMockRecorder) ListDetailOptions(p interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetVolumeSnapshotDetails", reflect.TypeOf((*MockResourcemetadataServiceIface)(nil).GetVolumeSnapshotDetails), p)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListDetailOptions", reflect.TypeOf((*MockResourcemetadataServiceIface)(nil).ListDetailOptions), p)
 }
 
 // ListResourceDetails mocks base method.
@@ -111,18 +111,18 @@ func (mr *MockResourcemetadataServiceIfaceMockRecorder) NewAddResourceDetailPara
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewAddResourceDetailParams", reflect.TypeOf((*MockResourcemetadataServiceIface)(nil).NewAddResourceDetailParams), details, resourceid, resourcetype)
 }
 
-// NewGetVolumeSnapshotDetailsParams mocks base method.
-func (m *MockResourcemetadataServiceIface) NewGetVolumeSnapshotDetailsParams(snapshotid string) *GetVolumeSnapshotDetailsParams {
+// NewListDetailOptionsParams mocks base method.
+func (m *MockResourcemetadataServiceIface) NewListDetailOptionsParams(resourcetype string) *ListDetailOptionsParams {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "NewGetVolumeSnapshotDetailsParams", snapshotid)
-	ret0, _ := ret[0].(*GetVolumeSnapshotDetailsParams)
+	ret := m.ctrl.Call(m, "NewListDetailOptionsParams", resourcetype)
+	ret0, _ := ret[0].(*ListDetailOptionsParams)
 	return ret0
 }
 
-// NewGetVolumeSnapshotDetailsParams indicates an expected call of NewGetVolumeSnapshotDetailsParams.
-func (mr *MockResourcemetadataServiceIfaceMockRecorder) NewGetVolumeSnapshotDetailsParams(snapshotid interface{}) *gomock.Call {
+// NewListDetailOptionsParams indicates an expected call of NewListDetailOptionsParams.
+func (mr *MockResourcemetadataServiceIfaceMockRecorder) NewListDetailOptionsParams(resourcetype interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewGetVolumeSnapshotDetailsParams", reflect.TypeOf((*MockResourcemetadataServiceIface)(nil).NewGetVolumeSnapshotDetailsParams), snapshotid)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListDetailOptionsParams", reflect.TypeOf((*MockResourcemetadataServiceIface)(nil).NewListDetailOptionsParams), resourcetype)
 }
 
 // NewListResourceDetailsParams mocks base method.

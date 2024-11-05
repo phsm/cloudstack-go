@@ -35,6 +35,21 @@ func TestVolumeService(t *testing.T) {
 	client := cloudstack.NewClient(server.URL, "APIKEY", "SECRETKEY", true)
 	defer server.Close()
 
+	testassignVolume := func(t *testing.T) {
+		if _, ok := response["assignVolume"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Volume.NewAssignVolumeParams("volumeid")
+		r, err := client.Volume.AssignVolume(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+		if r.Id == "" {
+			t.Errorf("Failed to parse response. ID not found")
+		}
+	}
+	t.Run("AssignVolume", testassignVolume)
+
 	testattachVolume := func(t *testing.T) {
 		if _, ok := response["attachVolume"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")
@@ -49,6 +64,21 @@ func TestVolumeService(t *testing.T) {
 		}
 	}
 	t.Run("AttachVolume", testattachVolume)
+
+	testcheckVolume := func(t *testing.T) {
+		if _, ok := response["checkVolume"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Volume.NewCheckVolumeParams("id")
+		r, err := client.Volume.CheckVolume(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+		if r.Id == "" {
+			t.Errorf("Failed to parse response. ID not found")
+		}
+	}
+	t.Run("CheckVolume", testcheckVolume)
 
 	testcreateVolume := func(t *testing.T) {
 		if _, ok := response["createVolume"]; !ok {
@@ -76,6 +106,30 @@ func TestVolumeService(t *testing.T) {
 		}
 	}
 	t.Run("DeleteVolume", testdeleteVolume)
+
+	testgetSolidFireVolumeAccessGroupIds := func(t *testing.T) {
+		if _, ok := response["getSolidFireVolumeAccessGroupIds"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Volume.NewGetSolidFireVolumeAccessGroupIdsParams("clusterid", "storageid")
+		_, err := client.Volume.GetSolidFireVolumeAccessGroupIds(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("GetSolidFireVolumeAccessGroupIds", testgetSolidFireVolumeAccessGroupIds)
+
+	testgetVolumeSnapshotDetails := func(t *testing.T) {
+		if _, ok := response["getVolumeSnapshotDetails"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Volume.NewGetVolumeSnapshotDetailsParams("snapshotid")
+		_, err := client.Volume.GetVolumeSnapshotDetails(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("GetVolumeSnapshotDetails", testgetVolumeSnapshotDetails)
 
 	testdestroyVolume := func(t *testing.T) {
 		if _, ok := response["destroyVolume"]; !ok {
@@ -170,6 +224,33 @@ func TestVolumeService(t *testing.T) {
 	}
 	t.Run("GetVolumeiScsiName", testgetVolumeiScsiName)
 
+	testimportVolume := func(t *testing.T) {
+		if _, ok := response["importVolume"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Volume.NewImportVolumeParams("path", "storageid")
+		r, err := client.Volume.ImportVolume(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+		if r.Id == "" {
+			t.Errorf("Failed to parse response. ID not found")
+		}
+	}
+	t.Run("ImportVolume", testimportVolume)
+
+	testlistElastistorVolume := func(t *testing.T) {
+		if _, ok := response["listElastistorVolume"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Volume.NewListElastistorVolumeParams("id")
+		_, err := client.Volume.ListElastistorVolume(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("ListElastistorVolume", testlistElastistorVolume)
+
 	testlistVolumes := func(t *testing.T) {
 		if _, ok := response["listVolumes"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")
@@ -182,6 +263,18 @@ func TestVolumeService(t *testing.T) {
 	}
 	t.Run("ListVolumes", testlistVolumes)
 
+	testlistVolumesForImport := func(t *testing.T) {
+		if _, ok := response["listVolumesForImport"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Volume.NewListVolumesForImportParams("storageid")
+		_, err := client.Volume.ListVolumesForImport(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("ListVolumesForImport", testlistVolumesForImport)
+
 	testlistVolumesMetrics := func(t *testing.T) {
 		if _, ok := response["listVolumesMetrics"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")
@@ -193,6 +286,18 @@ func TestVolumeService(t *testing.T) {
 		}
 	}
 	t.Run("ListVolumesMetrics", testlistVolumesMetrics)
+
+	testlistVolumesUsageHistory := func(t *testing.T) {
+		if _, ok := response["listVolumesUsageHistory"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Volume.NewListVolumesUsageHistoryParams()
+		_, err := client.Volume.ListVolumesUsageHistory(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("ListVolumesUsageHistory", testlistVolumesUsageHistory)
 
 	testmigrateVolume := func(t *testing.T) {
 		if _, ok := response["migrateVolume"]; !ok {
@@ -238,6 +343,18 @@ func TestVolumeService(t *testing.T) {
 		}
 	}
 	t.Run("ResizeVolume", testresizeVolume)
+
+	testunmanageVolume := func(t *testing.T) {
+		if _, ok := response["unmanageVolume"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Volume.NewUnmanageVolumeParams("id")
+		_, err := client.Volume.UnmanageVolume(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("UnmanageVolume", testunmanageVolume)
 
 	testupdateVolume := func(t *testing.T) {
 		if _, ok := response["updateVolume"]; !ok {

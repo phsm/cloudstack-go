@@ -112,6 +112,51 @@ func (mr *MockVirtualMachineServiceIfaceMockRecorder) CleanVMReservations(p inte
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CleanVMReservations", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).CleanVMReservations), p)
 }
 
+// CreateSnapshotFromVMSnapshot mocks base method.
+func (m *MockVirtualMachineServiceIface) CreateSnapshotFromVMSnapshot(p *CreateSnapshotFromVMSnapshotParams) (*CreateSnapshotFromVMSnapshotResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateSnapshotFromVMSnapshot", p)
+	ret0, _ := ret[0].(*CreateSnapshotFromVMSnapshotResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateSnapshotFromVMSnapshot indicates an expected call of CreateSnapshotFromVMSnapshot.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) CreateSnapshotFromVMSnapshot(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateSnapshotFromVMSnapshot", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).CreateSnapshotFromVMSnapshot), p)
+}
+
+// CreateVMSchedule mocks base method.
+func (m *MockVirtualMachineServiceIface) CreateVMSchedule(p *CreateVMScheduleParams) (*CreateVMScheduleResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateVMSchedule", p)
+	ret0, _ := ret[0].(*CreateVMScheduleResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateVMSchedule indicates an expected call of CreateVMSchedule.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) CreateVMSchedule(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateVMSchedule", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).CreateVMSchedule), p)
+}
+
+// DeleteVMSchedule mocks base method.
+func (m *MockVirtualMachineServiceIface) DeleteVMSchedule(p *DeleteVMScheduleParams) (*DeleteVMScheduleResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteVMSchedule", p)
+	ret0, _ := ret[0].(*DeleteVMScheduleResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteVMSchedule indicates an expected call of DeleteVMSchedule.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) DeleteVMSchedule(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteVMSchedule", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).DeleteVMSchedule), p)
+}
+
 // DeployVirtualMachine mocks base method.
 func (m *MockVirtualMachineServiceIface) DeployVirtualMachine(p *DeployVirtualMachineParams) (*DeployVirtualMachineResponse, error) {
 	m.ctrl.T.Helper()
@@ -157,6 +202,27 @@ func (mr *MockVirtualMachineServiceIfaceMockRecorder) ExpungeVirtualMachine(p in
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ExpungeVirtualMachine", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).ExpungeVirtualMachine), p)
 }
 
+// GetAffectedVmsForStorageScopeChangeID mocks base method.
+func (m *MockVirtualMachineServiceIface) GetAffectedVmsForStorageScopeChangeID(keyword, clusterid, storageid string, opts ...OptionFunc) (string, int, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{keyword, clusterid, storageid}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "GetAffectedVmsForStorageScopeChangeID", varargs...)
+	ret0, _ := ret[0].(string)
+	ret1, _ := ret[1].(int)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
+}
+
+// GetAffectedVmsForStorageScopeChangeID indicates an expected call of GetAffectedVmsForStorageScopeChangeID.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) GetAffectedVmsForStorageScopeChangeID(keyword, clusterid, storageid interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{keyword, clusterid, storageid}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAffectedVmsForStorageScopeChangeID", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).GetAffectedVmsForStorageScopeChangeID), varargs...)
+}
+
 // GetVMPassword mocks base method.
 func (m *MockVirtualMachineServiceIface) GetVMPassword(p *GetVMPasswordParams) (*GetVMPasswordResponse, error) {
 	m.ctrl.T.Helper()
@@ -170,6 +236,27 @@ func (m *MockVirtualMachineServiceIface) GetVMPassword(p *GetVMPasswordParams) (
 func (mr *MockVirtualMachineServiceIfaceMockRecorder) GetVMPassword(p interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetVMPassword", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).GetVMPassword), p)
+}
+
+// GetVMScheduleByID mocks base method.
+func (m *MockVirtualMachineServiceIface) GetVMScheduleByID(id, virtualmachineid string, opts ...OptionFunc) (*VMSchedule, int, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{id, virtualmachineid}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "GetVMScheduleByID", varargs...)
+	ret0, _ := ret[0].(*VMSchedule)
+	ret1, _ := ret[1].(int)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
+}
+
+// GetVMScheduleByID indicates an expected call of GetVMScheduleByID.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) GetVMScheduleByID(id, virtualmachineid interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{id, virtualmachineid}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetVMScheduleByID", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).GetVMScheduleByID), varargs...)
 }
 
 // GetVirtualMachineByID mocks base method.
@@ -361,6 +448,144 @@ func (mr *MockVirtualMachineServiceIfaceMockRecorder) GetVirtualMachinesUsageHis
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetVirtualMachinesUsageHistoryID", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).GetVirtualMachinesUsageHistoryID), varargs...)
 }
 
+// GetVnfApplianceByID mocks base method.
+func (m *MockVirtualMachineServiceIface) GetVnfApplianceByID(id string, opts ...OptionFunc) (*VnfAppliance, int, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{id}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "GetVnfApplianceByID", varargs...)
+	ret0, _ := ret[0].(*VnfAppliance)
+	ret1, _ := ret[1].(int)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
+}
+
+// GetVnfApplianceByID indicates an expected call of GetVnfApplianceByID.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) GetVnfApplianceByID(id interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{id}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetVnfApplianceByID", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).GetVnfApplianceByID), varargs...)
+}
+
+// GetVnfApplianceByName mocks base method.
+func (m *MockVirtualMachineServiceIface) GetVnfApplianceByName(name string, opts ...OptionFunc) (*VnfAppliance, int, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{name}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "GetVnfApplianceByName", varargs...)
+	ret0, _ := ret[0].(*VnfAppliance)
+	ret1, _ := ret[1].(int)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
+}
+
+// GetVnfApplianceByName indicates an expected call of GetVnfApplianceByName.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) GetVnfApplianceByName(name interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{name}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetVnfApplianceByName", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).GetVnfApplianceByName), varargs...)
+}
+
+// GetVnfApplianceID mocks base method.
+func (m *MockVirtualMachineServiceIface) GetVnfApplianceID(name string, opts ...OptionFunc) (string, int, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{name}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "GetVnfApplianceID", varargs...)
+	ret0, _ := ret[0].(string)
+	ret1, _ := ret[1].(int)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
+}
+
+// GetVnfApplianceID indicates an expected call of GetVnfApplianceID.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) GetVnfApplianceID(name interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{name}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetVnfApplianceID", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).GetVnfApplianceID), varargs...)
+}
+
+// ImportUnmanagedInstance mocks base method.
+func (m *MockVirtualMachineServiceIface) ImportUnmanagedInstance(p *ImportUnmanagedInstanceParams) (*ImportUnmanagedInstanceResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ImportUnmanagedInstance", p)
+	ret0, _ := ret[0].(*ImportUnmanagedInstanceResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ImportUnmanagedInstance indicates an expected call of ImportUnmanagedInstance.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) ImportUnmanagedInstance(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ImportUnmanagedInstance", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).ImportUnmanagedInstance), p)
+}
+
+// ImportVm mocks base method.
+func (m *MockVirtualMachineServiceIface) ImportVm(p *ImportVmParams) (*ImportVmResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ImportVm", p)
+	ret0, _ := ret[0].(*ImportVmResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ImportVm indicates an expected call of ImportVm.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) ImportVm(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ImportVm", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).ImportVm), p)
+}
+
+// ListAffectedVmsForStorageScopeChange mocks base method.
+func (m *MockVirtualMachineServiceIface) ListAffectedVmsForStorageScopeChange(p *ListAffectedVmsForStorageScopeChangeParams) (*ListAffectedVmsForStorageScopeChangeResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListAffectedVmsForStorageScopeChange", p)
+	ret0, _ := ret[0].(*ListAffectedVmsForStorageScopeChangeResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListAffectedVmsForStorageScopeChange indicates an expected call of ListAffectedVmsForStorageScopeChange.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) ListAffectedVmsForStorageScopeChange(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAffectedVmsForStorageScopeChange", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).ListAffectedVmsForStorageScopeChange), p)
+}
+
+// ListUnmanagedInstances mocks base method.
+func (m *MockVirtualMachineServiceIface) ListUnmanagedInstances(p *ListUnmanagedInstancesParams) (*ListUnmanagedInstancesResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListUnmanagedInstances", p)
+	ret0, _ := ret[0].(*ListUnmanagedInstancesResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListUnmanagedInstances indicates an expected call of ListUnmanagedInstances.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) ListUnmanagedInstances(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListUnmanagedInstances", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).ListUnmanagedInstances), p)
+}
+
+// ListVMSchedule mocks base method.
+func (m *MockVirtualMachineServiceIface) ListVMSchedule(p *ListVMScheduleParams) (*ListVMScheduleResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListVMSchedule", p)
+	ret0, _ := ret[0].(*ListVMScheduleResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListVMSchedule indicates an expected call of ListVMSchedule.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) ListVMSchedule(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListVMSchedule", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).ListVMSchedule), p)
+}
+
 // ListVirtualMachines mocks base method.
 func (m *MockVirtualMachineServiceIface) ListVirtualMachines(p *ListVirtualMachinesParams) (*ListVirtualMachinesResponse, error) {
 	m.ctrl.T.Helper()
@@ -404,6 +629,36 @@ func (m *MockVirtualMachineServiceIface) ListVirtualMachinesUsageHistory(p *List
 func (mr *MockVirtualMachineServiceIfaceMockRecorder) ListVirtualMachinesUsageHistory(p interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListVirtualMachinesUsageHistory", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).ListVirtualMachinesUsageHistory), p)
+}
+
+// ListVmsForImport mocks base method.
+func (m *MockVirtualMachineServiceIface) ListVmsForImport(p *ListVmsForImportParams) (*ListVmsForImportResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListVmsForImport", p)
+	ret0, _ := ret[0].(*ListVmsForImportResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListVmsForImport indicates an expected call of ListVmsForImport.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) ListVmsForImport(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListVmsForImport", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).ListVmsForImport), p)
+}
+
+// ListVnfAppliances mocks base method.
+func (m *MockVirtualMachineServiceIface) ListVnfAppliances(p *ListVnfAppliancesParams) (*ListVnfAppliancesResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListVnfAppliances", p)
+	ret0, _ := ret[0].(*ListVnfAppliancesResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListVnfAppliances indicates an expected call of ListVnfAppliances.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) ListVnfAppliances(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListVnfAppliances", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).ListVnfAppliances), p)
 }
 
 // MigrateVirtualMachine mocks base method.
@@ -492,6 +747,48 @@ func (mr *MockVirtualMachineServiceIfaceMockRecorder) NewCleanVMReservationsPara
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewCleanVMReservationsParams", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).NewCleanVMReservationsParams))
 }
 
+// NewCreateSnapshotFromVMSnapshotParams mocks base method.
+func (m *MockVirtualMachineServiceIface) NewCreateSnapshotFromVMSnapshotParams(vmsnapshotid, volumeid string) *CreateSnapshotFromVMSnapshotParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewCreateSnapshotFromVMSnapshotParams", vmsnapshotid, volumeid)
+	ret0, _ := ret[0].(*CreateSnapshotFromVMSnapshotParams)
+	return ret0
+}
+
+// NewCreateSnapshotFromVMSnapshotParams indicates an expected call of NewCreateSnapshotFromVMSnapshotParams.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) NewCreateSnapshotFromVMSnapshotParams(vmsnapshotid, volumeid interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewCreateSnapshotFromVMSnapshotParams", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).NewCreateSnapshotFromVMSnapshotParams), vmsnapshotid, volumeid)
+}
+
+// NewCreateVMScheduleParams mocks base method.
+func (m *MockVirtualMachineServiceIface) NewCreateVMScheduleParams(action, schedule, timezone, virtualmachineid string) *CreateVMScheduleParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewCreateVMScheduleParams", action, schedule, timezone, virtualmachineid)
+	ret0, _ := ret[0].(*CreateVMScheduleParams)
+	return ret0
+}
+
+// NewCreateVMScheduleParams indicates an expected call of NewCreateVMScheduleParams.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) NewCreateVMScheduleParams(action, schedule, timezone, virtualmachineid interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewCreateVMScheduleParams", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).NewCreateVMScheduleParams), action, schedule, timezone, virtualmachineid)
+}
+
+// NewDeleteVMScheduleParams mocks base method.
+func (m *MockVirtualMachineServiceIface) NewDeleteVMScheduleParams(virtualmachineid string) *DeleteVMScheduleParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewDeleteVMScheduleParams", virtualmachineid)
+	ret0, _ := ret[0].(*DeleteVMScheduleParams)
+	return ret0
+}
+
+// NewDeleteVMScheduleParams indicates an expected call of NewDeleteVMScheduleParams.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) NewDeleteVMScheduleParams(virtualmachineid interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewDeleteVMScheduleParams", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).NewDeleteVMScheduleParams), virtualmachineid)
+}
+
 // NewDeployVirtualMachineParams mocks base method.
 func (m *MockVirtualMachineServiceIface) NewDeployVirtualMachineParams(serviceofferingid, templateid, zoneid string) *DeployVirtualMachineParams {
 	m.ctrl.T.Helper()
@@ -548,6 +845,76 @@ func (mr *MockVirtualMachineServiceIfaceMockRecorder) NewGetVMPasswordParams(id 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewGetVMPasswordParams", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).NewGetVMPasswordParams), id)
 }
 
+// NewImportUnmanagedInstanceParams mocks base method.
+func (m *MockVirtualMachineServiceIface) NewImportUnmanagedInstanceParams(clusterid, name, serviceofferingid string) *ImportUnmanagedInstanceParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewImportUnmanagedInstanceParams", clusterid, name, serviceofferingid)
+	ret0, _ := ret[0].(*ImportUnmanagedInstanceParams)
+	return ret0
+}
+
+// NewImportUnmanagedInstanceParams indicates an expected call of NewImportUnmanagedInstanceParams.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) NewImportUnmanagedInstanceParams(clusterid, name, serviceofferingid interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewImportUnmanagedInstanceParams", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).NewImportUnmanagedInstanceParams), clusterid, name, serviceofferingid)
+}
+
+// NewImportVmParams mocks base method.
+func (m *MockVirtualMachineServiceIface) NewImportVmParams(clusterid, hypervisor, importsource, name, serviceofferingid, zoneid string) *ImportVmParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewImportVmParams", clusterid, hypervisor, importsource, name, serviceofferingid, zoneid)
+	ret0, _ := ret[0].(*ImportVmParams)
+	return ret0
+}
+
+// NewImportVmParams indicates an expected call of NewImportVmParams.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) NewImportVmParams(clusterid, hypervisor, importsource, name, serviceofferingid, zoneid interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewImportVmParams", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).NewImportVmParams), clusterid, hypervisor, importsource, name, serviceofferingid, zoneid)
+}
+
+// NewListAffectedVmsForStorageScopeChangeParams mocks base method.
+func (m *MockVirtualMachineServiceIface) NewListAffectedVmsForStorageScopeChangeParams(clusterid, storageid string) *ListAffectedVmsForStorageScopeChangeParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewListAffectedVmsForStorageScopeChangeParams", clusterid, storageid)
+	ret0, _ := ret[0].(*ListAffectedVmsForStorageScopeChangeParams)
+	return ret0
+}
+
+// NewListAffectedVmsForStorageScopeChangeParams indicates an expected call of NewListAffectedVmsForStorageScopeChangeParams.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) NewListAffectedVmsForStorageScopeChangeParams(clusterid, storageid interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListAffectedVmsForStorageScopeChangeParams", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).NewListAffectedVmsForStorageScopeChangeParams), clusterid, storageid)
+}
+
+// NewListUnmanagedInstancesParams mocks base method.
+func (m *MockVirtualMachineServiceIface) NewListUnmanagedInstancesParams(clusterid string) *ListUnmanagedInstancesParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewListUnmanagedInstancesParams", clusterid)
+	ret0, _ := ret[0].(*ListUnmanagedInstancesParams)
+	return ret0
+}
+
+// NewListUnmanagedInstancesParams indicates an expected call of NewListUnmanagedInstancesParams.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) NewListUnmanagedInstancesParams(clusterid interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListUnmanagedInstancesParams", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).NewListUnmanagedInstancesParams), clusterid)
+}
+
+// NewListVMScheduleParams mocks base method.
+func (m *MockVirtualMachineServiceIface) NewListVMScheduleParams(virtualmachineid string) *ListVMScheduleParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewListVMScheduleParams", virtualmachineid)
+	ret0, _ := ret[0].(*ListVMScheduleParams)
+	return ret0
+}
+
+// NewListVMScheduleParams indicates an expected call of NewListVMScheduleParams.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) NewListVMScheduleParams(virtualmachineid interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListVMScheduleParams", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).NewListVMScheduleParams), virtualmachineid)
+}
+
 // NewListVirtualMachinesMetricsParams mocks base method.
 func (m *MockVirtualMachineServiceIface) NewListVirtualMachinesMetricsParams() *ListVirtualMachinesMetricsParams {
 	m.ctrl.T.Helper()
@@ -588,6 +955,34 @@ func (m *MockVirtualMachineServiceIface) NewListVirtualMachinesUsageHistoryParam
 func (mr *MockVirtualMachineServiceIfaceMockRecorder) NewListVirtualMachinesUsageHistoryParams() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListVirtualMachinesUsageHistoryParams", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).NewListVirtualMachinesUsageHistoryParams))
+}
+
+// NewListVmsForImportParams mocks base method.
+func (m *MockVirtualMachineServiceIface) NewListVmsForImportParams(host, hypervisor, zoneid string) *ListVmsForImportParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewListVmsForImportParams", host, hypervisor, zoneid)
+	ret0, _ := ret[0].(*ListVmsForImportParams)
+	return ret0
+}
+
+// NewListVmsForImportParams indicates an expected call of NewListVmsForImportParams.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) NewListVmsForImportParams(host, hypervisor, zoneid interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListVmsForImportParams", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).NewListVmsForImportParams), host, hypervisor, zoneid)
+}
+
+// NewListVnfAppliancesParams mocks base method.
+func (m *MockVirtualMachineServiceIface) NewListVnfAppliancesParams() *ListVnfAppliancesParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewListVnfAppliancesParams")
+	ret0, _ := ret[0].(*ListVnfAppliancesParams)
+	return ret0
+}
+
+// NewListVnfAppliancesParams indicates an expected call of NewListVnfAppliancesParams.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) NewListVnfAppliancesParams() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListVnfAppliancesParams", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).NewListVnfAppliancesParams))
 }
 
 // NewMigrateVirtualMachineParams mocks base method.
@@ -674,6 +1069,20 @@ func (mr *MockVirtualMachineServiceIfaceMockRecorder) NewResetPasswordForVirtual
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewResetPasswordForVirtualMachineParams", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).NewResetPasswordForVirtualMachineParams), id)
 }
 
+// NewResetUserDataForVirtualMachineParams mocks base method.
+func (m *MockVirtualMachineServiceIface) NewResetUserDataForVirtualMachineParams(id string) *ResetUserDataForVirtualMachineParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewResetUserDataForVirtualMachineParams", id)
+	ret0, _ := ret[0].(*ResetUserDataForVirtualMachineParams)
+	return ret0
+}
+
+// NewResetUserDataForVirtualMachineParams indicates an expected call of NewResetUserDataForVirtualMachineParams.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) NewResetUserDataForVirtualMachineParams(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewResetUserDataForVirtualMachineParams", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).NewResetUserDataForVirtualMachineParams), id)
+}
+
 // NewRestoreVirtualMachineParams mocks base method.
 func (m *MockVirtualMachineServiceIface) NewRestoreVirtualMachineParams(virtualmachineid string) *RestoreVirtualMachineParams {
 	m.ctrl.T.Helper()
@@ -730,6 +1139,20 @@ func (mr *MockVirtualMachineServiceIfaceMockRecorder) NewStopVirtualMachineParam
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewStopVirtualMachineParams", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).NewStopVirtualMachineParams), id)
 }
 
+// NewUnmanageVirtualMachineParams mocks base method.
+func (m *MockVirtualMachineServiceIface) NewUnmanageVirtualMachineParams(id string) *UnmanageVirtualMachineParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewUnmanageVirtualMachineParams", id)
+	ret0, _ := ret[0].(*UnmanageVirtualMachineParams)
+	return ret0
+}
+
+// NewUnmanageVirtualMachineParams indicates an expected call of NewUnmanageVirtualMachineParams.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) NewUnmanageVirtualMachineParams(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewUnmanageVirtualMachineParams", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).NewUnmanageVirtualMachineParams), id)
+}
+
 // NewUpdateDefaultNicForVirtualMachineParams mocks base method.
 func (m *MockVirtualMachineServiceIface) NewUpdateDefaultNicForVirtualMachineParams(nicid, virtualmachineid string) *UpdateDefaultNicForVirtualMachineParams {
 	m.ctrl.T.Helper()
@@ -742,6 +1165,20 @@ func (m *MockVirtualMachineServiceIface) NewUpdateDefaultNicForVirtualMachinePar
 func (mr *MockVirtualMachineServiceIfaceMockRecorder) NewUpdateDefaultNicForVirtualMachineParams(nicid, virtualmachineid interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewUpdateDefaultNicForVirtualMachineParams", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).NewUpdateDefaultNicForVirtualMachineParams), nicid, virtualmachineid)
+}
+
+// NewUpdateVMScheduleParams mocks base method.
+func (m *MockVirtualMachineServiceIface) NewUpdateVMScheduleParams(id string) *UpdateVMScheduleParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewUpdateVMScheduleParams", id)
+	ret0, _ := ret[0].(*UpdateVMScheduleParams)
+	return ret0
+}
+
+// NewUpdateVMScheduleParams indicates an expected call of NewUpdateVMScheduleParams.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) NewUpdateVMScheduleParams(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewUpdateVMScheduleParams", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).NewUpdateVMScheduleParams), id)
 }
 
 // NewUpdateVirtualMachineParams mocks base method.
@@ -818,6 +1255,21 @@ func (mr *MockVirtualMachineServiceIfaceMockRecorder) ResetPasswordForVirtualMac
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ResetPasswordForVirtualMachine", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).ResetPasswordForVirtualMachine), p)
 }
 
+// ResetUserDataForVirtualMachine mocks base method.
+func (m *MockVirtualMachineServiceIface) ResetUserDataForVirtualMachine(p *ResetUserDataForVirtualMachineParams) (*ResetUserDataForVirtualMachineResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ResetUserDataForVirtualMachine", p)
+	ret0, _ := ret[0].(*ResetUserDataForVirtualMachineResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ResetUserDataForVirtualMachine indicates an expected call of ResetUserDataForVirtualMachine.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) ResetUserDataForVirtualMachine(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ResetUserDataForVirtualMachine", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).ResetUserDataForVirtualMachine), p)
+}
+
 // RestoreVirtualMachine mocks base method.
 func (m *MockVirtualMachineServiceIface) RestoreVirtualMachine(p *RestoreVirtualMachineParams) (*RestoreVirtualMachineResponse, error) {
 	m.ctrl.T.Helper()
@@ -878,6 +1330,21 @@ func (mr *MockVirtualMachineServiceIfaceMockRecorder) StopVirtualMachine(p inter
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "StopVirtualMachine", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).StopVirtualMachine), p)
 }
 
+// UnmanageVirtualMachine mocks base method.
+func (m *MockVirtualMachineServiceIface) UnmanageVirtualMachine(p *UnmanageVirtualMachineParams) (*UnmanageVirtualMachineResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UnmanageVirtualMachine", p)
+	ret0, _ := ret[0].(*UnmanageVirtualMachineResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UnmanageVirtualMachine indicates an expected call of UnmanageVirtualMachine.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) UnmanageVirtualMachine(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UnmanageVirtualMachine", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).UnmanageVirtualMachine), p)
+}
+
 // UpdateDefaultNicForVirtualMachine mocks base method.
 func (m *MockVirtualMachineServiceIface) UpdateDefaultNicForVirtualMachine(p *UpdateDefaultNicForVirtualMachineParams) (*UpdateDefaultNicForVirtualMachineResponse, error) {
 	m.ctrl.T.Helper()
@@ -891,6 +1358,21 @@ func (m *MockVirtualMachineServiceIface) UpdateDefaultNicForVirtualMachine(p *Up
 func (mr *MockVirtualMachineServiceIfaceMockRecorder) UpdateDefaultNicForVirtualMachine(p interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateDefaultNicForVirtualMachine", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).UpdateDefaultNicForVirtualMachine), p)
+}
+
+// UpdateVMSchedule mocks base method.
+func (m *MockVirtualMachineServiceIface) UpdateVMSchedule(p *UpdateVMScheduleParams) (*UpdateVMScheduleResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateVMSchedule", p)
+	ret0, _ := ret[0].(*UpdateVMScheduleResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateVMSchedule indicates an expected call of UpdateVMSchedule.
+func (mr *MockVirtualMachineServiceIfaceMockRecorder) UpdateVMSchedule(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateVMSchedule", reflect.TypeOf((*MockVirtualMachineServiceIface)(nil).UpdateVMSchedule), p)
 }
 
 // UpdateVirtualMachine mocks base method.

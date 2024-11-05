@@ -818,6 +818,20 @@ func (mr *MockAutoScaleServiceIfaceMockRecorder) NewUpdateAutoScaleVmProfilePara
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewUpdateAutoScaleVmProfileParams", reflect.TypeOf((*MockAutoScaleServiceIface)(nil).NewUpdateAutoScaleVmProfileParams), id)
 }
 
+// NewUpdateConditionParams mocks base method.
+func (m *MockAutoScaleServiceIface) NewUpdateConditionParams(id, relationaloperator string, threshold int64) *UpdateConditionParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewUpdateConditionParams", id, relationaloperator, threshold)
+	ret0, _ := ret[0].(*UpdateConditionParams)
+	return ret0
+}
+
+// NewUpdateConditionParams indicates an expected call of NewUpdateConditionParams.
+func (mr *MockAutoScaleServiceIfaceMockRecorder) NewUpdateConditionParams(id, relationaloperator, threshold interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewUpdateConditionParams", reflect.TypeOf((*MockAutoScaleServiceIface)(nil).NewUpdateConditionParams), id, relationaloperator, threshold)
+}
+
 // UpdateAutoScalePolicy mocks base method.
 func (m *MockAutoScaleServiceIface) UpdateAutoScalePolicy(p *UpdateAutoScalePolicyParams) (*UpdateAutoScalePolicyResponse, error) {
 	m.ctrl.T.Helper()
@@ -861,4 +875,19 @@ func (m *MockAutoScaleServiceIface) UpdateAutoScaleVmProfile(p *UpdateAutoScaleV
 func (mr *MockAutoScaleServiceIfaceMockRecorder) UpdateAutoScaleVmProfile(p interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateAutoScaleVmProfile", reflect.TypeOf((*MockAutoScaleServiceIface)(nil).UpdateAutoScaleVmProfile), p)
+}
+
+// UpdateCondition mocks base method.
+func (m *MockAutoScaleServiceIface) UpdateCondition(p *UpdateConditionParams) (*UpdateConditionResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateCondition", p)
+	ret0, _ := ret[0].(*UpdateConditionResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateCondition indicates an expected call of UpdateCondition.
+func (mr *MockAutoScaleServiceIfaceMockRecorder) UpdateCondition(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateCondition", reflect.TypeOf((*MockAutoScaleServiceIface)(nil).UpdateCondition), p)
 }

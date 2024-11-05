@@ -104,6 +104,21 @@ func TestTemplateService(t *testing.T) {
 	}
 	t.Run("GetUploadParamsForTemplate", testgetUploadParamsForTemplate)
 
+	testlinkUserDataToTemplate := func(t *testing.T) {
+		if _, ok := response["linkUserDataToTemplate"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Template.NewLinkUserDataToTemplateParams()
+		r, err := client.Template.LinkUserDataToTemplate(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+		if r.Id == "" {
+			t.Errorf("Failed to parse response. ID not found")
+		}
+	}
+	t.Run("LinkUserDataToTemplate", testlinkUserDataToTemplate)
+
 	testlistTemplatePermissions := func(t *testing.T) {
 		if _, ok := response["listTemplatePermissions"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")
@@ -154,6 +169,18 @@ func TestTemplateService(t *testing.T) {
 		}
 	}
 	t.Run("RegisterTemplate", testregisterTemplate)
+
+	testrevokeTemplateDirectDownloadCertificate := func(t *testing.T) {
+		if _, ok := response["revokeTemplateDirectDownloadCertificate"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Template.NewRevokeTemplateDirectDownloadCertificateParams("zoneid")
+		_, err := client.Template.RevokeTemplateDirectDownloadCertificate(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("RevokeTemplateDirectDownloadCertificate", testrevokeTemplateDirectDownloadCertificate)
 
 	testupdateTemplate := func(t *testing.T) {
 		if _, ok := response["updateTemplate"]; !ok {
@@ -217,5 +244,20 @@ func TestTemplateService(t *testing.T) {
 		}
 	}
 	t.Run("ProvisionTemplateDirectDownloadCertificate", testprovisionTemplateDirectDownloadCertificate)
+
+	testuploadTemplateDirectDownloadCertificate := func(t *testing.T) {
+		if _, ok := response["uploadTemplateDirectDownloadCertificate"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Template.NewUploadTemplateDirectDownloadCertificateParams("certificate", "hypervisor", "name", "zoneid")
+		r, err := client.Template.UploadTemplateDirectDownloadCertificate(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+		if r.Id == "" {
+			t.Errorf("Failed to parse response. ID not found")
+		}
+	}
+	t.Run("UploadTemplateDirectDownloadCertificate", testuploadTemplateDirectDownloadCertificate)
 
 }

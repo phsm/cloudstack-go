@@ -1178,6 +1178,7 @@ type ResetSSHKeyForVirtualMachineResponse struct {
 	Icon                  interface{}                                         `json:"icon"`
 	Id                    string                                              `json:"id"`
 	Instancename          string                                              `json:"instancename"`
+	Ipaddress             string                                              `json:"ipaddress"`
 	Isdynamicallyscalable bool                                                `json:"isdynamicallyscalable"`
 	Isodisplaytext        string                                              `json:"isodisplaytext"`
 	Isoid                 string                                              `json:"isoid"`
@@ -1215,6 +1216,7 @@ type ResetSSHKeyForVirtualMachineResponse struct {
 	State                 string                                              `json:"state"`
 	Tags                  []Tags                                              `json:"tags"`
 	Templatedisplaytext   string                                              `json:"templatedisplaytext"`
+	Templateformat        string                                              `json:"templateformat"`
 	Templateid            string                                              `json:"templateid"`
 	Templatename          string                                              `json:"templatename"`
 	Templatetype          string                                              `json:"templatetype"`

@@ -160,6 +160,21 @@ func (mr *MockAlertServiceIfaceMockRecorder) GetAlertID(name interface{}, opts .
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAlertID", reflect.TypeOf((*MockAlertServiceIface)(nil).GetAlertID), varargs...)
 }
 
+// ListAlertTypes mocks base method.
+func (m *MockAlertServiceIface) ListAlertTypes(p *ListAlertTypesParams) (*ListAlertTypesResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListAlertTypes", p)
+	ret0, _ := ret[0].(*ListAlertTypesResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListAlertTypes indicates an expected call of ListAlertTypes.
+func (mr *MockAlertServiceIfaceMockRecorder) ListAlertTypes(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAlertTypes", reflect.TypeOf((*MockAlertServiceIface)(nil).ListAlertTypes), p)
+}
+
 // ListAlerts mocks base method.
 func (m *MockAlertServiceIface) ListAlerts(p *ListAlertsParams) (*ListAlertsResponse, error) {
 	m.ctrl.T.Helper()
@@ -215,6 +230,20 @@ func (m *MockAlertServiceIface) NewGenerateAlertParams(description, name string,
 func (mr *MockAlertServiceIfaceMockRecorder) NewGenerateAlertParams(description, name, alertType interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewGenerateAlertParams", reflect.TypeOf((*MockAlertServiceIface)(nil).NewGenerateAlertParams), description, name, alertType)
+}
+
+// NewListAlertTypesParams mocks base method.
+func (m *MockAlertServiceIface) NewListAlertTypesParams() *ListAlertTypesParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewListAlertTypesParams")
+	ret0, _ := ret[0].(*ListAlertTypesParams)
+	return ret0
+}
+
+// NewListAlertTypesParams indicates an expected call of NewListAlertTypesParams.
+func (mr *MockAlertServiceIfaceMockRecorder) NewListAlertTypesParams() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListAlertTypesParams", reflect.TypeOf((*MockAlertServiceIface)(nil).NewListAlertTypesParams))
 }
 
 // NewListAlertsParams mocks base method.

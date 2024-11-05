@@ -157,6 +157,36 @@ func (mr *MockClusterServiceIfaceMockRecorder) EnableOutOfBandManagementForClust
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "EnableOutOfBandManagementForCluster", reflect.TypeOf((*MockClusterServiceIface)(nil).EnableOutOfBandManagementForCluster), p)
 }
 
+// ExecuteClusterDrsPlan mocks base method.
+func (m *MockClusterServiceIface) ExecuteClusterDrsPlan(p *ExecuteClusterDrsPlanParams) (*ExecuteClusterDrsPlanResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ExecuteClusterDrsPlan", p)
+	ret0, _ := ret[0].(*ExecuteClusterDrsPlanResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ExecuteClusterDrsPlan indicates an expected call of ExecuteClusterDrsPlan.
+func (mr *MockClusterServiceIfaceMockRecorder) ExecuteClusterDrsPlan(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ExecuteClusterDrsPlan", reflect.TypeOf((*MockClusterServiceIface)(nil).ExecuteClusterDrsPlan), p)
+}
+
+// GenerateClusterDrsPlan mocks base method.
+func (m *MockClusterServiceIface) GenerateClusterDrsPlan(p *GenerateClusterDrsPlanParams) (*GenerateClusterDrsPlanResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GenerateClusterDrsPlan", p)
+	ret0, _ := ret[0].(*GenerateClusterDrsPlanResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GenerateClusterDrsPlan indicates an expected call of GenerateClusterDrsPlan.
+func (mr *MockClusterServiceIfaceMockRecorder) GenerateClusterDrsPlan(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GenerateClusterDrsPlan", reflect.TypeOf((*MockClusterServiceIface)(nil).GenerateClusterDrsPlan), p)
+}
+
 // GetClusterByID mocks base method.
 func (m *MockClusterServiceIface) GetClusterByID(id string, opts ...OptionFunc) (*Cluster, int, error) {
 	m.ctrl.T.Helper()
@@ -197,6 +227,27 @@ func (mr *MockClusterServiceIfaceMockRecorder) GetClusterByName(name interface{}
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{name}, opts...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetClusterByName", reflect.TypeOf((*MockClusterServiceIface)(nil).GetClusterByName), varargs...)
+}
+
+// GetClusterDrsPlanByID mocks base method.
+func (m *MockClusterServiceIface) GetClusterDrsPlanByID(id string, opts ...OptionFunc) (*ClusterDrsPlan, int, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{id}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "GetClusterDrsPlanByID", varargs...)
+	ret0, _ := ret[0].(*ClusterDrsPlan)
+	ret1, _ := ret[1].(int)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
+}
+
+// GetClusterDrsPlanByID indicates an expected call of GetClusterDrsPlanByID.
+func (mr *MockClusterServiceIfaceMockRecorder) GetClusterDrsPlanByID(id interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{id}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetClusterDrsPlanByID", reflect.TypeOf((*MockClusterServiceIface)(nil).GetClusterDrsPlanByID), varargs...)
 }
 
 // GetClusterID mocks base method.
@@ -281,6 +332,21 @@ func (mr *MockClusterServiceIfaceMockRecorder) GetClustersMetricID(name interfac
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{name}, opts...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetClustersMetricID", reflect.TypeOf((*MockClusterServiceIface)(nil).GetClustersMetricID), varargs...)
+}
+
+// ListClusterDrsPlan mocks base method.
+func (m *MockClusterServiceIface) ListClusterDrsPlan(p *ListClusterDrsPlanParams) (*ListClusterDrsPlanResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListClusterDrsPlan", p)
+	ret0, _ := ret[0].(*ListClusterDrsPlanResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListClusterDrsPlan indicates an expected call of ListClusterDrsPlan.
+func (mr *MockClusterServiceIfaceMockRecorder) ListClusterDrsPlan(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListClusterDrsPlan", reflect.TypeOf((*MockClusterServiceIface)(nil).ListClusterDrsPlan), p)
 }
 
 // ListClusters mocks base method.
@@ -424,6 +490,48 @@ func (m *MockClusterServiceIface) NewEnableOutOfBandManagementForClusterParams(c
 func (mr *MockClusterServiceIfaceMockRecorder) NewEnableOutOfBandManagementForClusterParams(clusterid interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewEnableOutOfBandManagementForClusterParams", reflect.TypeOf((*MockClusterServiceIface)(nil).NewEnableOutOfBandManagementForClusterParams), clusterid)
+}
+
+// NewExecuteClusterDrsPlanParams mocks base method.
+func (m *MockClusterServiceIface) NewExecuteClusterDrsPlanParams(id string) *ExecuteClusterDrsPlanParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewExecuteClusterDrsPlanParams", id)
+	ret0, _ := ret[0].(*ExecuteClusterDrsPlanParams)
+	return ret0
+}
+
+// NewExecuteClusterDrsPlanParams indicates an expected call of NewExecuteClusterDrsPlanParams.
+func (mr *MockClusterServiceIfaceMockRecorder) NewExecuteClusterDrsPlanParams(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewExecuteClusterDrsPlanParams", reflect.TypeOf((*MockClusterServiceIface)(nil).NewExecuteClusterDrsPlanParams), id)
+}
+
+// NewGenerateClusterDrsPlanParams mocks base method.
+func (m *MockClusterServiceIface) NewGenerateClusterDrsPlanParams(id string) *GenerateClusterDrsPlanParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewGenerateClusterDrsPlanParams", id)
+	ret0, _ := ret[0].(*GenerateClusterDrsPlanParams)
+	return ret0
+}
+
+// NewGenerateClusterDrsPlanParams indicates an expected call of NewGenerateClusterDrsPlanParams.
+func (mr *MockClusterServiceIfaceMockRecorder) NewGenerateClusterDrsPlanParams(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewGenerateClusterDrsPlanParams", reflect.TypeOf((*MockClusterServiceIface)(nil).NewGenerateClusterDrsPlanParams), id)
+}
+
+// NewListClusterDrsPlanParams mocks base method.
+func (m *MockClusterServiceIface) NewListClusterDrsPlanParams() *ListClusterDrsPlanParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewListClusterDrsPlanParams")
+	ret0, _ := ret[0].(*ListClusterDrsPlanParams)
+	return ret0
+}
+
+// NewListClusterDrsPlanParams indicates an expected call of NewListClusterDrsPlanParams.
+func (mr *MockClusterServiceIfaceMockRecorder) NewListClusterDrsPlanParams() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListClusterDrsPlanParams", reflect.TypeOf((*MockClusterServiceIface)(nil).NewListClusterDrsPlanParams))
 }
 
 // NewListClustersMetricsParams mocks base method.

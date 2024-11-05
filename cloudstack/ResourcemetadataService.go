@@ -29,8 +29,8 @@ import (
 type ResourcemetadataServiceIface interface {
 	AddResourceDetail(p *AddResourceDetailParams) (*AddResourceDetailResponse, error)
 	NewAddResourceDetailParams(details map[string]string, resourceid string, resourcetype string) *AddResourceDetailParams
-	GetVolumeSnapshotDetails(p *GetVolumeSnapshotDetailsParams) (*GetVolumeSnapshotDetailsResponse, error)
-	NewGetVolumeSnapshotDetailsParams(snapshotid string) *GetVolumeSnapshotDetailsParams
+	ListDetailOptions(p *ListDetailOptionsParams) (*ListDetailOptionsResponse, error)
+	NewListDetailOptionsParams(resourcetype string) *ListDetailOptionsParams
 	ListResourceDetails(p *ListResourceDetailsParams) (*ListResourceDetailsResponse, error)
 	NewListResourceDetailsParams(resourcetype string) *ListResourceDetailsParams
 	RemoveResourceDetail(p *RemoveResourceDetailParams) (*RemoveResourceDetailResponse, error)
@@ -198,59 +198,83 @@ type AddResourceDetailResponse struct {
 	Success     bool   `json:"success"`
 }
 
-type GetVolumeSnapshotDetailsParams struct {
+type ListDetailOptionsParams struct {
 	p map[string]interface{}
 }
 
-func (p *GetVolumeSnapshotDetailsParams) toURLValues() url.Values {
+func (p *ListDetailOptionsParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
 	}
-	if v, found := p.p["snapshotid"]; found {
-		u.Set("snapshotid", v.(string))
+	if v, found := p.p["resourceid"]; found {
+		u.Set("resourceid", v.(string))
+	}
+	if v, found := p.p["resourcetype"]; found {
+		u.Set("resourcetype", v.(string))
 	}
 	return u
 }
 
-func (p *GetVolumeSnapshotDetailsParams) SetSnapshotid(v string) {
+func (p *ListDetailOptionsParams) SetResourceid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["snapshotid"] = v
+	p.p["resourceid"] = v
 }
 
-func (p *GetVolumeSnapshotDetailsParams) ResetSnapshotid() {
-	if p.p != nil && p.p["snapshotid"] != nil {
-		delete(p.p, "snapshotid")
+func (p *ListDetailOptionsParams) ResetResourceid() {
+	if p.p != nil && p.p["resourceid"] != nil {
+		delete(p.p, "resourceid")
 	}
 }
 
-func (p *GetVolumeSnapshotDetailsParams) GetSnapshotid() (string, bool) {
+func (p *ListDetailOptionsParams) GetResourceid() (string, bool) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	value, ok := p.p["snapshotid"].(string)
+	value, ok := p.p["resourceid"].(string)
 	return value, ok
 }
 
-// You should always use this function to get a new GetVolumeSnapshotDetailsParams instance,
+func (p *ListDetailOptionsParams) SetResourcetype(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["resourcetype"] = v
+}
+
+func (p *ListDetailOptionsParams) ResetResourcetype() {
+	if p.p != nil && p.p["resourcetype"] != nil {
+		delete(p.p, "resourcetype")
+	}
+}
+
+func (p *ListDetailOptionsParams) GetResourcetype() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["resourcetype"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new ListDetailOptionsParams instance,
 // as then you are sure you have configured all required params
-func (s *ResourcemetadataService) NewGetVolumeSnapshotDetailsParams(snapshotid string) *GetVolumeSnapshotDetailsParams {
-	p := &GetVolumeSnapshotDetailsParams{}
+func (s *ResourcemetadataService) NewListDetailOptionsParams(resourcetype string) *ListDetailOptionsParams {
+	p := &ListDetailOptionsParams{}
 	p.p = make(map[string]interface{})
-	p.p["snapshotid"] = snapshotid
+	p.p["resourcetype"] = resourcetype
 	return p
 }
 
-// Get Volume Snapshot Details
-func (s *ResourcemetadataService) GetVolumeSnapshotDetails(p *GetVolumeSnapshotDetailsParams) (*GetVolumeSnapshotDetailsResponse, error) {
-	resp, err := s.cs.newRequest("getVolumeSnapshotDetails", p.toURLValues())
+// Lists all possible details and their options for a resource type such as a VM or a template
+func (s *ResourcemetadataService) ListDetailOptions(p *ListDetailOptionsParams) (*ListDetailOptionsResponse, error) {
+	resp, err := s.cs.newRequest("listDetailOptions", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r GetVolumeSnapshotDetailsResponse
+	var r ListDetailOptionsResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
 	}
@@ -258,10 +282,15 @@ func (s *ResourcemetadataService) GetVolumeSnapshotDetails(p *GetVolumeSnapshotD
 	return &r, nil
 }
 
-type GetVolumeSnapshotDetailsResponse struct {
-	JobID           string `json:"jobid"`
-	Jobstatus       int    `json:"jobstatus"`
-	VolumeiScsiName string `json:"volumeiScsiName"`
+type ListDetailOptionsResponse struct {
+	Count         int             `json:"count"`
+	DetailOptions []*DetailOption `json:"detailoption"`
+}
+
+type DetailOption struct {
+	Details   map[string]string `json:"details"`
+	JobID     string            `json:"jobid"`
+	Jobstatus int               `json:"jobstatus"`
 }
 
 type ListResourceDetailsParams struct {

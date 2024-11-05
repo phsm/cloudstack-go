@@ -35,6 +35,18 @@ func TestRouterService(t *testing.T) {
 	client := cloudstack.NewClient(server.URL, "APIKEY", "SECRETKEY", true)
 	defer server.Close()
 
+	testaddTungstenFabricNetworkGatewayToLogicalRouter := func(t *testing.T) {
+		if _, ok := response["addTungstenFabricNetworkGatewayToLogicalRouter"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Router.NewAddTungstenFabricNetworkGatewayToLogicalRouterParams("logicalrouteruuid", "networkuuid", "zoneid")
+		_, err := client.Router.AddTungstenFabricNetworkGatewayToLogicalRouter(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("AddTungstenFabricNetworkGatewayToLogicalRouter", testaddTungstenFabricNetworkGatewayToLogicalRouter)
+
 	testchangeServiceForRouter := func(t *testing.T) {
 		if _, ok := response["changeServiceForRouter"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")
@@ -65,6 +77,18 @@ func TestRouterService(t *testing.T) {
 	}
 	t.Run("ConfigureVirtualRouterElement", testconfigureVirtualRouterElement)
 
+	testcreateTungstenFabricLogicalRouter := func(t *testing.T) {
+		if _, ok := response["createTungstenFabricLogicalRouter"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Router.NewCreateTungstenFabricLogicalRouterParams("name", "zoneid")
+		_, err := client.Router.CreateTungstenFabricLogicalRouter(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("CreateTungstenFabricLogicalRouter", testcreateTungstenFabricLogicalRouter)
+
 	testcreateVirtualRouterElement := func(t *testing.T) {
 		if _, ok := response["createVirtualRouterElement"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")
@@ -79,6 +103,18 @@ func TestRouterService(t *testing.T) {
 		}
 	}
 	t.Run("CreateVirtualRouterElement", testcreateVirtualRouterElement)
+
+	testdeleteTungstenFabricLogicalRouter := func(t *testing.T) {
+		if _, ok := response["deleteTungstenFabricLogicalRouter"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Router.NewDeleteTungstenFabricLogicalRouterParams("logicalrouteruuid", "zoneid")
+		_, err := client.Router.DeleteTungstenFabricLogicalRouter(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("DeleteTungstenFabricLogicalRouter", testdeleteTungstenFabricLogicalRouter)
 
 	testdestroyRouter := func(t *testing.T) {
 		if _, ok := response["destroyRouter"]; !ok {
@@ -95,6 +131,18 @@ func TestRouterService(t *testing.T) {
 	}
 	t.Run("DestroyRouter", testdestroyRouter)
 
+	testgetRouterHealthCheckResults := func(t *testing.T) {
+		if _, ok := response["getRouterHealthCheckResults"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Router.NewGetRouterHealthCheckResultsParams("routerid")
+		_, err := client.Router.GetRouterHealthCheckResults(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("GetRouterHealthCheckResults", testgetRouterHealthCheckResults)
+
 	testlistRouters := func(t *testing.T) {
 		if _, ok := response["listRouters"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")
@@ -106,6 +154,18 @@ func TestRouterService(t *testing.T) {
 		}
 	}
 	t.Run("ListRouters", testlistRouters)
+
+	testlistTungstenFabricLogicalRouter := func(t *testing.T) {
+		if _, ok := response["listTungstenFabricLogicalRouter"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Router.NewListTungstenFabricLogicalRouterParams()
+		_, err := client.Router.ListTungstenFabricLogicalRouter(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("ListTungstenFabricLogicalRouter", testlistTungstenFabricLogicalRouter)
 
 	testlistVirtualRouterElements := func(t *testing.T) {
 		if _, ok := response["listVirtualRouterElements"]; !ok {
@@ -133,6 +193,18 @@ func TestRouterService(t *testing.T) {
 		}
 	}
 	t.Run("RebootRouter", testrebootRouter)
+
+	testremoveTungstenFabricNetworkGatewayFromLogicalRouter := func(t *testing.T) {
+		if _, ok := response["removeTungstenFabricNetworkGatewayFromLogicalRouter"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Router.NewRemoveTungstenFabricNetworkGatewayFromLogicalRouterParams("logicalrouteruuid", "networkuuid", "zoneid")
+		_, err := client.Router.RemoveTungstenFabricNetworkGatewayFromLogicalRouter(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("RemoveTungstenFabricNetworkGatewayFromLogicalRouter", testremoveTungstenFabricNetworkGatewayFromLogicalRouter)
 
 	teststartRouter := func(t *testing.T) {
 		if _, ok := response["startRouter"]; !ok {

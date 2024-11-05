@@ -28,28 +28,180 @@ import (
 )
 
 type RouterServiceIface interface {
+	AddTungstenFabricNetworkGatewayToLogicalRouter(p *AddTungstenFabricNetworkGatewayToLogicalRouterParams) (*AddTungstenFabricNetworkGatewayToLogicalRouterResponse, error)
+	NewAddTungstenFabricNetworkGatewayToLogicalRouterParams(logicalrouteruuid string, networkuuid string, zoneid string) *AddTungstenFabricNetworkGatewayToLogicalRouterParams
 	ChangeServiceForRouter(p *ChangeServiceForRouterParams) (*ChangeServiceForRouterResponse, error)
 	NewChangeServiceForRouterParams(id string, serviceofferingid string) *ChangeServiceForRouterParams
 	ConfigureVirtualRouterElement(p *ConfigureVirtualRouterElementParams) (*VirtualRouterElementResponse, error)
 	NewConfigureVirtualRouterElementParams(enabled bool, id string) *ConfigureVirtualRouterElementParams
+	CreateTungstenFabricLogicalRouter(p *CreateTungstenFabricLogicalRouterParams) (*CreateTungstenFabricLogicalRouterResponse, error)
+	NewCreateTungstenFabricLogicalRouterParams(name string, zoneid string) *CreateTungstenFabricLogicalRouterParams
 	CreateVirtualRouterElement(p *CreateVirtualRouterElementParams) (*CreateVirtualRouterElementResponse, error)
 	NewCreateVirtualRouterElementParams(nspid string) *CreateVirtualRouterElementParams
+	DeleteTungstenFabricLogicalRouter(p *DeleteTungstenFabricLogicalRouterParams) (*DeleteTungstenFabricLogicalRouterResponse, error)
+	NewDeleteTungstenFabricLogicalRouterParams(logicalrouteruuid string, zoneid string) *DeleteTungstenFabricLogicalRouterParams
 	DestroyRouter(p *DestroyRouterParams) (*DestroyRouterResponse, error)
 	NewDestroyRouterParams(id string) *DestroyRouterParams
+	GetRouterHealthCheckResults(p *GetRouterHealthCheckResultsParams) (*GetRouterHealthCheckResultsResponse, error)
+	NewGetRouterHealthCheckResultsParams(routerid string) *GetRouterHealthCheckResultsParams
 	ListRouters(p *ListRoutersParams) (*ListRoutersResponse, error)
 	NewListRoutersParams() *ListRoutersParams
 	GetRouterID(name string, opts ...OptionFunc) (string, int, error)
 	GetRouterByName(name string, opts ...OptionFunc) (*Router, int, error)
 	GetRouterByID(id string, opts ...OptionFunc) (*Router, int, error)
+	ListTungstenFabricLogicalRouter(p *ListTungstenFabricLogicalRouterParams) (*ListTungstenFabricLogicalRouterResponse, error)
+	NewListTungstenFabricLogicalRouterParams() *ListTungstenFabricLogicalRouterParams
 	ListVirtualRouterElements(p *ListVirtualRouterElementsParams) (*ListVirtualRouterElementsResponse, error)
 	NewListVirtualRouterElementsParams() *ListVirtualRouterElementsParams
 	GetVirtualRouterElementByID(id string, opts ...OptionFunc) (*VirtualRouterElement, int, error)
 	RebootRouter(p *RebootRouterParams) (*RebootRouterResponse, error)
 	NewRebootRouterParams(id string) *RebootRouterParams
+	RemoveTungstenFabricNetworkGatewayFromLogicalRouter(p *RemoveTungstenFabricNetworkGatewayFromLogicalRouterParams) (*RemoveTungstenFabricNetworkGatewayFromLogicalRouterResponse, error)
+	NewRemoveTungstenFabricNetworkGatewayFromLogicalRouterParams(logicalrouteruuid string, networkuuid string, zoneid string) *RemoveTungstenFabricNetworkGatewayFromLogicalRouterParams
 	StartRouter(p *StartRouterParams) (*StartRouterResponse, error)
 	NewStartRouterParams(id string) *StartRouterParams
 	StopRouter(p *StopRouterParams) (*StopRouterResponse, error)
 	NewStopRouterParams(id string) *StopRouterParams
+}
+
+type AddTungstenFabricNetworkGatewayToLogicalRouterParams struct {
+	p map[string]interface{}
+}
+
+func (p *AddTungstenFabricNetworkGatewayToLogicalRouterParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["logicalrouteruuid"]; found {
+		u.Set("logicalrouteruuid", v.(string))
+	}
+	if v, found := p.p["networkuuid"]; found {
+		u.Set("networkuuid", v.(string))
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *AddTungstenFabricNetworkGatewayToLogicalRouterParams) SetLogicalrouteruuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["logicalrouteruuid"] = v
+}
+
+func (p *AddTungstenFabricNetworkGatewayToLogicalRouterParams) ResetLogicalrouteruuid() {
+	if p.p != nil && p.p["logicalrouteruuid"] != nil {
+		delete(p.p, "logicalrouteruuid")
+	}
+}
+
+func (p *AddTungstenFabricNetworkGatewayToLogicalRouterParams) GetLogicalrouteruuid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["logicalrouteruuid"].(string)
+	return value, ok
+}
+
+func (p *AddTungstenFabricNetworkGatewayToLogicalRouterParams) SetNetworkuuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["networkuuid"] = v
+}
+
+func (p *AddTungstenFabricNetworkGatewayToLogicalRouterParams) ResetNetworkuuid() {
+	if p.p != nil && p.p["networkuuid"] != nil {
+		delete(p.p, "networkuuid")
+	}
+}
+
+func (p *AddTungstenFabricNetworkGatewayToLogicalRouterParams) GetNetworkuuid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["networkuuid"].(string)
+	return value, ok
+}
+
+func (p *AddTungstenFabricNetworkGatewayToLogicalRouterParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+}
+
+func (p *AddTungstenFabricNetworkGatewayToLogicalRouterParams) ResetZoneid() {
+	if p.p != nil && p.p["zoneid"] != nil {
+		delete(p.p, "zoneid")
+	}
+}
+
+func (p *AddTungstenFabricNetworkGatewayToLogicalRouterParams) GetZoneid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["zoneid"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new AddTungstenFabricNetworkGatewayToLogicalRouterParams instance,
+// as then you are sure you have configured all required params
+func (s *RouterService) NewAddTungstenFabricNetworkGatewayToLogicalRouterParams(logicalrouteruuid string, networkuuid string, zoneid string) *AddTungstenFabricNetworkGatewayToLogicalRouterParams {
+	p := &AddTungstenFabricNetworkGatewayToLogicalRouterParams{}
+	p.p = make(map[string]interface{})
+	p.p["logicalrouteruuid"] = logicalrouteruuid
+	p.p["networkuuid"] = networkuuid
+	p.p["zoneid"] = zoneid
+	return p
+}
+
+// add Tungsten-Fabric network gateway to logical router
+func (s *RouterService) AddTungstenFabricNetworkGatewayToLogicalRouter(p *AddTungstenFabricNetworkGatewayToLogicalRouterParams) (*AddTungstenFabricNetworkGatewayToLogicalRouterResponse, error) {
+	resp, err := s.cs.newRequest("addTungstenFabricNetworkGatewayToLogicalRouter", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r AddTungstenFabricNetworkGatewayToLogicalRouterResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type AddTungstenFabricNetworkGatewayToLogicalRouterResponse struct {
+	JobID     string     `json:"jobid"`
+	Jobstatus int        `json:"jobstatus"`
+	Name      string     `json:"name"`
+	Network   []*Network `json:"network"`
+	Uuid      string     `json:"uuid"`
+	Zoneid    int64      `json:"zoneid"`
+	Zonename  string     `json:"zonename"`
 }
 
 type ChangeServiceForRouterParams struct {
@@ -322,6 +474,121 @@ type VirtualRouterElementResponse struct {
 	Projectid string `json:"projectid"`
 }
 
+type CreateTungstenFabricLogicalRouterParams struct {
+	p map[string]interface{}
+}
+
+func (p *CreateTungstenFabricLogicalRouterParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *CreateTungstenFabricLogicalRouterParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+}
+
+func (p *CreateTungstenFabricLogicalRouterParams) ResetName() {
+	if p.p != nil && p.p["name"] != nil {
+		delete(p.p, "name")
+	}
+}
+
+func (p *CreateTungstenFabricLogicalRouterParams) GetName() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["name"].(string)
+	return value, ok
+}
+
+func (p *CreateTungstenFabricLogicalRouterParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+}
+
+func (p *CreateTungstenFabricLogicalRouterParams) ResetZoneid() {
+	if p.p != nil && p.p["zoneid"] != nil {
+		delete(p.p, "zoneid")
+	}
+}
+
+func (p *CreateTungstenFabricLogicalRouterParams) GetZoneid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["zoneid"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new CreateTungstenFabricLogicalRouterParams instance,
+// as then you are sure you have configured all required params
+func (s *RouterService) NewCreateTungstenFabricLogicalRouterParams(name string, zoneid string) *CreateTungstenFabricLogicalRouterParams {
+	p := &CreateTungstenFabricLogicalRouterParams{}
+	p.p = make(map[string]interface{})
+	p.p["name"] = name
+	p.p["zoneid"] = zoneid
+	return p
+}
+
+// create Tungsten-Fabric logical router
+func (s *RouterService) CreateTungstenFabricLogicalRouter(p *CreateTungstenFabricLogicalRouterParams) (*CreateTungstenFabricLogicalRouterResponse, error) {
+	resp, err := s.cs.newRequest("createTungstenFabricLogicalRouter", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r CreateTungstenFabricLogicalRouterResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type CreateTungstenFabricLogicalRouterResponse struct {
+	JobID     string     `json:"jobid"`
+	Jobstatus int        `json:"jobstatus"`
+	Name      string     `json:"name"`
+	Network   []*Network `json:"network"`
+	Uuid      string     `json:"uuid"`
+	Zoneid    int64      `json:"zoneid"`
+	Zonename  string     `json:"zonename"`
+}
+
 type CreateVirtualRouterElementParams struct {
 	p map[string]interface{}
 }
@@ -437,6 +704,113 @@ type CreateVirtualRouterElementResponse struct {
 	Nspid     string `json:"nspid"`
 	Project   string `json:"project"`
 	Projectid string `json:"projectid"`
+}
+
+type DeleteTungstenFabricLogicalRouterParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeleteTungstenFabricLogicalRouterParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["logicalrouteruuid"]; found {
+		u.Set("logicalrouteruuid", v.(string))
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *DeleteTungstenFabricLogicalRouterParams) SetLogicalrouteruuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["logicalrouteruuid"] = v
+}
+
+func (p *DeleteTungstenFabricLogicalRouterParams) ResetLogicalrouteruuid() {
+	if p.p != nil && p.p["logicalrouteruuid"] != nil {
+		delete(p.p, "logicalrouteruuid")
+	}
+}
+
+func (p *DeleteTungstenFabricLogicalRouterParams) GetLogicalrouteruuid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["logicalrouteruuid"].(string)
+	return value, ok
+}
+
+func (p *DeleteTungstenFabricLogicalRouterParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+}
+
+func (p *DeleteTungstenFabricLogicalRouterParams) ResetZoneid() {
+	if p.p != nil && p.p["zoneid"] != nil {
+		delete(p.p, "zoneid")
+	}
+}
+
+func (p *DeleteTungstenFabricLogicalRouterParams) GetZoneid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["zoneid"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new DeleteTungstenFabricLogicalRouterParams instance,
+// as then you are sure you have configured all required params
+func (s *RouterService) NewDeleteTungstenFabricLogicalRouterParams(logicalrouteruuid string, zoneid string) *DeleteTungstenFabricLogicalRouterParams {
+	p := &DeleteTungstenFabricLogicalRouterParams{}
+	p.p = make(map[string]interface{})
+	p.p["logicalrouteruuid"] = logicalrouteruuid
+	p.p["zoneid"] = zoneid
+	return p
+}
+
+// delete Tungsten-Fabric logical router
+func (s *RouterService) DeleteTungstenFabricLogicalRouter(p *DeleteTungstenFabricLogicalRouterParams) (*DeleteTungstenFabricLogicalRouterResponse, error) {
+	resp, err := s.cs.newRequest("deleteTungstenFabricLogicalRouter", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeleteTungstenFabricLogicalRouterResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type DeleteTungstenFabricLogicalRouterResponse struct {
+	Displaytext string `json:"displaytext"`
+	JobID       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
+	Success     bool   `json:"success"`
 }
 
 type DestroyRouterParams struct {
@@ -583,6 +957,98 @@ type DestroyRouterResponseHealthcheckresults struct {
 	Details     string `json:"details"`
 	Lastupdated string `json:"lastupdated"`
 	Success     bool   `json:"success"`
+}
+
+type GetRouterHealthCheckResultsParams struct {
+	p map[string]interface{}
+}
+
+func (p *GetRouterHealthCheckResultsParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["performfreshchecks"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("performfreshchecks", vv)
+	}
+	if v, found := p.p["routerid"]; found {
+		u.Set("routerid", v.(string))
+	}
+	return u
+}
+
+func (p *GetRouterHealthCheckResultsParams) SetPerformfreshchecks(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["performfreshchecks"] = v
+}
+
+func (p *GetRouterHealthCheckResultsParams) ResetPerformfreshchecks() {
+	if p.p != nil && p.p["performfreshchecks"] != nil {
+		delete(p.p, "performfreshchecks")
+	}
+}
+
+func (p *GetRouterHealthCheckResultsParams) GetPerformfreshchecks() (bool, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["performfreshchecks"].(bool)
+	return value, ok
+}
+
+func (p *GetRouterHealthCheckResultsParams) SetRouterid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["routerid"] = v
+}
+
+func (p *GetRouterHealthCheckResultsParams) ResetRouterid() {
+	if p.p != nil && p.p["routerid"] != nil {
+		delete(p.p, "routerid")
+	}
+}
+
+func (p *GetRouterHealthCheckResultsParams) GetRouterid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["routerid"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new GetRouterHealthCheckResultsParams instance,
+// as then you are sure you have configured all required params
+func (s *RouterService) NewGetRouterHealthCheckResultsParams(routerid string) *GetRouterHealthCheckResultsParams {
+	p := &GetRouterHealthCheckResultsParams{}
+	p.p = make(map[string]interface{})
+	p.p["routerid"] = routerid
+	return p
+}
+
+// Starts a router.
+func (s *RouterService) GetRouterHealthCheckResults(p *GetRouterHealthCheckResultsParams) (*GetRouterHealthCheckResultsResponse, error) {
+	resp, err := s.cs.newRequest("getRouterHealthCheckResults", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r GetRouterHealthCheckResultsResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type GetRouterHealthCheckResultsResponse struct {
+	Healthchecks []string `json:"healthchecks"`
+	JobID        string   `json:"jobid"`
+	Jobstatus    int      `json:"jobstatus"`
+	Routerid     string   `json:"routerid"`
 }
 
 type ListRoutersParams struct {
@@ -1285,6 +1751,202 @@ type RouterHealthcheckresults struct {
 	Success     bool   `json:"success"`
 }
 
+type ListTungstenFabricLogicalRouterParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListTungstenFabricLogicalRouterParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["logicalrouteruuid"]; found {
+		u.Set("logicalrouteruuid", v.(string))
+	}
+	if v, found := p.p["networkuuid"]; found {
+		u.Set("networkuuid", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *ListTungstenFabricLogicalRouterParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+}
+
+func (p *ListTungstenFabricLogicalRouterParams) ResetKeyword() {
+	if p.p != nil && p.p["keyword"] != nil {
+		delete(p.p, "keyword")
+	}
+}
+
+func (p *ListTungstenFabricLogicalRouterParams) GetKeyword() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["keyword"].(string)
+	return value, ok
+}
+
+func (p *ListTungstenFabricLogicalRouterParams) SetLogicalrouteruuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["logicalrouteruuid"] = v
+}
+
+func (p *ListTungstenFabricLogicalRouterParams) ResetLogicalrouteruuid() {
+	if p.p != nil && p.p["logicalrouteruuid"] != nil {
+		delete(p.p, "logicalrouteruuid")
+	}
+}
+
+func (p *ListTungstenFabricLogicalRouterParams) GetLogicalrouteruuid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["logicalrouteruuid"].(string)
+	return value, ok
+}
+
+func (p *ListTungstenFabricLogicalRouterParams) SetNetworkuuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["networkuuid"] = v
+}
+
+func (p *ListTungstenFabricLogicalRouterParams) ResetNetworkuuid() {
+	if p.p != nil && p.p["networkuuid"] != nil {
+		delete(p.p, "networkuuid")
+	}
+}
+
+func (p *ListTungstenFabricLogicalRouterParams) GetNetworkuuid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["networkuuid"].(string)
+	return value, ok
+}
+
+func (p *ListTungstenFabricLogicalRouterParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+}
+
+func (p *ListTungstenFabricLogicalRouterParams) ResetPage() {
+	if p.p != nil && p.p["page"] != nil {
+		delete(p.p, "page")
+	}
+}
+
+func (p *ListTungstenFabricLogicalRouterParams) GetPage() (int, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["page"].(int)
+	return value, ok
+}
+
+func (p *ListTungstenFabricLogicalRouterParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+}
+
+func (p *ListTungstenFabricLogicalRouterParams) ResetPagesize() {
+	if p.p != nil && p.p["pagesize"] != nil {
+		delete(p.p, "pagesize")
+	}
+}
+
+func (p *ListTungstenFabricLogicalRouterParams) GetPagesize() (int, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["pagesize"].(int)
+	return value, ok
+}
+
+func (p *ListTungstenFabricLogicalRouterParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+}
+
+func (p *ListTungstenFabricLogicalRouterParams) ResetZoneid() {
+	if p.p != nil && p.p["zoneid"] != nil {
+		delete(p.p, "zoneid")
+	}
+}
+
+func (p *ListTungstenFabricLogicalRouterParams) GetZoneid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["zoneid"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new ListTungstenFabricLogicalRouterParams instance,
+// as then you are sure you have configured all required params
+func (s *RouterService) NewListTungstenFabricLogicalRouterParams() *ListTungstenFabricLogicalRouterParams {
+	p := &ListTungstenFabricLogicalRouterParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// list Tungsten-Fabric logical router
+func (s *RouterService) ListTungstenFabricLogicalRouter(p *ListTungstenFabricLogicalRouterParams) (*ListTungstenFabricLogicalRouterResponse, error) {
+	resp, err := s.cs.newRequest("listTungstenFabricLogicalRouter", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ListTungstenFabricLogicalRouterResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type ListTungstenFabricLogicalRouterResponse struct {
+	Count                       int                            `json:"count"`
+	TungstenFabricLogicalRouter []*TungstenFabricLogicalRouter `json:"tungstenfabriclogicalrouter"`
+}
+
+type TungstenFabricLogicalRouter struct {
+	JobID     string     `json:"jobid"`
+	Jobstatus int        `json:"jobstatus"`
+	Name      string     `json:"name"`
+	Network   []*Network `json:"network"`
+	Uuid      string     `json:"uuid"`
+	Zoneid    int64      `json:"zoneid"`
+	Zonename  string     `json:"zonename"`
+}
+
 type ListVirtualRouterElementsParams struct {
 	p map[string]interface{}
 }
@@ -1687,6 +2349,146 @@ type RebootRouterResponseHealthcheckresults struct {
 	Details     string `json:"details"`
 	Lastupdated string `json:"lastupdated"`
 	Success     bool   `json:"success"`
+}
+
+type RemoveTungstenFabricNetworkGatewayFromLogicalRouterParams struct {
+	p map[string]interface{}
+}
+
+func (p *RemoveTungstenFabricNetworkGatewayFromLogicalRouterParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["logicalrouteruuid"]; found {
+		u.Set("logicalrouteruuid", v.(string))
+	}
+	if v, found := p.p["networkuuid"]; found {
+		u.Set("networkuuid", v.(string))
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *RemoveTungstenFabricNetworkGatewayFromLogicalRouterParams) SetLogicalrouteruuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["logicalrouteruuid"] = v
+}
+
+func (p *RemoveTungstenFabricNetworkGatewayFromLogicalRouterParams) ResetLogicalrouteruuid() {
+	if p.p != nil && p.p["logicalrouteruuid"] != nil {
+		delete(p.p, "logicalrouteruuid")
+	}
+}
+
+func (p *RemoveTungstenFabricNetworkGatewayFromLogicalRouterParams) GetLogicalrouteruuid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["logicalrouteruuid"].(string)
+	return value, ok
+}
+
+func (p *RemoveTungstenFabricNetworkGatewayFromLogicalRouterParams) SetNetworkuuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["networkuuid"] = v
+}
+
+func (p *RemoveTungstenFabricNetworkGatewayFromLogicalRouterParams) ResetNetworkuuid() {
+	if p.p != nil && p.p["networkuuid"] != nil {
+		delete(p.p, "networkuuid")
+	}
+}
+
+func (p *RemoveTungstenFabricNetworkGatewayFromLogicalRouterParams) GetNetworkuuid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["networkuuid"].(string)
+	return value, ok
+}
+
+func (p *RemoveTungstenFabricNetworkGatewayFromLogicalRouterParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+}
+
+func (p *RemoveTungstenFabricNetworkGatewayFromLogicalRouterParams) ResetZoneid() {
+	if p.p != nil && p.p["zoneid"] != nil {
+		delete(p.p, "zoneid")
+	}
+}
+
+func (p *RemoveTungstenFabricNetworkGatewayFromLogicalRouterParams) GetZoneid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["zoneid"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new RemoveTungstenFabricNetworkGatewayFromLogicalRouterParams instance,
+// as then you are sure you have configured all required params
+func (s *RouterService) NewRemoveTungstenFabricNetworkGatewayFromLogicalRouterParams(logicalrouteruuid string, networkuuid string, zoneid string) *RemoveTungstenFabricNetworkGatewayFromLogicalRouterParams {
+	p := &RemoveTungstenFabricNetworkGatewayFromLogicalRouterParams{}
+	p.p = make(map[string]interface{})
+	p.p["logicalrouteruuid"] = logicalrouteruuid
+	p.p["networkuuid"] = networkuuid
+	p.p["zoneid"] = zoneid
+	return p
+}
+
+// remove Tungsten-Fabric network gateway from logical router
+func (s *RouterService) RemoveTungstenFabricNetworkGatewayFromLogicalRouter(p *RemoveTungstenFabricNetworkGatewayFromLogicalRouterParams) (*RemoveTungstenFabricNetworkGatewayFromLogicalRouterResponse, error) {
+	resp, err := s.cs.newRequest("removeTungstenFabricNetworkGatewayFromLogicalRouter", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r RemoveTungstenFabricNetworkGatewayFromLogicalRouterResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type RemoveTungstenFabricNetworkGatewayFromLogicalRouterResponse struct {
+	JobID     string     `json:"jobid"`
+	Jobstatus int        `json:"jobstatus"`
+	Name      string     `json:"name"`
+	Network   []*Network `json:"network"`
+	Uuid      string     `json:"uuid"`
+	Zoneid    int64      `json:"zoneid"`
+	Zonename  string     `json:"zonename"`
 }
 
 type StartRouterParams struct {

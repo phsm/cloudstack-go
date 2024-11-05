@@ -35,6 +35,21 @@ func TestSnapshotService(t *testing.T) {
 	client := cloudstack.NewClient(server.URL, "APIKEY", "SECRETKEY", true)
 	defer server.Close()
 
+	testarchiveSnapshot := func(t *testing.T) {
+		if _, ok := response["archiveSnapshot"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Snapshot.NewArchiveSnapshotParams("id")
+		r, err := client.Snapshot.ArchiveSnapshot(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+		if r.Id == "" {
+			t.Errorf("Failed to parse response. ID not found")
+		}
+	}
+	t.Run("ArchiveSnapshot", testarchiveSnapshot)
+
 	testcreateSnapshot := func(t *testing.T) {
 		if _, ok := response["createSnapshot"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")
@@ -79,6 +94,21 @@ func TestSnapshotService(t *testing.T) {
 		}
 	}
 	t.Run("CreateVMSnapshot", testcreateVMSnapshot)
+
+	testcopySnapshot := func(t *testing.T) {
+		if _, ok := response["copySnapshot"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Snapshot.NewCopySnapshotParams("id")
+		r, err := client.Snapshot.CopySnapshot(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+		if r.Id == "" {
+			t.Errorf("Failed to parse response. ID not found")
+		}
+	}
+	t.Run("CopySnapshot", testcopySnapshot)
 
 	testdeleteSnapshot := func(t *testing.T) {
 		if _, ok := response["deleteSnapshot"]; !ok {

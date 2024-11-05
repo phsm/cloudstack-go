@@ -28,12 +28,16 @@ import (
 )
 
 type SnapshotServiceIface interface {
+	ArchiveSnapshot(p *ArchiveSnapshotParams) (*ArchiveSnapshotResponse, error)
+	NewArchiveSnapshotParams(id string) *ArchiveSnapshotParams
 	CreateSnapshot(p *CreateSnapshotParams) (*CreateSnapshotResponse, error)
 	NewCreateSnapshotParams(volumeid string) *CreateSnapshotParams
 	CreateSnapshotPolicy(p *CreateSnapshotPolicyParams) (*CreateSnapshotPolicyResponse, error)
 	NewCreateSnapshotPolicyParams(intervaltype string, maxsnaps int, schedule string, timezone string, volumeid string) *CreateSnapshotPolicyParams
 	CreateVMSnapshot(p *CreateVMSnapshotParams) (*CreateVMSnapshotResponse, error)
 	NewCreateVMSnapshotParams(virtualmachineid string) *CreateVMSnapshotParams
+	CopySnapshot(p *CopySnapshotParams) (*CopySnapshotResponse, error)
+	NewCopySnapshotParams(id string) *CopySnapshotParams
 	DeleteSnapshot(p *DeleteSnapshotParams) (*DeleteSnapshotResponse, error)
 	NewDeleteSnapshotParams(id string) *DeleteSnapshotParams
 	DeleteSnapshotPolicies(p *DeleteSnapshotPoliciesParams) (*DeleteSnapshotPoliciesResponse, error)
@@ -57,6 +61,148 @@ type SnapshotServiceIface interface {
 	NewRevertToVMSnapshotParams(vmsnapshotid string) *RevertToVMSnapshotParams
 	UpdateSnapshotPolicy(p *UpdateSnapshotPolicyParams) (*UpdateSnapshotPolicyResponse, error)
 	NewUpdateSnapshotPolicyParams() *UpdateSnapshotPolicyParams
+}
+
+type ArchiveSnapshotParams struct {
+	p map[string]interface{}
+}
+
+func (p *ArchiveSnapshotParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *ArchiveSnapshotParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *ArchiveSnapshotParams) ResetId() {
+	if p.p != nil && p.p["id"] != nil {
+		delete(p.p, "id")
+	}
+}
+
+func (p *ArchiveSnapshotParams) GetId() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["id"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new ArchiveSnapshotParams instance,
+// as then you are sure you have configured all required params
+func (s *SnapshotService) NewArchiveSnapshotParams(id string) *ArchiveSnapshotParams {
+	p := &ArchiveSnapshotParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Archives (moves) a snapshot on primary storage to secondary storage
+func (s *SnapshotService) ArchiveSnapshot(p *ArchiveSnapshotParams) (*ArchiveSnapshotResponse, error) {
+	resp, err := s.cs.newRequest("archiveSnapshot", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ArchiveSnapshotResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type ArchiveSnapshotResponse struct {
+	Account         string            `json:"account"`
+	Created         string            `json:"created"`
+	Datastoreid     string            `json:"datastoreid"`
+	Datastorename   string            `json:"datastorename"`
+	Datastorestate  string            `json:"datastorestate"`
+	Datastoretype   string            `json:"datastoretype"`
+	Domain          string            `json:"domain"`
+	Domainid        string            `json:"domainid"`
+	Downloaddetails map[string]string `json:"downloaddetails"`
+	Hasannotations  bool              `json:"hasannotations"`
+	Id              string            `json:"id"`
+	Intervaltype    string            `json:"intervaltype"`
+	JobID           string            `json:"jobid"`
+	Jobstatus       int               `json:"jobstatus"`
+	Locationtype    string            `json:"locationtype"`
+	Name            string            `json:"name"`
+	Osdisplayname   string            `json:"osdisplayname"`
+	Ostypeid        string            `json:"ostypeid"`
+	Physicalsize    int64             `json:"physicalsize"`
+	Project         string            `json:"project"`
+	Projectid       string            `json:"projectid"`
+	Revertable      bool              `json:"revertable"`
+	Snapshottype    string            `json:"snapshottype"`
+	State           string            `json:"state"`
+	Status          string            `json:"status"`
+	Tags            []Tags            `json:"tags"`
+	Virtualsize     int64             `json:"virtualsize"`
+	Volumeid        string            `json:"volumeid"`
+	Volumename      string            `json:"volumename"`
+	Volumetype      string            `json:"volumetype"`
+	Zoneid          string            `json:"zoneid"`
+	Zonename        string            `json:"zonename"`
+}
+
+func (r *ArchiveSnapshotResponse) UnmarshalJSON(b []byte) error {
+	var m map[string]interface{}
+	err := json.Unmarshal(b, &m)
+	if err != nil {
+		return err
+	}
+
+	if success, ok := m["success"].(string); ok {
+		m["success"] = success == "true"
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	type alias ArchiveSnapshotResponse
+	return json.Unmarshal(b, (*alias)(r))
 }
 
 type CreateSnapshotParams struct {
@@ -881,6 +1027,221 @@ type CreateVMSnapshotResponse struct {
 	Virtualmachinename string `json:"virtualmachinename"`
 	Zoneid             string `json:"zoneid"`
 	Zonename           string `json:"zonename"`
+}
+
+type CopySnapshotParams struct {
+	p map[string]interface{}
+}
+
+func (p *CopySnapshotParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["destzoneid"]; found {
+		u.Set("destzoneid", v.(string))
+	}
+	if v, found := p.p["destzoneids"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("destzoneids", vv)
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["sourcezoneid"]; found {
+		u.Set("sourcezoneid", v.(string))
+	}
+	return u
+}
+
+func (p *CopySnapshotParams) SetDestzoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["destzoneid"] = v
+}
+
+func (p *CopySnapshotParams) ResetDestzoneid() {
+	if p.p != nil && p.p["destzoneid"] != nil {
+		delete(p.p, "destzoneid")
+	}
+}
+
+func (p *CopySnapshotParams) GetDestzoneid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["destzoneid"].(string)
+	return value, ok
+}
+
+func (p *CopySnapshotParams) SetDestzoneids(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["destzoneids"] = v
+}
+
+func (p *CopySnapshotParams) ResetDestzoneids() {
+	if p.p != nil && p.p["destzoneids"] != nil {
+		delete(p.p, "destzoneids")
+	}
+}
+
+func (p *CopySnapshotParams) GetDestzoneids() ([]string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["destzoneids"].([]string)
+	return value, ok
+}
+
+func (p *CopySnapshotParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *CopySnapshotParams) ResetId() {
+	if p.p != nil && p.p["id"] != nil {
+		delete(p.p, "id")
+	}
+}
+
+func (p *CopySnapshotParams) GetId() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["id"].(string)
+	return value, ok
+}
+
+func (p *CopySnapshotParams) SetSourcezoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["sourcezoneid"] = v
+}
+
+func (p *CopySnapshotParams) ResetSourcezoneid() {
+	if p.p != nil && p.p["sourcezoneid"] != nil {
+		delete(p.p, "sourcezoneid")
+	}
+}
+
+func (p *CopySnapshotParams) GetSourcezoneid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["sourcezoneid"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new CopySnapshotParams instance,
+// as then you are sure you have configured all required params
+func (s *SnapshotService) NewCopySnapshotParams(id string) *CopySnapshotParams {
+	p := &CopySnapshotParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Copies a snapshot from one zone to another.
+func (s *SnapshotService) CopySnapshot(p *CopySnapshotParams) (*CopySnapshotResponse, error) {
+	resp, err := s.cs.newRequest("copySnapshot", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r CopySnapshotResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type CopySnapshotResponse struct {
+	Account         string            `json:"account"`
+	Created         string            `json:"created"`
+	Datastoreid     string            `json:"datastoreid"`
+	Datastorename   string            `json:"datastorename"`
+	Datastorestate  string            `json:"datastorestate"`
+	Datastoretype   string            `json:"datastoretype"`
+	Domain          string            `json:"domain"`
+	Domainid        string            `json:"domainid"`
+	Downloaddetails map[string]string `json:"downloaddetails"`
+	Hasannotations  bool              `json:"hasannotations"`
+	Id              string            `json:"id"`
+	Intervaltype    string            `json:"intervaltype"`
+	JobID           string            `json:"jobid"`
+	Jobstatus       int               `json:"jobstatus"`
+	Locationtype    string            `json:"locationtype"`
+	Name            string            `json:"name"`
+	Osdisplayname   string            `json:"osdisplayname"`
+	Ostypeid        string            `json:"ostypeid"`
+	Physicalsize    int64             `json:"physicalsize"`
+	Project         string            `json:"project"`
+	Projectid       string            `json:"projectid"`
+	Revertable      bool              `json:"revertable"`
+	Snapshottype    string            `json:"snapshottype"`
+	State           string            `json:"state"`
+	Status          string            `json:"status"`
+	Tags            []Tags            `json:"tags"`
+	Virtualsize     int64             `json:"virtualsize"`
+	Volumeid        string            `json:"volumeid"`
+	Volumename      string            `json:"volumename"`
+	Volumetype      string            `json:"volumetype"`
+	Zoneid          string            `json:"zoneid"`
+	Zonename        string            `json:"zonename"`
+}
+
+func (r *CopySnapshotResponse) UnmarshalJSON(b []byte) error {
+	var m map[string]interface{}
+	err := json.Unmarshal(b, &m)
+	if err != nil {
+		return err
+	}
+
+	if success, ok := m["success"].(string); ok {
+		m["success"] = success == "true"
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	type alias CopySnapshotResponse
+	return json.Unmarshal(b, (*alias)(r))
 }
 
 type DeleteSnapshotParams struct {
@@ -2806,6 +3167,7 @@ type RevertToVMSnapshotResponse struct {
 	Icon                  interface{}                               `json:"icon"`
 	Id                    string                                    `json:"id"`
 	Instancename          string                                    `json:"instancename"`
+	Ipaddress             string                                    `json:"ipaddress"`
 	Isdynamicallyscalable bool                                      `json:"isdynamicallyscalable"`
 	Isodisplaytext        string                                    `json:"isodisplaytext"`
 	Isoid                 string                                    `json:"isoid"`
@@ -2843,6 +3205,7 @@ type RevertToVMSnapshotResponse struct {
 	State                 string                                    `json:"state"`
 	Tags                  []Tags                                    `json:"tags"`
 	Templatedisplaytext   string                                    `json:"templatedisplaytext"`
+	Templateformat        string                                    `json:"templateformat"`
 	Templateid            string                                    `json:"templateid"`
 	Templatename          string                                    `json:"templatename"`
 	Templatetype          string                                    `json:"templatetype"`

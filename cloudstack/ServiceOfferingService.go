@@ -1297,6 +1297,7 @@ type CreateServiceOfferingResponse struct {
 	Provisioningtype            string            `json:"provisioningtype"`
 	Rootdisksize                int64             `json:"rootdisksize"`
 	Serviceofferingdetails      map[string]string `json:"serviceofferingdetails"`
+	State                       string            `json:"state"`
 	Storagetags                 string            `json:"storagetags"`
 	Storagetype                 string            `json:"storagetype"`
 	Systemvmtype                string            `json:"systemvmtype"`
@@ -1461,6 +1462,9 @@ func (p *ListServiceOfferingsParams) toURLValues() url.Values {
 	}
 	if v, found := p.p["projectid"]; found {
 		u.Set("projectid", v.(string))
+	}
+	if v, found := p.p["state"]; found {
+		u.Set("state", v.(string))
 	}
 	if v, found := p.p["storagetype"]; found {
 		u.Set("storagetype", v.(string))
@@ -1792,6 +1796,27 @@ func (p *ListServiceOfferingsParams) GetProjectid() (string, bool) {
 	return value, ok
 }
 
+func (p *ListServiceOfferingsParams) SetState(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["state"] = v
+}
+
+func (p *ListServiceOfferingsParams) ResetState() {
+	if p.p != nil && p.p["state"] != nil {
+		delete(p.p, "state")
+	}
+}
+
+func (p *ListServiceOfferingsParams) GetState() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["state"].(string)
+	return value, ok
+}
+
 func (p *ListServiceOfferingsParams) SetStoragetype(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
@@ -2035,6 +2060,7 @@ type ServiceOffering struct {
 	Provisioningtype            string            `json:"provisioningtype"`
 	Rootdisksize                int64             `json:"rootdisksize"`
 	Serviceofferingdetails      map[string]string `json:"serviceofferingdetails"`
+	State                       string            `json:"state"`
 	Storagetags                 string            `json:"storagetags"`
 	Storagetype                 string            `json:"storagetype"`
 	Systemvmtype                string            `json:"systemvmtype"`
@@ -2070,6 +2096,9 @@ func (p *UpdateServiceOfferingParams) toURLValues() url.Values {
 	if v, found := p.p["sortkey"]; found {
 		vv := strconv.Itoa(v.(int))
 		u.Set("sortkey", vv)
+	}
+	if v, found := p.p["state"]; found {
+		u.Set("state", v.(string))
 	}
 	if v, found := p.p["storagetags"]; found {
 		u.Set("storagetags", v.(string))
@@ -2206,6 +2235,27 @@ func (p *UpdateServiceOfferingParams) GetSortkey() (int, bool) {
 	return value, ok
 }
 
+func (p *UpdateServiceOfferingParams) SetState(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["state"] = v
+}
+
+func (p *UpdateServiceOfferingParams) ResetState() {
+	if p.p != nil && p.p["state"] != nil {
+		delete(p.p, "state")
+	}
+}
+
+func (p *UpdateServiceOfferingParams) GetState() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["state"].(string)
+	return value, ok
+}
+
 func (p *UpdateServiceOfferingParams) SetStoragetags(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
@@ -2324,6 +2374,7 @@ type UpdateServiceOfferingResponse struct {
 	Provisioningtype            string            `json:"provisioningtype"`
 	Rootdisksize                int64             `json:"rootdisksize"`
 	Serviceofferingdetails      map[string]string `json:"serviceofferingdetails"`
+	State                       string            `json:"state"`
 	Storagetags                 string            `json:"storagetags"`
 	Storagetype                 string            `json:"storagetype"`
 	Systemvmtype                string            `json:"systemvmtype"`

@@ -104,6 +104,33 @@ func TestImageStoreService(t *testing.T) {
 	}
 	t.Run("DeleteSecondaryStagingStore", testdeleteSecondaryStagingStore)
 
+	testdownloadImageStoreObject := func(t *testing.T) {
+		if _, ok := response["downloadImageStoreObject"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.ImageStore.NewDownloadImageStoreObjectParams("id")
+		r, err := client.ImageStore.DownloadImageStoreObject(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+		if r.Id == "" {
+			t.Errorf("Failed to parse response. ID not found")
+		}
+	}
+	t.Run("DownloadImageStoreObject", testdownloadImageStoreObject)
+
+	testlistImageStoreObjects := func(t *testing.T) {
+		if _, ok := response["listImageStoreObjects"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.ImageStore.NewListImageStoreObjectsParams("id")
+		_, err := client.ImageStore.ListImageStoreObjects(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("ListImageStoreObjects", testlistImageStoreObjects)
+
 	testlistImageStores := func(t *testing.T) {
 		if _, ok := response["listImageStores"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")
@@ -142,5 +169,20 @@ func TestImageStoreService(t *testing.T) {
 		}
 	}
 	t.Run("UpdateCloudToUseObjectStore", testupdateCloudToUseObjectStore)
+
+	testupdateImageStore := func(t *testing.T) {
+		if _, ok := response["updateImageStore"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.ImageStore.NewUpdateImageStoreParams("id")
+		r, err := client.ImageStore.UpdateImageStore(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+		if r.Id == "" {
+			t.Errorf("Failed to parse response. ID not found")
+		}
+	}
+	t.Run("UpdateImageStore", testupdateImageStore)
 
 }

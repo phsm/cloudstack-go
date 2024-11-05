@@ -211,6 +211,21 @@ func (mr *MockISOServiceIfaceMockRecorder) GetIsoPermissionByID(id interface{}, 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetIsoPermissionByID", reflect.TypeOf((*MockISOServiceIface)(nil).GetIsoPermissionByID), varargs...)
 }
 
+// GetUploadParamsForIso mocks base method.
+func (m *MockISOServiceIface) GetUploadParamsForIso(p *GetUploadParamsForIsoParams) (*GetUploadParamsForIsoResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetUploadParamsForIso", p)
+	ret0, _ := ret[0].(*GetUploadParamsForIsoResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetUploadParamsForIso indicates an expected call of GetUploadParamsForIso.
+func (mr *MockISOServiceIfaceMockRecorder) GetUploadParamsForIso(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUploadParamsForIso", reflect.TypeOf((*MockISOServiceIface)(nil).GetUploadParamsForIso), p)
+}
+
 // ListIsoPermissions mocks base method.
 func (m *MockISOServiceIface) ListIsoPermissions(p *ListIsoPermissionsParams) (*ListIsoPermissionsResponse, error) {
 	m.ctrl.T.Helper()
@@ -309,6 +324,20 @@ func (m *MockISOServiceIface) NewExtractIsoParams(id, mode string) *ExtractIsoPa
 func (mr *MockISOServiceIfaceMockRecorder) NewExtractIsoParams(id, mode interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewExtractIsoParams", reflect.TypeOf((*MockISOServiceIface)(nil).NewExtractIsoParams), id, mode)
+}
+
+// NewGetUploadParamsForIsoParams mocks base method.
+func (m *MockISOServiceIface) NewGetUploadParamsForIsoParams(format, name, zoneid string) *GetUploadParamsForIsoParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewGetUploadParamsForIsoParams", format, name, zoneid)
+	ret0, _ := ret[0].(*GetUploadParamsForIsoParams)
+	return ret0
+}
+
+// NewGetUploadParamsForIsoParams indicates an expected call of NewGetUploadParamsForIsoParams.
+func (mr *MockISOServiceIfaceMockRecorder) NewGetUploadParamsForIsoParams(format, name, zoneid interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewGetUploadParamsForIsoParams", reflect.TypeOf((*MockISOServiceIface)(nil).NewGetUploadParamsForIsoParams), format, name, zoneid)
 }
 
 // NewListIsoPermissionsParams mocks base method.

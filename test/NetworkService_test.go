@@ -65,6 +65,21 @@ func TestNetworkService(t *testing.T) {
 	}
 	t.Run("AddOpenDaylightController", testaddOpenDaylightController)
 
+	testcreateManagementNetworkIpRange := func(t *testing.T) {
+		if _, ok := response["createManagementNetworkIpRange"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Network.NewCreateManagementNetworkIpRangeParams("gateway", "netmask", "podid", "startip")
+		r, err := client.Network.CreateManagementNetworkIpRange(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+		if r.Id == "" {
+			t.Errorf("Failed to parse response. ID not found")
+		}
+	}
+	t.Run("CreateManagementNetworkIpRange", testcreateManagementNetworkIpRange)
+
 	testcreateNetwork := func(t *testing.T) {
 		if _, ok := response["createNetwork"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")
@@ -94,6 +109,18 @@ func TestNetworkService(t *testing.T) {
 		}
 	}
 	t.Run("CreatePhysicalNetwork", testcreatePhysicalNetwork)
+
+	testcreateTungstenFabricPublicNetwork := func(t *testing.T) {
+		if _, ok := response["createTungstenFabricPublicNetwork"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Network.NewCreateTungstenFabricPublicNetworkParams("zoneid")
+		_, err := client.Network.CreateTungstenFabricPublicNetwork(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("CreateTungstenFabricPublicNetwork", testcreateTungstenFabricPublicNetwork)
 
 	testcreateServiceInstance := func(t *testing.T) {
 		if _, ok := response["createServiceInstance"]; !ok {
@@ -125,6 +152,18 @@ func TestNetworkService(t *testing.T) {
 	}
 	t.Run("CreateStorageNetworkIpRange", testcreateStorageNetworkIpRange)
 
+	testcreateTungstenFabricManagementNetwork := func(t *testing.T) {
+		if _, ok := response["createTungstenFabricManagementNetwork"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Network.NewCreateTungstenFabricManagementNetworkParams("podid")
+		_, err := client.Network.CreateTungstenFabricManagementNetwork(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("CreateTungstenFabricManagementNetwork", testcreateTungstenFabricManagementNetwork)
+
 	testdedicatePublicIpRange := func(t *testing.T) {
 		if _, ok := response["dedicatePublicIpRange"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")
@@ -139,6 +178,18 @@ func TestNetworkService(t *testing.T) {
 		}
 	}
 	t.Run("DedicatePublicIpRange", testdedicatePublicIpRange)
+
+	testdeleteManagementNetworkIpRange := func(t *testing.T) {
+		if _, ok := response["deleteManagementNetworkIpRange"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Network.NewDeleteManagementNetworkIpRangeParams("endip", "podid", "startip", "vlan")
+		_, err := client.Network.DeleteManagementNetworkIpRange(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("DeleteManagementNetworkIpRange", testdeleteManagementNetworkIpRange)
 
 	testdeleteNetwork := func(t *testing.T) {
 		if _, ok := response["deleteNetwork"]; !ok {
@@ -202,6 +253,18 @@ func TestNetworkService(t *testing.T) {
 		}
 	}
 	t.Run("DeleteStorageNetworkIpRange", testdeleteStorageNetworkIpRange)
+
+	testdeleteTungstenFabricFirewallRule := func(t *testing.T) {
+		if _, ok := response["deleteTungstenFabricFirewallRule"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Network.NewDeleteTungstenFabricFirewallRuleParams("firewallruleuuid", "zoneid")
+		_, err := client.Network.DeleteTungstenFabricFirewallRule(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("DeleteTungstenFabricFirewallRule", testdeleteTungstenFabricFirewallRule)
 
 	testlistNetscalerLoadBalancerNetworks := func(t *testing.T) {
 		if _, ok := response["listNetscalerLoadBalancerNetworks"]; !ok {
@@ -322,6 +385,48 @@ func TestNetworkService(t *testing.T) {
 		}
 	}
 	t.Run("ListSupportedNetworkServices", testlistSupportedNetworkServices)
+
+	testlistTungstenFabricNetwork := func(t *testing.T) {
+		if _, ok := response["listTungstenFabricNetwork"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Network.NewListTungstenFabricNetworkParams()
+		_, err := client.Network.ListTungstenFabricNetwork(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("ListTungstenFabricNetwork", testlistTungstenFabricNetwork)
+
+	testmigrateNetwork := func(t *testing.T) {
+		if _, ok := response["migrateNetwork"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Network.NewMigrateNetworkParams("networkid", "networkofferingid")
+		r, err := client.Network.MigrateNetwork(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+		if r.Id == "" {
+			t.Errorf("Failed to parse response. ID not found")
+		}
+	}
+	t.Run("MigrateNetwork", testmigrateNetwork)
+
+	testmoveNetworkAclItem := func(t *testing.T) {
+		if _, ok := response["moveNetworkAclItem"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Network.NewMoveNetworkAclItemParams("id")
+		r, err := client.Network.MoveNetworkAclItem(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+		if r.Id == "" {
+			t.Errorf("Failed to parse response. ID not found")
+		}
+	}
+	t.Run("MoveNetworkAclItem", testmoveNetworkAclItem)
 
 	testreleasePublicIpRange := func(t *testing.T) {
 		if _, ok := response["releasePublicIpRange"]; !ok {

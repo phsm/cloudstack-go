@@ -28,16 +28,23 @@ import (
 )
 
 type RoleServiceIface interface {
+	CreateProjectRole(p *CreateProjectRoleParams) (*CreateProjectRoleResponse, error)
+	NewCreateProjectRoleParams(name string, projectid string) *CreateProjectRoleParams
 	CreateRole(p *CreateRoleParams) (*CreateRoleResponse, error)
 	NewCreateRoleParams(name string) *CreateRoleParams
 	CreateRolePermission(p *CreateRolePermissionParams) (*CreateRolePermissionResponse, error)
 	NewCreateRolePermissionParams(permission string, roleid string, rule string) *CreateRolePermissionParams
+	DeleteProjectRole(p *DeleteProjectRoleParams) (*DeleteProjectRoleResponse, error)
+	NewDeleteProjectRoleParams(id string, projectid string) *DeleteProjectRoleParams
 	DeleteRole(p *DeleteRoleParams) (*DeleteRoleResponse, error)
 	NewDeleteRoleParams(id string) *DeleteRoleParams
 	DeleteRolePermission(p *DeleteRolePermissionParams) (*DeleteRolePermissionResponse, error)
 	NewDeleteRolePermissionParams(id string) *DeleteRolePermissionParams
 	ImportRole(p *ImportRoleParams) (*ImportRoleResponse, error)
 	NewImportRoleParams(name string, rules map[string]string) *ImportRoleParams
+	ListProjectRoles(p *ListProjectRolesParams) (*ListProjectRolesResponse, error)
+	NewListProjectRolesParams(projectid string) *ListProjectRolesParams
+	GetProjectRoleID(name string, projectid string, opts ...OptionFunc) (string, int, error)
 	ListRolePermissions(p *ListRolePermissionsParams) (*ListRolePermissionsResponse, error)
 	NewListRolePermissionsParams() *ListRolePermissionsParams
 	ListRoles(p *ListRolesParams) (*ListRolesResponse, error)
@@ -45,10 +52,131 @@ type RoleServiceIface interface {
 	GetRoleID(name string, opts ...OptionFunc) (string, int, error)
 	GetRoleByName(name string, opts ...OptionFunc) (*Role, int, error)
 	GetRoleByID(id string, opts ...OptionFunc) (*Role, int, error)
+	UpdateProjectRole(p *UpdateProjectRoleParams) (*UpdateProjectRoleResponse, error)
+	NewUpdateProjectRoleParams(id string, projectid string) *UpdateProjectRoleParams
 	UpdateRole(p *UpdateRoleParams) (*UpdateRoleResponse, error)
 	NewUpdateRoleParams(id string) *UpdateRoleParams
 	UpdateRolePermission(p *UpdateRolePermissionParams) (*UpdateRolePermissionResponse, error)
 	NewUpdateRolePermissionParams(roleid string) *UpdateRolePermissionParams
+}
+
+type CreateProjectRoleParams struct {
+	p map[string]interface{}
+}
+
+func (p *CreateProjectRoleParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["description"]; found {
+		u.Set("description", v.(string))
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	if v, found := p.p["projectid"]; found {
+		u.Set("projectid", v.(string))
+	}
+	return u
+}
+
+func (p *CreateProjectRoleParams) SetDescription(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["description"] = v
+}
+
+func (p *CreateProjectRoleParams) ResetDescription() {
+	if p.p != nil && p.p["description"] != nil {
+		delete(p.p, "description")
+	}
+}
+
+func (p *CreateProjectRoleParams) GetDescription() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["description"].(string)
+	return value, ok
+}
+
+func (p *CreateProjectRoleParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+}
+
+func (p *CreateProjectRoleParams) ResetName() {
+	if p.p != nil && p.p["name"] != nil {
+		delete(p.p, "name")
+	}
+}
+
+func (p *CreateProjectRoleParams) GetName() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["name"].(string)
+	return value, ok
+}
+
+func (p *CreateProjectRoleParams) SetProjectid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["projectid"] = v
+}
+
+func (p *CreateProjectRoleParams) ResetProjectid() {
+	if p.p != nil && p.p["projectid"] != nil {
+		delete(p.p, "projectid")
+	}
+}
+
+func (p *CreateProjectRoleParams) GetProjectid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["projectid"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new CreateProjectRoleParams instance,
+// as then you are sure you have configured all required params
+func (s *RoleService) NewCreateProjectRoleParams(name string, projectid string) *CreateProjectRoleParams {
+	p := &CreateProjectRoleParams{}
+	p.p = make(map[string]interface{})
+	p.p["name"] = name
+	p.p["projectid"] = projectid
+	return p
+}
+
+// Creates a Project role
+func (s *RoleService) CreateProjectRole(p *CreateProjectRoleParams) (*CreateProjectRoleResponse, error) {
+	resp, err := s.cs.newRequest("createProjectRole", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r CreateProjectRoleResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type CreateProjectRoleResponse struct {
+	Description string `json:"description"`
+	Id          string `json:"id"`
+	Ispublic    bool   `json:"ispublic"`
+	JobID       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
+	Name        string `json:"name"`
+	Projectid   string `json:"projectid"`
 }
 
 type CreateRoleParams struct {
@@ -368,6 +496,125 @@ type CreateRolePermissionResponse struct {
 	Roleid      string `json:"roleid"`
 	Rolename    string `json:"rolename"`
 	Rule        string `json:"rule"`
+}
+
+type DeleteProjectRoleParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeleteProjectRoleParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["projectid"]; found {
+		u.Set("projectid", v.(string))
+	}
+	return u
+}
+
+func (p *DeleteProjectRoleParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *DeleteProjectRoleParams) ResetId() {
+	if p.p != nil && p.p["id"] != nil {
+		delete(p.p, "id")
+	}
+}
+
+func (p *DeleteProjectRoleParams) GetId() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["id"].(string)
+	return value, ok
+}
+
+func (p *DeleteProjectRoleParams) SetProjectid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["projectid"] = v
+}
+
+func (p *DeleteProjectRoleParams) ResetProjectid() {
+	if p.p != nil && p.p["projectid"] != nil {
+		delete(p.p, "projectid")
+	}
+}
+
+func (p *DeleteProjectRoleParams) GetProjectid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["projectid"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new DeleteProjectRoleParams instance,
+// as then you are sure you have configured all required params
+func (s *RoleService) NewDeleteProjectRoleParams(id string, projectid string) *DeleteProjectRoleParams {
+	p := &DeleteProjectRoleParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	p.p["projectid"] = projectid
+	return p
+}
+
+// Delete Project roles in CloudStack
+func (s *RoleService) DeleteProjectRole(p *DeleteProjectRoleParams) (*DeleteProjectRoleResponse, error) {
+	resp, err := s.cs.newRequest("deleteProjectRole", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeleteProjectRoleResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type DeleteProjectRoleResponse struct {
+	Displaytext string `json:"displaytext"`
+	JobID       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
+	Success     bool   `json:"success"`
+}
+
+func (r *DeleteProjectRoleResponse) UnmarshalJSON(b []byte) error {
+	var m map[string]interface{}
+	err := json.Unmarshal(b, &m)
+	if err != nil {
+		return err
+	}
+
+	if success, ok := m["success"].(string); ok {
+		m["success"] = success == "true"
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	type alias DeleteProjectRoleResponse
+	return json.Unmarshal(b, (*alias)(r))
 }
 
 type DeleteRoleParams struct {
@@ -756,6 +1003,240 @@ type ImportRoleResponse struct {
 	Type        string `json:"type"`
 }
 
+type ListProjectRolesParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListProjectRolesParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	if v, found := p.p["projectid"]; found {
+		u.Set("projectid", v.(string))
+	}
+	if v, found := p.p["projectroleid"]; found {
+		u.Set("projectroleid", v.(string))
+	}
+	return u
+}
+
+func (p *ListProjectRolesParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+}
+
+func (p *ListProjectRolesParams) ResetKeyword() {
+	if p.p != nil && p.p["keyword"] != nil {
+		delete(p.p, "keyword")
+	}
+}
+
+func (p *ListProjectRolesParams) GetKeyword() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["keyword"].(string)
+	return value, ok
+}
+
+func (p *ListProjectRolesParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+}
+
+func (p *ListProjectRolesParams) ResetName() {
+	if p.p != nil && p.p["name"] != nil {
+		delete(p.p, "name")
+	}
+}
+
+func (p *ListProjectRolesParams) GetName() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["name"].(string)
+	return value, ok
+}
+
+func (p *ListProjectRolesParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+}
+
+func (p *ListProjectRolesParams) ResetPage() {
+	if p.p != nil && p.p["page"] != nil {
+		delete(p.p, "page")
+	}
+}
+
+func (p *ListProjectRolesParams) GetPage() (int, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["page"].(int)
+	return value, ok
+}
+
+func (p *ListProjectRolesParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+}
+
+func (p *ListProjectRolesParams) ResetPagesize() {
+	if p.p != nil && p.p["pagesize"] != nil {
+		delete(p.p, "pagesize")
+	}
+}
+
+func (p *ListProjectRolesParams) GetPagesize() (int, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["pagesize"].(int)
+	return value, ok
+}
+
+func (p *ListProjectRolesParams) SetProjectid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["projectid"] = v
+}
+
+func (p *ListProjectRolesParams) ResetProjectid() {
+	if p.p != nil && p.p["projectid"] != nil {
+		delete(p.p, "projectid")
+	}
+}
+
+func (p *ListProjectRolesParams) GetProjectid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["projectid"].(string)
+	return value, ok
+}
+
+func (p *ListProjectRolesParams) SetProjectroleid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["projectroleid"] = v
+}
+
+func (p *ListProjectRolesParams) ResetProjectroleid() {
+	if p.p != nil && p.p["projectroleid"] != nil {
+		delete(p.p, "projectroleid")
+	}
+}
+
+func (p *ListProjectRolesParams) GetProjectroleid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["projectroleid"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new ListProjectRolesParams instance,
+// as then you are sure you have configured all required params
+func (s *RoleService) NewListProjectRolesParams(projectid string) *ListProjectRolesParams {
+	p := &ListProjectRolesParams{}
+	p.p = make(map[string]interface{})
+	p.p["projectid"] = projectid
+	return p
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *RoleService) GetProjectRoleID(name string, projectid string, opts ...OptionFunc) (string, int, error) {
+	p := &ListProjectRolesParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["name"] = name
+	p.p["projectid"] = projectid
+
+	for _, fn := range append(s.cs.options, opts...) {
+		if err := fn(s.cs, p); err != nil {
+			return "", -1, err
+		}
+	}
+
+	l, err := s.ListProjectRoles(p)
+	if err != nil {
+		return "", -1, err
+	}
+
+	if l.Count == 0 {
+		return "", l.Count, fmt.Errorf("No match found for %s: %+v", name, l)
+	}
+
+	if l.Count == 1 {
+		return l.ProjectRoles[0].Id, l.Count, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.ProjectRoles {
+			if v.Name == name {
+				return v.Id, l.Count, nil
+			}
+		}
+	}
+	return "", l.Count, fmt.Errorf("Could not find an exact match for %s: %+v", name, l)
+}
+
+// Lists Project roles in CloudStack
+func (s *RoleService) ListProjectRoles(p *ListProjectRolesParams) (*ListProjectRolesResponse, error) {
+	resp, err := s.cs.newRequest("listProjectRoles", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ListProjectRolesResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type ListProjectRolesResponse struct {
+	Count        int            `json:"count"`
+	ProjectRoles []*ProjectRole `json:"projectrole"`
+}
+
+type ProjectRole struct {
+	Description string `json:"description"`
+	Id          string `json:"id"`
+	Ispublic    bool   `json:"ispublic"`
+	JobID       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
+	Name        string `json:"name"`
+	Projectid   string `json:"projectid"`
+}
+
 type ListRolePermissionsParams struct {
 	p map[string]interface{}
 }
@@ -1109,6 +1590,149 @@ type Role struct {
 	Jobstatus   int    `json:"jobstatus"`
 	Name        string `json:"name"`
 	Type        string `json:"type"`
+}
+
+type UpdateProjectRoleParams struct {
+	p map[string]interface{}
+}
+
+func (p *UpdateProjectRoleParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["description"]; found {
+		u.Set("description", v.(string))
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	if v, found := p.p["projectid"]; found {
+		u.Set("projectid", v.(string))
+	}
+	return u
+}
+
+func (p *UpdateProjectRoleParams) SetDescription(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["description"] = v
+}
+
+func (p *UpdateProjectRoleParams) ResetDescription() {
+	if p.p != nil && p.p["description"] != nil {
+		delete(p.p, "description")
+	}
+}
+
+func (p *UpdateProjectRoleParams) GetDescription() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["description"].(string)
+	return value, ok
+}
+
+func (p *UpdateProjectRoleParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *UpdateProjectRoleParams) ResetId() {
+	if p.p != nil && p.p["id"] != nil {
+		delete(p.p, "id")
+	}
+}
+
+func (p *UpdateProjectRoleParams) GetId() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["id"].(string)
+	return value, ok
+}
+
+func (p *UpdateProjectRoleParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+}
+
+func (p *UpdateProjectRoleParams) ResetName() {
+	if p.p != nil && p.p["name"] != nil {
+		delete(p.p, "name")
+	}
+}
+
+func (p *UpdateProjectRoleParams) GetName() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["name"].(string)
+	return value, ok
+}
+
+func (p *UpdateProjectRoleParams) SetProjectid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["projectid"] = v
+}
+
+func (p *UpdateProjectRoleParams) ResetProjectid() {
+	if p.p != nil && p.p["projectid"] != nil {
+		delete(p.p, "projectid")
+	}
+}
+
+func (p *UpdateProjectRoleParams) GetProjectid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["projectid"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new UpdateProjectRoleParams instance,
+// as then you are sure you have configured all required params
+func (s *RoleService) NewUpdateProjectRoleParams(id string, projectid string) *UpdateProjectRoleParams {
+	p := &UpdateProjectRoleParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	p.p["projectid"] = projectid
+	return p
+}
+
+// Creates a Project role
+func (s *RoleService) UpdateProjectRole(p *UpdateProjectRoleParams) (*UpdateProjectRoleResponse, error) {
+	resp, err := s.cs.newRequest("updateProjectRole", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r UpdateProjectRoleResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type UpdateProjectRoleResponse struct {
+	Description string `json:"description"`
+	Id          string `json:"id"`
+	Ispublic    bool   `json:"ispublic"`
+	JobID       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
+	Name        string `json:"name"`
+	Projectid   string `json:"projectid"`
 }
 
 type UpdateRoleParams struct {

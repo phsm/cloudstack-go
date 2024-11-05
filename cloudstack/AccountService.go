@@ -38,6 +38,10 @@ type AccountServiceIface interface {
 	NewEnableAccountParams() *EnableAccountParams
 	GetSolidFireAccountId(p *GetSolidFireAccountIdParams) (*GetSolidFireAccountIdResponse, error)
 	NewGetSolidFireAccountIdParams(accountid string, storageid string) *GetSolidFireAccountIdParams
+	IsAccountAllowedToCreateOfferingsWithTags(p *IsAccountAllowedToCreateOfferingsWithTagsParams) (*IsAccountAllowedToCreateOfferingsWithTagsResponse, error)
+	NewIsAccountAllowedToCreateOfferingsWithTagsParams() *IsAccountAllowedToCreateOfferingsWithTagsParams
+	LinkAccountToLdap(p *LinkAccountToLdapParams) (*LinkAccountToLdapResponse, error)
+	NewLinkAccountToLdapParams(account string, domainid string, ldapdomain string) *LinkAccountToLdapParams
 	ListAccounts(p *ListAccountsParams) (*ListAccountsResponse, error)
 	NewListAccountsParams() *ListAccountsParams
 	GetAccountID(name string, opts ...OptionFunc) (string, int, error)
@@ -1142,6 +1146,289 @@ type GetSolidFireAccountIdResponse struct {
 	JobID              string `json:"jobid"`
 	Jobstatus          int    `json:"jobstatus"`
 	SolidFireAccountId int64  `json:"solidFireAccountId"`
+}
+
+type IsAccountAllowedToCreateOfferingsWithTagsParams struct {
+	p map[string]interface{}
+}
+
+func (p *IsAccountAllowedToCreateOfferingsWithTagsParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *IsAccountAllowedToCreateOfferingsWithTagsParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *IsAccountAllowedToCreateOfferingsWithTagsParams) ResetId() {
+	if p.p != nil && p.p["id"] != nil {
+		delete(p.p, "id")
+	}
+}
+
+func (p *IsAccountAllowedToCreateOfferingsWithTagsParams) GetId() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["id"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new IsAccountAllowedToCreateOfferingsWithTagsParams instance,
+// as then you are sure you have configured all required params
+func (s *AccountService) NewIsAccountAllowedToCreateOfferingsWithTagsParams() *IsAccountAllowedToCreateOfferingsWithTagsParams {
+	p := &IsAccountAllowedToCreateOfferingsWithTagsParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// Return true if the specified account is allowed to create offerings with tags.
+func (s *AccountService) IsAccountAllowedToCreateOfferingsWithTags(p *IsAccountAllowedToCreateOfferingsWithTagsParams) (*IsAccountAllowedToCreateOfferingsWithTagsResponse, error) {
+	resp, err := s.cs.newRequest("isAccountAllowedToCreateOfferingsWithTags", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r IsAccountAllowedToCreateOfferingsWithTagsResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type IsAccountAllowedToCreateOfferingsWithTagsResponse struct {
+	Isallowed bool   `json:"isallowed"`
+	JobID     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
+}
+
+type LinkAccountToLdapParams struct {
+	p map[string]interface{}
+}
+
+func (p *LinkAccountToLdapParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
+	}
+	if v, found := p.p["accounttype"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("accounttype", vv)
+	}
+	if v, found := p.p["admin"]; found {
+		u.Set("admin", v.(string))
+	}
+	if v, found := p.p["domainid"]; found {
+		u.Set("domainid", v.(string))
+	}
+	if v, found := p.p["ldapdomain"]; found {
+		u.Set("ldapdomain", v.(string))
+	}
+	if v, found := p.p["roleid"]; found {
+		u.Set("roleid", v.(string))
+	}
+	if v, found := p.p["type"]; found {
+		u.Set("type", v.(string))
+	}
+	return u
+}
+
+func (p *LinkAccountToLdapParams) SetAccount(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["account"] = v
+}
+
+func (p *LinkAccountToLdapParams) ResetAccount() {
+	if p.p != nil && p.p["account"] != nil {
+		delete(p.p, "account")
+	}
+}
+
+func (p *LinkAccountToLdapParams) GetAccount() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["account"].(string)
+	return value, ok
+}
+
+func (p *LinkAccountToLdapParams) SetAccounttype(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["accounttype"] = v
+}
+
+func (p *LinkAccountToLdapParams) ResetAccounttype() {
+	if p.p != nil && p.p["accounttype"] != nil {
+		delete(p.p, "accounttype")
+	}
+}
+
+func (p *LinkAccountToLdapParams) GetAccounttype() (int, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["accounttype"].(int)
+	return value, ok
+}
+
+func (p *LinkAccountToLdapParams) SetAdmin(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["admin"] = v
+}
+
+func (p *LinkAccountToLdapParams) ResetAdmin() {
+	if p.p != nil && p.p["admin"] != nil {
+		delete(p.p, "admin")
+	}
+}
+
+func (p *LinkAccountToLdapParams) GetAdmin() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["admin"].(string)
+	return value, ok
+}
+
+func (p *LinkAccountToLdapParams) SetDomainid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["domainid"] = v
+}
+
+func (p *LinkAccountToLdapParams) ResetDomainid() {
+	if p.p != nil && p.p["domainid"] != nil {
+		delete(p.p, "domainid")
+	}
+}
+
+func (p *LinkAccountToLdapParams) GetDomainid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["domainid"].(string)
+	return value, ok
+}
+
+func (p *LinkAccountToLdapParams) SetLdapdomain(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["ldapdomain"] = v
+}
+
+func (p *LinkAccountToLdapParams) ResetLdapdomain() {
+	if p.p != nil && p.p["ldapdomain"] != nil {
+		delete(p.p, "ldapdomain")
+	}
+}
+
+func (p *LinkAccountToLdapParams) GetLdapdomain() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["ldapdomain"].(string)
+	return value, ok
+}
+
+func (p *LinkAccountToLdapParams) SetRoleid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["roleid"] = v
+}
+
+func (p *LinkAccountToLdapParams) ResetRoleid() {
+	if p.p != nil && p.p["roleid"] != nil {
+		delete(p.p, "roleid")
+	}
+}
+
+func (p *LinkAccountToLdapParams) GetRoleid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["roleid"].(string)
+	return value, ok
+}
+
+func (p *LinkAccountToLdapParams) SetType(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["type"] = v
+}
+
+func (p *LinkAccountToLdapParams) ResetType() {
+	if p.p != nil && p.p["type"] != nil {
+		delete(p.p, "type")
+	}
+}
+
+func (p *LinkAccountToLdapParams) GetType() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["type"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new LinkAccountToLdapParams instance,
+// as then you are sure you have configured all required params
+func (s *AccountService) NewLinkAccountToLdapParams(account string, domainid string, ldapdomain string) *LinkAccountToLdapParams {
+	p := &LinkAccountToLdapParams{}
+	p.p = make(map[string]interface{})
+	p.p["account"] = account
+	p.p["domainid"] = domainid
+	p.p["ldapdomain"] = ldapdomain
+	return p
+}
+
+// link a cloudstack account to a group or OU in ldap
+func (s *AccountService) LinkAccountToLdap(p *LinkAccountToLdapParams) (*LinkAccountToLdapResponse, error) {
+	resp, err := s.cs.newRequest("linkAccountToLdap", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r LinkAccountToLdapResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type LinkAccountToLdapResponse struct {
+	Accountid   string `json:"accountid"`
+	Accounttype int    `json:"accounttype"`
+	Domainid    string `json:"domainid"`
+	JobID       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
+	Ldapdomain  string `json:"ldapdomain"`
+	Name        string `json:"name"`
+	Type        string `json:"type"`
 }
 
 type ListAccountsParams struct {

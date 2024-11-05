@@ -109,3 +109,32 @@ func (mr *MockAuthenticationServiceIfaceMockRecorder) NewLogoutParams() *gomock.
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewLogoutParams", reflect.TypeOf((*MockAuthenticationServiceIface)(nil).NewLogoutParams))
 }
+
+// NewOauthloginParams mocks base method.
+func (m *MockAuthenticationServiceIface) NewOauthloginParams(email, provider string) *OauthloginParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewOauthloginParams", email, provider)
+	ret0, _ := ret[0].(*OauthloginParams)
+	return ret0
+}
+
+// NewOauthloginParams indicates an expected call of NewOauthloginParams.
+func (mr *MockAuthenticationServiceIfaceMockRecorder) NewOauthloginParams(email, provider interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewOauthloginParams", reflect.TypeOf((*MockAuthenticationServiceIface)(nil).NewOauthloginParams), email, provider)
+}
+
+// Oauthlogin mocks base method.
+func (m *MockAuthenticationServiceIface) Oauthlogin(p *OauthloginParams) (*OauthloginResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Oauthlogin", p)
+	ret0, _ := ret[0].(*OauthloginResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Oauthlogin indicates an expected call of Oauthlogin.
+func (mr *MockAuthenticationServiceIfaceMockRecorder) Oauthlogin(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Oauthlogin", reflect.TypeOf((*MockAuthenticationServiceIface)(nil).Oauthlogin), p)
+}

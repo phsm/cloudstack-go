@@ -35,88 +35,28 @@ func TestPoolService(t *testing.T) {
 	client := cloudstack.NewClient(server.URL, "APIKEY", "SECRETKEY", true)
 	defer server.Close()
 
-	testcreateStoragePool := func(t *testing.T) {
-		if _, ok := response["createStoragePool"]; !ok {
+	testlistElastistorPool := func(t *testing.T) {
+		if _, ok := response["listElastistorPool"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")
 		}
-		p := client.Pool.NewCreateStoragePoolParams("name", "url", "zoneid")
-		r, err := client.Pool.CreateStoragePool(p)
+		p := client.Pool.NewListElastistorPoolParams()
+		_, err := client.Pool.ListElastistorPool(p)
 		if err != nil {
 			t.Errorf(err.Error())
 		}
-		if r.Id == "" {
-			t.Errorf("Failed to parse response. ID not found")
-		}
 	}
-	t.Run("CreateStoragePool", testcreateStoragePool)
+	t.Run("ListElastistorPool", testlistElastistorPool)
 
-	testdeleteStoragePool := func(t *testing.T) {
-		if _, ok := response["deleteStoragePool"]; !ok {
+	testlistVsphereStoragePolicyCompatiblePools := func(t *testing.T) {
+		if _, ok := response["listVsphereStoragePolicyCompatiblePools"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")
 		}
-		p := client.Pool.NewDeleteStoragePoolParams("id")
-		_, err := client.Pool.DeleteStoragePool(p)
+		p := client.Pool.NewListVsphereStoragePolicyCompatiblePoolsParams()
+		_, err := client.Pool.ListVsphereStoragePolicyCompatiblePools(p)
 		if err != nil {
 			t.Errorf(err.Error())
 		}
 	}
-	t.Run("DeleteStoragePool", testdeleteStoragePool)
-
-	testfindStoragePoolsForMigration := func(t *testing.T) {
-		if _, ok := response["findStoragePoolsForMigration"]; !ok {
-			t.Skipf("Skipping as no json response is provided in testdata")
-		}
-		p := client.Pool.NewFindStoragePoolsForMigrationParams("id")
-		r, err := client.Pool.FindStoragePoolsForMigration(p)
-		if err != nil {
-			t.Errorf(err.Error())
-		}
-		if r.Id == "" {
-			t.Errorf("Failed to parse response. ID not found")
-		}
-	}
-	t.Run("FindStoragePoolsForMigration", testfindStoragePoolsForMigration)
-
-	testlistStoragePools := func(t *testing.T) {
-		if _, ok := response["listStoragePools"]; !ok {
-			t.Skipf("Skipping as no json response is provided in testdata")
-		}
-		p := client.Pool.NewListStoragePoolsParams()
-		_, err := client.Pool.ListStoragePools(p)
-		if err != nil {
-			t.Errorf(err.Error())
-		}
-	}
-	t.Run("ListStoragePools", testlistStoragePools)
-
-	testsyncStoragePool := func(t *testing.T) {
-		if _, ok := response["syncStoragePool"]; !ok {
-			t.Skipf("Skipping as no json response is provided in testdata")
-		}
-		p := client.Pool.NewSyncStoragePoolParams("id")
-		r, err := client.Pool.SyncStoragePool(p)
-		if err != nil {
-			t.Errorf(err.Error())
-		}
-		if r.Id == "" {
-			t.Errorf("Failed to parse response. ID not found")
-		}
-	}
-	t.Run("SyncStoragePool", testsyncStoragePool)
-
-	testupdateStoragePool := func(t *testing.T) {
-		if _, ok := response["updateStoragePool"]; !ok {
-			t.Skipf("Skipping as no json response is provided in testdata")
-		}
-		p := client.Pool.NewUpdateStoragePoolParams("id")
-		r, err := client.Pool.UpdateStoragePool(p)
-		if err != nil {
-			t.Errorf(err.Error())
-		}
-		if r.Id == "" {
-			t.Errorf("Failed to parse response. ID not found")
-		}
-	}
-	t.Run("UpdateStoragePool", testupdateStoragePool)
+	t.Run("ListVsphereStoragePolicyCompatiblePools", testlistVsphereStoragePolicyCompatiblePools)
 
 }

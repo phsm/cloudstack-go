@@ -277,6 +277,21 @@ func (mr *MockLoadBalancerServiceIfaceMockRecorder) DeleteLoadBalancerRule(p int
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteLoadBalancerRule", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).DeleteLoadBalancerRule), p)
 }
 
+// DeleteNetscalerControlCenter mocks base method.
+func (m *MockLoadBalancerServiceIface) DeleteNetscalerControlCenter(p *DeleteNetscalerControlCenterParams) (*DeleteNetscalerControlCenterResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteNetscalerControlCenter", p)
+	ret0, _ := ret[0].(*DeleteNetscalerControlCenterResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteNetscalerControlCenter indicates an expected call of DeleteNetscalerControlCenter.
+func (mr *MockLoadBalancerServiceIfaceMockRecorder) DeleteNetscalerControlCenter(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteNetscalerControlCenter", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).DeleteNetscalerControlCenter), p)
+}
+
 // DeleteNetscalerLoadBalancer mocks base method.
 func (m *MockLoadBalancerServiceIface) DeleteNetscalerLoadBalancer(p *DeleteNetscalerLoadBalancerParams) (*DeleteNetscalerLoadBalancerResponse, error) {
 	m.ctrl.T.Helper()
@@ -292,6 +307,21 @@ func (mr *MockLoadBalancerServiceIfaceMockRecorder) DeleteNetscalerLoadBalancer(
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteNetscalerLoadBalancer", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).DeleteNetscalerLoadBalancer), p)
 }
 
+// DeleteServicePackageOffering mocks base method.
+func (m *MockLoadBalancerServiceIface) DeleteServicePackageOffering(p *DeleteServicePackageOfferingParams) (*DeleteServicePackageOfferingResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteServicePackageOffering", p)
+	ret0, _ := ret[0].(*DeleteServicePackageOfferingResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteServicePackageOffering indicates an expected call of DeleteServicePackageOffering.
+func (mr *MockLoadBalancerServiceIfaceMockRecorder) DeleteServicePackageOffering(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteServicePackageOffering", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).DeleteServicePackageOffering), p)
+}
+
 // DeleteSslCert mocks base method.
 func (m *MockLoadBalancerServiceIface) DeleteSslCert(p *DeleteSslCertParams) (*DeleteSslCertResponse, error) {
 	m.ctrl.T.Helper()
@@ -305,6 +335,21 @@ func (m *MockLoadBalancerServiceIface) DeleteSslCert(p *DeleteSslCertParams) (*D
 func (mr *MockLoadBalancerServiceIfaceMockRecorder) DeleteSslCert(p interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteSslCert", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).DeleteSslCert), p)
+}
+
+// DeployNetscalerVpx mocks base method.
+func (m *MockLoadBalancerServiceIface) DeployNetscalerVpx(p *DeployNetscalerVpxParams) (*DeployNetscalerVpxResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeployNetscalerVpx", p)
+	ret0, _ := ret[0].(*DeployNetscalerVpxResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeployNetscalerVpx indicates an expected call of DeployNetscalerVpx.
+func (mr *MockLoadBalancerServiceIfaceMockRecorder) DeployNetscalerVpx(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeployNetscalerVpx", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).DeployNetscalerVpx), p)
 }
 
 // GetGlobalLoadBalancerRuleByID mocks base method.
@@ -559,6 +604,42 @@ func (mr *MockLoadBalancerServiceIfaceMockRecorder) GetLoadBalancerRuleInstanceB
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetLoadBalancerRuleInstanceByID", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).GetLoadBalancerRuleInstanceByID), varargs...)
 }
 
+// GetLoadBalancerSslCertificate mocks base method.
+func (m *MockLoadBalancerServiceIface) GetLoadBalancerSslCertificate(p *GetLoadBalancerSslCertificateParams) (*GetLoadBalancerSslCertificateResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetLoadBalancerSslCertificate", p)
+	ret0, _ := ret[0].(*GetLoadBalancerSslCertificateResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetLoadBalancerSslCertificate indicates an expected call of GetLoadBalancerSslCertificate.
+func (mr *MockLoadBalancerServiceIfaceMockRecorder) GetLoadBalancerSslCertificate(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetLoadBalancerSslCertificate", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).GetLoadBalancerSslCertificate), p)
+}
+
+// GetRegisteredServicePackageID mocks base method.
+func (m *MockLoadBalancerServiceIface) GetRegisteredServicePackageID(keyword string, opts ...OptionFunc) (string, int, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{keyword}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "GetRegisteredServicePackageID", varargs...)
+	ret0, _ := ret[0].(string)
+	ret1, _ := ret[1].(int)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
+}
+
+// GetRegisteredServicePackageID indicates an expected call of GetRegisteredServicePackageID.
+func (mr *MockLoadBalancerServiceIfaceMockRecorder) GetRegisteredServicePackageID(keyword interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{keyword}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetRegisteredServicePackageID", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).GetRegisteredServicePackageID), varargs...)
+}
+
 // ListGlobalLoadBalancerRules mocks base method.
 func (m *MockLoadBalancerServiceIface) ListGlobalLoadBalancerRules(p *ListGlobalLoadBalancerRulesParams) (*ListGlobalLoadBalancerRulesResponse, error) {
 	m.ctrl.T.Helper()
@@ -649,6 +730,21 @@ func (mr *MockLoadBalancerServiceIfaceMockRecorder) ListLoadBalancers(p interfac
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListLoadBalancers", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).ListLoadBalancers), p)
 }
 
+// ListNetscalerControlCenter mocks base method.
+func (m *MockLoadBalancerServiceIface) ListNetscalerControlCenter(p *ListNetscalerControlCenterParams) (*ListNetscalerControlCenterResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListNetscalerControlCenter", p)
+	ret0, _ := ret[0].(*ListNetscalerControlCenterResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListNetscalerControlCenter indicates an expected call of ListNetscalerControlCenter.
+func (mr *MockLoadBalancerServiceIfaceMockRecorder) ListNetscalerControlCenter(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListNetscalerControlCenter", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).ListNetscalerControlCenter), p)
+}
+
 // ListNetscalerLoadBalancers mocks base method.
 func (m *MockLoadBalancerServiceIface) ListNetscalerLoadBalancers(p *ListNetscalerLoadBalancersParams) (*ListNetscalerLoadBalancersResponse, error) {
 	m.ctrl.T.Helper()
@@ -662,6 +758,21 @@ func (m *MockLoadBalancerServiceIface) ListNetscalerLoadBalancers(p *ListNetscal
 func (mr *MockLoadBalancerServiceIfaceMockRecorder) ListNetscalerLoadBalancers(p interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListNetscalerLoadBalancers", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).ListNetscalerLoadBalancers), p)
+}
+
+// ListRegisteredServicePackages mocks base method.
+func (m *MockLoadBalancerServiceIface) ListRegisteredServicePackages(p *ListRegisteredServicePackagesParams) (*ListRegisteredServicePackagesResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListRegisteredServicePackages", p)
+	ret0, _ := ret[0].(*ListRegisteredServicePackagesResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListRegisteredServicePackages indicates an expected call of ListRegisteredServicePackages.
+func (mr *MockLoadBalancerServiceIfaceMockRecorder) ListRegisteredServicePackages(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListRegisteredServicePackages", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).ListRegisteredServicePackages), p)
 }
 
 // ListSslCerts mocks base method.
@@ -889,6 +1000,20 @@ func (mr *MockLoadBalancerServiceIfaceMockRecorder) NewDeleteLoadBalancerRulePar
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewDeleteLoadBalancerRuleParams", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).NewDeleteLoadBalancerRuleParams), id)
 }
 
+// NewDeleteNetscalerControlCenterParams mocks base method.
+func (m *MockLoadBalancerServiceIface) NewDeleteNetscalerControlCenterParams(id string) *DeleteNetscalerControlCenterParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewDeleteNetscalerControlCenterParams", id)
+	ret0, _ := ret[0].(*DeleteNetscalerControlCenterParams)
+	return ret0
+}
+
+// NewDeleteNetscalerControlCenterParams indicates an expected call of NewDeleteNetscalerControlCenterParams.
+func (mr *MockLoadBalancerServiceIfaceMockRecorder) NewDeleteNetscalerControlCenterParams(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewDeleteNetscalerControlCenterParams", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).NewDeleteNetscalerControlCenterParams), id)
+}
+
 // NewDeleteNetscalerLoadBalancerParams mocks base method.
 func (m *MockLoadBalancerServiceIface) NewDeleteNetscalerLoadBalancerParams(lbdeviceid string) *DeleteNetscalerLoadBalancerParams {
 	m.ctrl.T.Helper()
@@ -903,6 +1028,20 @@ func (mr *MockLoadBalancerServiceIfaceMockRecorder) NewDeleteNetscalerLoadBalanc
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewDeleteNetscalerLoadBalancerParams", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).NewDeleteNetscalerLoadBalancerParams), lbdeviceid)
 }
 
+// NewDeleteServicePackageOfferingParams mocks base method.
+func (m *MockLoadBalancerServiceIface) NewDeleteServicePackageOfferingParams(id string) *DeleteServicePackageOfferingParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewDeleteServicePackageOfferingParams", id)
+	ret0, _ := ret[0].(*DeleteServicePackageOfferingParams)
+	return ret0
+}
+
+// NewDeleteServicePackageOfferingParams indicates an expected call of NewDeleteServicePackageOfferingParams.
+func (mr *MockLoadBalancerServiceIfaceMockRecorder) NewDeleteServicePackageOfferingParams(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewDeleteServicePackageOfferingParams", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).NewDeleteServicePackageOfferingParams), id)
+}
+
 // NewDeleteSslCertParams mocks base method.
 func (m *MockLoadBalancerServiceIface) NewDeleteSslCertParams(id string) *DeleteSslCertParams {
 	m.ctrl.T.Helper()
@@ -915,6 +1054,34 @@ func (m *MockLoadBalancerServiceIface) NewDeleteSslCertParams(id string) *Delete
 func (mr *MockLoadBalancerServiceIfaceMockRecorder) NewDeleteSslCertParams(id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewDeleteSslCertParams", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).NewDeleteSslCertParams), id)
+}
+
+// NewDeployNetscalerVpxParams mocks base method.
+func (m *MockLoadBalancerServiceIface) NewDeployNetscalerVpxParams(serviceofferingid, templateid, zoneid string) *DeployNetscalerVpxParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewDeployNetscalerVpxParams", serviceofferingid, templateid, zoneid)
+	ret0, _ := ret[0].(*DeployNetscalerVpxParams)
+	return ret0
+}
+
+// NewDeployNetscalerVpxParams indicates an expected call of NewDeployNetscalerVpxParams.
+func (mr *MockLoadBalancerServiceIfaceMockRecorder) NewDeployNetscalerVpxParams(serviceofferingid, templateid, zoneid interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewDeployNetscalerVpxParams", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).NewDeployNetscalerVpxParams), serviceofferingid, templateid, zoneid)
+}
+
+// NewGetLoadBalancerSslCertificateParams mocks base method.
+func (m *MockLoadBalancerServiceIface) NewGetLoadBalancerSslCertificateParams(id string) *GetLoadBalancerSslCertificateParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewGetLoadBalancerSslCertificateParams", id)
+	ret0, _ := ret[0].(*GetLoadBalancerSslCertificateParams)
+	return ret0
+}
+
+// NewGetLoadBalancerSslCertificateParams indicates an expected call of NewGetLoadBalancerSslCertificateParams.
+func (mr *MockLoadBalancerServiceIfaceMockRecorder) NewGetLoadBalancerSslCertificateParams(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewGetLoadBalancerSslCertificateParams", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).NewGetLoadBalancerSslCertificateParams), id)
 }
 
 // NewListGlobalLoadBalancerRulesParams mocks base method.
@@ -1001,6 +1168,20 @@ func (mr *MockLoadBalancerServiceIfaceMockRecorder) NewListLoadBalancersParams()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListLoadBalancersParams", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).NewListLoadBalancersParams))
 }
 
+// NewListNetscalerControlCenterParams mocks base method.
+func (m *MockLoadBalancerServiceIface) NewListNetscalerControlCenterParams() *ListNetscalerControlCenterParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewListNetscalerControlCenterParams")
+	ret0, _ := ret[0].(*ListNetscalerControlCenterParams)
+	return ret0
+}
+
+// NewListNetscalerControlCenterParams indicates an expected call of NewListNetscalerControlCenterParams.
+func (mr *MockLoadBalancerServiceIfaceMockRecorder) NewListNetscalerControlCenterParams() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListNetscalerControlCenterParams", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).NewListNetscalerControlCenterParams))
+}
+
 // NewListNetscalerLoadBalancersParams mocks base method.
 func (m *MockLoadBalancerServiceIface) NewListNetscalerLoadBalancersParams() *ListNetscalerLoadBalancersParams {
 	m.ctrl.T.Helper()
@@ -1013,6 +1194,20 @@ func (m *MockLoadBalancerServiceIface) NewListNetscalerLoadBalancersParams() *Li
 func (mr *MockLoadBalancerServiceIfaceMockRecorder) NewListNetscalerLoadBalancersParams() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListNetscalerLoadBalancersParams", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).NewListNetscalerLoadBalancersParams))
+}
+
+// NewListRegisteredServicePackagesParams mocks base method.
+func (m *MockLoadBalancerServiceIface) NewListRegisteredServicePackagesParams() *ListRegisteredServicePackagesParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewListRegisteredServicePackagesParams")
+	ret0, _ := ret[0].(*ListRegisteredServicePackagesParams)
+	return ret0
+}
+
+// NewListRegisteredServicePackagesParams indicates an expected call of NewListRegisteredServicePackagesParams.
+func (mr *MockLoadBalancerServiceIfaceMockRecorder) NewListRegisteredServicePackagesParams() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListRegisteredServicePackagesParams", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).NewListRegisteredServicePackagesParams))
 }
 
 // NewListSslCertsParams mocks base method.
@@ -1069,6 +1264,20 @@ func (m *MockLoadBalancerServiceIface) NewRemoveFromLoadBalancerRuleParams(id st
 func (mr *MockLoadBalancerServiceIfaceMockRecorder) NewRemoveFromLoadBalancerRuleParams(id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewRemoveFromLoadBalancerRuleParams", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).NewRemoveFromLoadBalancerRuleParams), id)
+}
+
+// NewStopNetScalerVpxParams mocks base method.
+func (m *MockLoadBalancerServiceIface) NewStopNetScalerVpxParams(id string) *StopNetScalerVpxParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewStopNetScalerVpxParams", id)
+	ret0, _ := ret[0].(*StopNetScalerVpxParams)
+	return ret0
+}
+
+// NewStopNetScalerVpxParams indicates an expected call of NewStopNetScalerVpxParams.
+func (mr *MockLoadBalancerServiceIfaceMockRecorder) NewStopNetScalerVpxParams(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewStopNetScalerVpxParams", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).NewStopNetScalerVpxParams), id)
 }
 
 // NewUpdateGlobalLoadBalancerRuleParams mocks base method.
@@ -1198,6 +1407,21 @@ func (m *MockLoadBalancerServiceIface) RemoveFromLoadBalancerRule(p *RemoveFromL
 func (mr *MockLoadBalancerServiceIfaceMockRecorder) RemoveFromLoadBalancerRule(p interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RemoveFromLoadBalancerRule", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).RemoveFromLoadBalancerRule), p)
+}
+
+// StopNetScalerVpx mocks base method.
+func (m *MockLoadBalancerServiceIface) StopNetScalerVpx(p *StopNetScalerVpxParams) (*StopNetScalerVpxResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "StopNetScalerVpx", p)
+	ret0, _ := ret[0].(*StopNetScalerVpxResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// StopNetScalerVpx indicates an expected call of StopNetScalerVpx.
+func (mr *MockLoadBalancerServiceIfaceMockRecorder) StopNetScalerVpx(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "StopNetScalerVpx", reflect.TypeOf((*MockLoadBalancerServiceIface)(nil).StopNetScalerVpx), p)
 }
 
 // UpdateGlobalLoadBalancerRule mocks base method.

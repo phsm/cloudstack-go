@@ -58,10 +58,18 @@ type LoadBalancerServiceIface interface {
 	NewDeleteLoadBalancerParams(id string) *DeleteLoadBalancerParams
 	DeleteLoadBalancerRule(p *DeleteLoadBalancerRuleParams) (*DeleteLoadBalancerRuleResponse, error)
 	NewDeleteLoadBalancerRuleParams(id string) *DeleteLoadBalancerRuleParams
+	DeleteNetscalerControlCenter(p *DeleteNetscalerControlCenterParams) (*DeleteNetscalerControlCenterResponse, error)
+	NewDeleteNetscalerControlCenterParams(id string) *DeleteNetscalerControlCenterParams
 	DeleteNetscalerLoadBalancer(p *DeleteNetscalerLoadBalancerParams) (*DeleteNetscalerLoadBalancerResponse, error)
 	NewDeleteNetscalerLoadBalancerParams(lbdeviceid string) *DeleteNetscalerLoadBalancerParams
+	DeleteServicePackageOffering(p *DeleteServicePackageOfferingParams) (*DeleteServicePackageOfferingResponse, error)
+	NewDeleteServicePackageOfferingParams(id string) *DeleteServicePackageOfferingParams
 	DeleteSslCert(p *DeleteSslCertParams) (*DeleteSslCertResponse, error)
 	NewDeleteSslCertParams(id string) *DeleteSslCertParams
+	DeployNetscalerVpx(p *DeployNetscalerVpxParams) (*DeployNetscalerVpxResponse, error)
+	NewDeployNetscalerVpxParams(serviceofferingid string, templateid string, zoneid string) *DeployNetscalerVpxParams
+	GetLoadBalancerSslCertificate(p *GetLoadBalancerSslCertificateParams) (*GetLoadBalancerSslCertificateResponse, error)
+	NewGetLoadBalancerSslCertificateParams(id string) *GetLoadBalancerSslCertificateParams
 	ListGlobalLoadBalancerRules(p *ListGlobalLoadBalancerRulesParams) (*ListGlobalLoadBalancerRulesResponse, error)
 	NewListGlobalLoadBalancerRulesParams() *ListGlobalLoadBalancerRulesParams
 	GetGlobalLoadBalancerRuleID(keyword string, opts ...OptionFunc) (string, int, error)
@@ -86,8 +94,13 @@ type LoadBalancerServiceIface interface {
 	GetLoadBalancerID(name string, opts ...OptionFunc) (string, int, error)
 	GetLoadBalancerByName(name string, opts ...OptionFunc) (*LoadBalancer, int, error)
 	GetLoadBalancerByID(id string, opts ...OptionFunc) (*LoadBalancer, int, error)
+	ListNetscalerControlCenter(p *ListNetscalerControlCenterParams) (*ListNetscalerControlCenterResponse, error)
+	NewListNetscalerControlCenterParams() *ListNetscalerControlCenterParams
 	ListNetscalerLoadBalancers(p *ListNetscalerLoadBalancersParams) (*ListNetscalerLoadBalancersResponse, error)
 	NewListNetscalerLoadBalancersParams() *ListNetscalerLoadBalancersParams
+	ListRegisteredServicePackages(p *ListRegisteredServicePackagesParams) (*ListRegisteredServicePackagesResponse, error)
+	NewListRegisteredServicePackagesParams() *ListRegisteredServicePackagesParams
+	GetRegisteredServicePackageID(keyword string, opts ...OptionFunc) (string, int, error)
 	ListSslCerts(p *ListSslCertsParams) (*ListSslCertsResponse, error)
 	NewListSslCertsParams() *ListSslCertsParams
 	RemoveCertFromLoadBalancer(p *RemoveCertFromLoadBalancerParams) (*RemoveCertFromLoadBalancerResponse, error)
@@ -96,6 +109,8 @@ type LoadBalancerServiceIface interface {
 	NewRemoveFromGlobalLoadBalancerRuleParams(id string, loadbalancerrulelist []string) *RemoveFromGlobalLoadBalancerRuleParams
 	RemoveFromLoadBalancerRule(p *RemoveFromLoadBalancerRuleParams) (*RemoveFromLoadBalancerRuleResponse, error)
 	NewRemoveFromLoadBalancerRuleParams(id string) *RemoveFromLoadBalancerRuleParams
+	StopNetScalerVpx(p *StopNetScalerVpxParams) (*StopNetScalerVpxResponse, error)
+	NewStopNetScalerVpxParams(id string) *StopNetScalerVpxParams
 	UpdateGlobalLoadBalancerRule(p *UpdateGlobalLoadBalancerRuleParams) (*UpdateGlobalLoadBalancerRuleResponse, error)
 	NewUpdateGlobalLoadBalancerRuleParams(id string) *UpdateGlobalLoadBalancerRuleParams
 	UpdateLBHealthCheckPolicy(p *UpdateLBHealthCheckPolicyParams) (*UpdateLBHealthCheckPolicyResponse, error)
@@ -2987,6 +3002,100 @@ type DeleteLoadBalancerRuleResponse struct {
 	Success     bool   `json:"success"`
 }
 
+type DeleteNetscalerControlCenterParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeleteNetscalerControlCenterParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *DeleteNetscalerControlCenterParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *DeleteNetscalerControlCenterParams) ResetId() {
+	if p.p != nil && p.p["id"] != nil {
+		delete(p.p, "id")
+	}
+}
+
+func (p *DeleteNetscalerControlCenterParams) GetId() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["id"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new DeleteNetscalerControlCenterParams instance,
+// as then you are sure you have configured all required params
+func (s *LoadBalancerService) NewDeleteNetscalerControlCenterParams(id string) *DeleteNetscalerControlCenterParams {
+	p := &DeleteNetscalerControlCenterParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Delete Netscaler Control Center
+func (s *LoadBalancerService) DeleteNetscalerControlCenter(p *DeleteNetscalerControlCenterParams) (*DeleteNetscalerControlCenterResponse, error) {
+	resp, err := s.cs.newRequest("deleteNetscalerControlCenter", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeleteNetscalerControlCenterResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type DeleteNetscalerControlCenterResponse struct {
+	Displaytext string `json:"displaytext"`
+	JobID       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
+	Success     bool   `json:"success"`
+}
+
+func (r *DeleteNetscalerControlCenterResponse) UnmarshalJSON(b []byte) error {
+	var m map[string]interface{}
+	err := json.Unmarshal(b, &m)
+	if err != nil {
+		return err
+	}
+
+	if success, ok := m["success"].(string); ok {
+		m["success"] = success == "true"
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	type alias DeleteNetscalerControlCenterResponse
+	return json.Unmarshal(b, (*alias)(r))
+}
+
 type DeleteNetscalerLoadBalancerParams struct {
 	p map[string]interface{}
 }
@@ -3067,6 +3176,100 @@ type DeleteNetscalerLoadBalancerResponse struct {
 	JobID       string `json:"jobid"`
 	Jobstatus   int    `json:"jobstatus"`
 	Success     bool   `json:"success"`
+}
+
+type DeleteServicePackageOfferingParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeleteServicePackageOfferingParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *DeleteServicePackageOfferingParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *DeleteServicePackageOfferingParams) ResetId() {
+	if p.p != nil && p.p["id"] != nil {
+		delete(p.p, "id")
+	}
+}
+
+func (p *DeleteServicePackageOfferingParams) GetId() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["id"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new DeleteServicePackageOfferingParams instance,
+// as then you are sure you have configured all required params
+func (s *LoadBalancerService) NewDeleteServicePackageOfferingParams(id string) *DeleteServicePackageOfferingParams {
+	p := &DeleteServicePackageOfferingParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Delete Service Package
+func (s *LoadBalancerService) DeleteServicePackageOffering(p *DeleteServicePackageOfferingParams) (*DeleteServicePackageOfferingResponse, error) {
+	resp, err := s.cs.newRequest("deleteServicePackageOffering", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeleteServicePackageOfferingResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type DeleteServicePackageOfferingResponse struct {
+	Displaytext string `json:"displaytext"`
+	JobID       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
+	Success     bool   `json:"success"`
+}
+
+func (r *DeleteServicePackageOfferingResponse) UnmarshalJSON(b []byte) error {
+	var m map[string]interface{}
+	err := json.Unmarshal(b, &m)
+	if err != nil {
+		return err
+	}
+
+	if success, ok := m["success"].(string); ok {
+		m["success"] = success == "true"
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	type alias DeleteServicePackageOfferingResponse
+	return json.Unmarshal(b, (*alias)(r))
 }
 
 type DeleteSslCertParams struct {
@@ -3161,6 +3364,248 @@ func (r *DeleteSslCertResponse) UnmarshalJSON(b []byte) error {
 
 	type alias DeleteSslCertResponse
 	return json.Unmarshal(b, (*alias)(r))
+}
+
+type DeployNetscalerVpxParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeployNetscalerVpxParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["networkid"]; found {
+		u.Set("networkid", v.(string))
+	}
+	if v, found := p.p["serviceofferingid"]; found {
+		u.Set("serviceofferingid", v.(string))
+	}
+	if v, found := p.p["templateid"]; found {
+		u.Set("templateid", v.(string))
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *DeployNetscalerVpxParams) SetNetworkid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["networkid"] = v
+}
+
+func (p *DeployNetscalerVpxParams) ResetNetworkid() {
+	if p.p != nil && p.p["networkid"] != nil {
+		delete(p.p, "networkid")
+	}
+}
+
+func (p *DeployNetscalerVpxParams) GetNetworkid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["networkid"].(string)
+	return value, ok
+}
+
+func (p *DeployNetscalerVpxParams) SetServiceofferingid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["serviceofferingid"] = v
+}
+
+func (p *DeployNetscalerVpxParams) ResetServiceofferingid() {
+	if p.p != nil && p.p["serviceofferingid"] != nil {
+		delete(p.p, "serviceofferingid")
+	}
+}
+
+func (p *DeployNetscalerVpxParams) GetServiceofferingid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["serviceofferingid"].(string)
+	return value, ok
+}
+
+func (p *DeployNetscalerVpxParams) SetTemplateid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["templateid"] = v
+}
+
+func (p *DeployNetscalerVpxParams) ResetTemplateid() {
+	if p.p != nil && p.p["templateid"] != nil {
+		delete(p.p, "templateid")
+	}
+}
+
+func (p *DeployNetscalerVpxParams) GetTemplateid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["templateid"].(string)
+	return value, ok
+}
+
+func (p *DeployNetscalerVpxParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+}
+
+func (p *DeployNetscalerVpxParams) ResetZoneid() {
+	if p.p != nil && p.p["zoneid"] != nil {
+		delete(p.p, "zoneid")
+	}
+}
+
+func (p *DeployNetscalerVpxParams) GetZoneid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["zoneid"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new DeployNetscalerVpxParams instance,
+// as then you are sure you have configured all required params
+func (s *LoadBalancerService) NewDeployNetscalerVpxParams(serviceofferingid string, templateid string, zoneid string) *DeployNetscalerVpxParams {
+	p := &DeployNetscalerVpxParams{}
+	p.p = make(map[string]interface{})
+	p.p["serviceofferingid"] = serviceofferingid
+	p.p["templateid"] = templateid
+	p.p["zoneid"] = zoneid
+	return p
+}
+
+// Creates new NS Vpx
+func (s *LoadBalancerService) DeployNetscalerVpx(p *DeployNetscalerVpxParams) (*DeployNetscalerVpxResponse, error) {
+	resp, err := s.cs.newRequest("deployNetscalerVpx", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeployNetscalerVpxResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type DeployNetscalerVpxResponse struct {
+	Gslbprovider            bool     `json:"gslbprovider"`
+	Gslbproviderprivateip   string   `json:"gslbproviderprivateip"`
+	Gslbproviderpublicip    string   `json:"gslbproviderpublicip"`
+	Ipaddress               string   `json:"ipaddress"`
+	Isexclusivegslbprovider bool     `json:"isexclusivegslbprovider"`
+	JobID                   string   `json:"jobid"`
+	Jobstatus               int      `json:"jobstatus"`
+	Lbdevicecapacity        int64    `json:"lbdevicecapacity"`
+	Lbdevicededicated       bool     `json:"lbdevicededicated"`
+	Lbdeviceid              string   `json:"lbdeviceid"`
+	Lbdevicename            string   `json:"lbdevicename"`
+	Lbdevicestate           string   `json:"lbdevicestate"`
+	Physicalnetworkid       string   `json:"physicalnetworkid"`
+	Podids                  []string `json:"podids"`
+	Privateinterface        string   `json:"privateinterface"`
+	Provider                string   `json:"provider"`
+	Publicinterface         string   `json:"publicinterface"`
+}
+
+type GetLoadBalancerSslCertificateParams struct {
+	p map[string]interface{}
+}
+
+func (p *GetLoadBalancerSslCertificateParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *GetLoadBalancerSslCertificateParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *GetLoadBalancerSslCertificateParams) ResetId() {
+	if p.p != nil && p.p["id"] != nil {
+		delete(p.p, "id")
+	}
+}
+
+func (p *GetLoadBalancerSslCertificateParams) GetId() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["id"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new GetLoadBalancerSslCertificateParams instance,
+// as then you are sure you have configured all required params
+func (s *LoadBalancerService) NewGetLoadBalancerSslCertificateParams(id string) *GetLoadBalancerSslCertificateParams {
+	p := &GetLoadBalancerSslCertificateParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// get load balancer certificate
+func (s *LoadBalancerService) GetLoadBalancerSslCertificate(p *GetLoadBalancerSslCertificateParams) (*GetLoadBalancerSslCertificateResponse, error) {
+	resp, err := s.cs.newRequest("getLoadBalancerSslCertificate", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r GetLoadBalancerSslCertificateResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type GetLoadBalancerSslCertificateResponse struct {
+	Chain     string `json:"chain"`
+	Crt       string `json:"crt"`
+	JobID     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
+	Key       string `json:"key"`
 }
 
 type ListGlobalLoadBalancerRulesParams struct {
@@ -5411,6 +5856,130 @@ type LoadBalancerLoadbalancerinstance struct {
 	State     string `json:"state"`
 }
 
+type ListNetscalerControlCenterParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListNetscalerControlCenterParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	return u
+}
+
+func (p *ListNetscalerControlCenterParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+}
+
+func (p *ListNetscalerControlCenterParams) ResetKeyword() {
+	if p.p != nil && p.p["keyword"] != nil {
+		delete(p.p, "keyword")
+	}
+}
+
+func (p *ListNetscalerControlCenterParams) GetKeyword() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["keyword"].(string)
+	return value, ok
+}
+
+func (p *ListNetscalerControlCenterParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+}
+
+func (p *ListNetscalerControlCenterParams) ResetPage() {
+	if p.p != nil && p.p["page"] != nil {
+		delete(p.p, "page")
+	}
+}
+
+func (p *ListNetscalerControlCenterParams) GetPage() (int, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["page"].(int)
+	return value, ok
+}
+
+func (p *ListNetscalerControlCenterParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+}
+
+func (p *ListNetscalerControlCenterParams) ResetPagesize() {
+	if p.p != nil && p.p["pagesize"] != nil {
+		delete(p.p, "pagesize")
+	}
+}
+
+func (p *ListNetscalerControlCenterParams) GetPagesize() (int, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["pagesize"].(int)
+	return value, ok
+}
+
+// You should always use this function to get a new ListNetscalerControlCenterParams instance,
+// as then you are sure you have configured all required params
+func (s *LoadBalancerService) NewListNetscalerControlCenterParams() *ListNetscalerControlCenterParams {
+	p := &ListNetscalerControlCenterParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// list control center
+func (s *LoadBalancerService) ListNetscalerControlCenter(p *ListNetscalerControlCenterParams) (*ListNetscalerControlCenterResponse, error) {
+	resp, err := s.cs.newRequest("listNetscalerControlCenter", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ListNetscalerControlCenterResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type ListNetscalerControlCenterResponse struct {
+	Count                  int                       `json:"count"`
+	NetscalerControlCenter []*NetscalerControlCenter `json:"netscalercontrolcenter"`
+}
+
+type NetscalerControlCenter struct {
+	Id         string `json:"id"`
+	Ipaddress  string `json:"ipaddress"`
+	JobID      string `json:"jobid"`
+	Jobstatus  int    `json:"jobstatus"`
+	Numretries string `json:"numretries"`
+	Username   string `json:"username"`
+	Uuid       string `json:"uuid"`
+}
+
 type ListNetscalerLoadBalancersParams struct {
 	p map[string]interface{}
 }
@@ -5591,6 +6160,164 @@ type NetscalerLoadBalancer struct {
 	Privateinterface        string   `json:"privateinterface"`
 	Provider                string   `json:"provider"`
 	Publicinterface         string   `json:"publicinterface"`
+}
+
+type ListRegisteredServicePackagesParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListRegisteredServicePackagesParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	return u
+}
+
+func (p *ListRegisteredServicePackagesParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+}
+
+func (p *ListRegisteredServicePackagesParams) ResetKeyword() {
+	if p.p != nil && p.p["keyword"] != nil {
+		delete(p.p, "keyword")
+	}
+}
+
+func (p *ListRegisteredServicePackagesParams) GetKeyword() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["keyword"].(string)
+	return value, ok
+}
+
+func (p *ListRegisteredServicePackagesParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+}
+
+func (p *ListRegisteredServicePackagesParams) ResetPage() {
+	if p.p != nil && p.p["page"] != nil {
+		delete(p.p, "page")
+	}
+}
+
+func (p *ListRegisteredServicePackagesParams) GetPage() (int, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["page"].(int)
+	return value, ok
+}
+
+func (p *ListRegisteredServicePackagesParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+}
+
+func (p *ListRegisteredServicePackagesParams) ResetPagesize() {
+	if p.p != nil && p.p["pagesize"] != nil {
+		delete(p.p, "pagesize")
+	}
+}
+
+func (p *ListRegisteredServicePackagesParams) GetPagesize() (int, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["pagesize"].(int)
+	return value, ok
+}
+
+// You should always use this function to get a new ListRegisteredServicePackagesParams instance,
+// as then you are sure you have configured all required params
+func (s *LoadBalancerService) NewListRegisteredServicePackagesParams() *ListRegisteredServicePackagesParams {
+	p := &ListRegisteredServicePackagesParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *LoadBalancerService) GetRegisteredServicePackageID(keyword string, opts ...OptionFunc) (string, int, error) {
+	p := &ListRegisteredServicePackagesParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["keyword"] = keyword
+
+	for _, fn := range append(s.cs.options, opts...) {
+		if err := fn(s.cs, p); err != nil {
+			return "", -1, err
+		}
+	}
+
+	l, err := s.ListRegisteredServicePackages(p)
+	if err != nil {
+		return "", -1, err
+	}
+
+	if l.Count == 0 {
+		return "", l.Count, fmt.Errorf("No match found for %s: %+v", keyword, l)
+	}
+
+	if l.Count == 1 {
+		return l.RegisteredServicePackages[0].Id, l.Count, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.RegisteredServicePackages {
+			if v.Name == keyword {
+				return v.Id, l.Count, nil
+			}
+		}
+	}
+	return "", l.Count, fmt.Errorf("Could not find an exact match for %s: %+v", keyword, l)
+}
+
+// lists registered service packages
+func (s *LoadBalancerService) ListRegisteredServicePackages(p *ListRegisteredServicePackagesParams) (*ListRegisteredServicePackagesResponse, error) {
+	resp, err := s.cs.newRequest("listRegisteredServicePackages", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ListRegisteredServicePackagesResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type ListRegisteredServicePackagesResponse struct {
+	Count                     int                         `json:"count"`
+	RegisteredServicePackages []*RegisteredServicePackage `json:"registeredservicepackage"`
+}
+
+type RegisteredServicePackage struct {
+	Description string `json:"description"`
+	Id          string `json:"id"`
+	JobID       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
+	Name        string `json:"name"`
 }
 
 type ListSslCertsParams struct {
@@ -6067,6 +6794,177 @@ type RemoveFromLoadBalancerRuleResponse struct {
 	Displaytext string `json:"displaytext"`
 	JobID       string `json:"jobid"`
 	Jobstatus   int    `json:"jobstatus"`
+	Success     bool   `json:"success"`
+}
+
+type StopNetScalerVpxParams struct {
+	p map[string]interface{}
+}
+
+func (p *StopNetScalerVpxParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["forced"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("forced", vv)
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *StopNetScalerVpxParams) SetForced(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["forced"] = v
+}
+
+func (p *StopNetScalerVpxParams) ResetForced() {
+	if p.p != nil && p.p["forced"] != nil {
+		delete(p.p, "forced")
+	}
+}
+
+func (p *StopNetScalerVpxParams) GetForced() (bool, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["forced"].(bool)
+	return value, ok
+}
+
+func (p *StopNetScalerVpxParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *StopNetScalerVpxParams) ResetId() {
+	if p.p != nil && p.p["id"] != nil {
+		delete(p.p, "id")
+	}
+}
+
+func (p *StopNetScalerVpxParams) GetId() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["id"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new StopNetScalerVpxParams instance,
+// as then you are sure you have configured all required params
+func (s *LoadBalancerService) NewStopNetScalerVpxParams(id string) *StopNetScalerVpxParams {
+	p := &StopNetScalerVpxParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Stops a NetScalervm.
+func (s *LoadBalancerService) StopNetScalerVpx(p *StopNetScalerVpxParams) (*StopNetScalerVpxResponse, error) {
+	resp, err := s.cs.newRequest("stopNetScalerVpx", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r StopNetScalerVpxResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type StopNetScalerVpxResponse struct {
+	Account             string                                       `json:"account"`
+	Created             string                                       `json:"created"`
+	Dns1                string                                       `json:"dns1"`
+	Dns2                string                                       `json:"dns2"`
+	Domain              string                                       `json:"domain"`
+	Domainid            string                                       `json:"domainid"`
+	Gateway             string                                       `json:"gateway"`
+	Guestipaddress      string                                       `json:"guestipaddress"`
+	Guestmacaddress     string                                       `json:"guestmacaddress"`
+	Guestnetmask        string                                       `json:"guestnetmask"`
+	Guestnetworkid      string                                       `json:"guestnetworkid"`
+	Guestnetworkname    string                                       `json:"guestnetworkname"`
+	Hasannotations      bool                                         `json:"hasannotations"`
+	Healthcheckresults  []StopNetScalerVpxResponseHealthcheckresults `json:"healthcheckresults"`
+	Healthchecksfailed  bool                                         `json:"healthchecksfailed"`
+	Hostcontrolstate    string                                       `json:"hostcontrolstate"`
+	Hostid              string                                       `json:"hostid"`
+	Hostname            string                                       `json:"hostname"`
+	Hypervisor          string                                       `json:"hypervisor"`
+	Id                  string                                       `json:"id"`
+	Ip6dns1             string                                       `json:"ip6dns1"`
+	Ip6dns2             string                                       `json:"ip6dns2"`
+	Isredundantrouter   bool                                         `json:"isredundantrouter"`
+	JobID               string                                       `json:"jobid"`
+	Jobstatus           int                                          `json:"jobstatus"`
+	Linklocalip         string                                       `json:"linklocalip"`
+	Linklocalmacaddress string                                       `json:"linklocalmacaddress"`
+	Linklocalnetmask    string                                       `json:"linklocalnetmask"`
+	Linklocalnetworkid  string                                       `json:"linklocalnetworkid"`
+	Name                string                                       `json:"name"`
+	Networkdomain       string                                       `json:"networkdomain"`
+	Nic                 []Nic                                        `json:"nic"`
+	Podid               string                                       `json:"podid"`
+	Podname             string                                       `json:"podname"`
+	Project             string                                       `json:"project"`
+	Projectid           string                                       `json:"projectid"`
+	Publicip            string                                       `json:"publicip"`
+	Publicmacaddress    string                                       `json:"publicmacaddress"`
+	Publicnetmask       string                                       `json:"publicnetmask"`
+	Publicnetworkid     string                                       `json:"publicnetworkid"`
+	Redundantstate      string                                       `json:"redundantstate"`
+	Requiresupgrade     bool                                         `json:"requiresupgrade"`
+	Role                string                                       `json:"role"`
+	Scriptsversion      string                                       `json:"scriptsversion"`
+	Serviceofferingid   string                                       `json:"serviceofferingid"`
+	Serviceofferingname string                                       `json:"serviceofferingname"`
+	Softwareversion     string                                       `json:"softwareversion"`
+	State               string                                       `json:"state"`
+	Templateid          string                                       `json:"templateid"`
+	Templatename        string                                       `json:"templatename"`
+	Version             string                                       `json:"version"`
+	Vpcid               string                                       `json:"vpcid"`
+	Vpcname             string                                       `json:"vpcname"`
+	Zoneid              string                                       `json:"zoneid"`
+	Zonename            string                                       `json:"zonename"`
+}
+
+type StopNetScalerVpxResponseHealthcheckresults struct {
+	Checkname   string `json:"checkname"`
+	Checktype   string `json:"checktype"`
+	Details     string `json:"details"`
+	Lastupdated string `json:"lastupdated"`
 	Success     bool   `json:"success"`
 }
 

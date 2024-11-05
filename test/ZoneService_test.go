@@ -35,6 +35,21 @@ func TestZoneService(t *testing.T) {
 	client := cloudstack.NewClient(server.URL, "APIKEY", "SECRETKEY", true)
 	defer server.Close()
 
+	testaddVmwareDc := func(t *testing.T) {
+		if _, ok := response["addVmwareDc"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Zone.NewAddVmwareDcParams("name", "vcenter", "zoneid")
+		r, err := client.Zone.AddVmwareDc(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+		if r.Id == "" {
+			t.Errorf("Failed to parse response. ID not found")
+		}
+	}
+	t.Run("AddVmwareDc", testaddVmwareDc)
+
 	testcreateZone := func(t *testing.T) {
 		if _, ok := response["createZone"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")
@@ -137,6 +152,30 @@ func TestZoneService(t *testing.T) {
 	}
 	t.Run("ListDedicatedZones", testlistDedicatedZones)
 
+	testlistVmwareDcVms := func(t *testing.T) {
+		if _, ok := response["listVmwareDcVms"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Zone.NewListVmwareDcVmsParams()
+		_, err := client.Zone.ListVmwareDcVms(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("ListVmwareDcVms", testlistVmwareDcVms)
+
+	testlistVmwareDcs := func(t *testing.T) {
+		if _, ok := response["listVmwareDcs"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Zone.NewListVmwareDcsParams("zoneid")
+		_, err := client.Zone.ListVmwareDcs(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("ListVmwareDcs", testlistVmwareDcs)
+
 	testlistZones := func(t *testing.T) {
 		if _, ok := response["listZones"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")
@@ -172,6 +211,33 @@ func TestZoneService(t *testing.T) {
 		}
 	}
 	t.Run("ReleaseDedicatedZone", testreleaseDedicatedZone)
+
+	testremoveVmwareDc := func(t *testing.T) {
+		if _, ok := response["removeVmwareDc"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Zone.NewRemoveVmwareDcParams("zoneid")
+		_, err := client.Zone.RemoveVmwareDc(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+	}
+	t.Run("RemoveVmwareDc", testremoveVmwareDc)
+
+	testupdateVmwareDc := func(t *testing.T) {
+		if _, ok := response["updateVmwareDc"]; !ok {
+			t.Skipf("Skipping as no json response is provided in testdata")
+		}
+		p := client.Zone.NewUpdateVmwareDcParams("zoneid")
+		r, err := client.Zone.UpdateVmwareDc(p)
+		if err != nil {
+			t.Errorf(err.Error())
+		}
+		if r.Id == "" {
+			t.Errorf("Failed to parse response. ID not found")
+		}
+	}
+	t.Run("UpdateVmwareDc", testupdateVmwareDc)
 
 	testupdateZone := func(t *testing.T) {
 		if _, ok := response["updateZone"]; !ok {

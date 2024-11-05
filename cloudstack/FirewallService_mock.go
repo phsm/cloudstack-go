@@ -142,6 +142,36 @@ func (mr *MockFirewallServiceIfaceMockRecorder) CreatePortForwardingRule(p inter
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreatePortForwardingRule", reflect.TypeOf((*MockFirewallServiceIface)(nil).CreatePortForwardingRule), p)
 }
 
+// CreateTungstenFabricFirewallPolicy mocks base method.
+func (m *MockFirewallServiceIface) CreateTungstenFabricFirewallPolicy(p *CreateTungstenFabricFirewallPolicyParams) (*CreateTungstenFabricFirewallPolicyResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateTungstenFabricFirewallPolicy", p)
+	ret0, _ := ret[0].(*CreateTungstenFabricFirewallPolicyResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateTungstenFabricFirewallPolicy indicates an expected call of CreateTungstenFabricFirewallPolicy.
+func (mr *MockFirewallServiceIfaceMockRecorder) CreateTungstenFabricFirewallPolicy(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateTungstenFabricFirewallPolicy", reflect.TypeOf((*MockFirewallServiceIface)(nil).CreateTungstenFabricFirewallPolicy), p)
+}
+
+// CreateTungstenFabricFirewallRule mocks base method.
+func (m *MockFirewallServiceIface) CreateTungstenFabricFirewallRule(p *CreateTungstenFabricFirewallRuleParams) (*CreateTungstenFabricFirewallRuleResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateTungstenFabricFirewallRule", p)
+	ret0, _ := ret[0].(*CreateTungstenFabricFirewallRuleResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateTungstenFabricFirewallRule indicates an expected call of CreateTungstenFabricFirewallRule.
+func (mr *MockFirewallServiceIfaceMockRecorder) CreateTungstenFabricFirewallRule(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateTungstenFabricFirewallRule", reflect.TypeOf((*MockFirewallServiceIface)(nil).CreateTungstenFabricFirewallRule), p)
+}
+
 // DeleteEgressFirewallRule mocks base method.
 func (m *MockFirewallServiceIface) DeleteEgressFirewallRule(p *DeleteEgressFirewallRuleParams) (*DeleteEgressFirewallRuleResponse, error) {
 	m.ctrl.T.Helper()
@@ -215,6 +245,21 @@ func (m *MockFirewallServiceIface) DeletePortForwardingRule(p *DeletePortForward
 func (mr *MockFirewallServiceIfaceMockRecorder) DeletePortForwardingRule(p interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeletePortForwardingRule", reflect.TypeOf((*MockFirewallServiceIface)(nil).DeletePortForwardingRule), p)
+}
+
+// DeleteTungstenFabricFirewallPolicy mocks base method.
+func (m *MockFirewallServiceIface) DeleteTungstenFabricFirewallPolicy(p *DeleteTungstenFabricFirewallPolicyParams) (*DeleteTungstenFabricFirewallPolicyResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteTungstenFabricFirewallPolicy", p)
+	ret0, _ := ret[0].(*DeleteTungstenFabricFirewallPolicyResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteTungstenFabricFirewallPolicy indicates an expected call of DeleteTungstenFabricFirewallPolicy.
+func (mr *MockFirewallServiceIfaceMockRecorder) DeleteTungstenFabricFirewallPolicy(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteTungstenFabricFirewallPolicy", reflect.TypeOf((*MockFirewallServiceIface)(nil).DeleteTungstenFabricFirewallPolicy), p)
 }
 
 // GetEgressFirewallRuleByID mocks base method.
@@ -376,6 +421,36 @@ func (mr *MockFirewallServiceIfaceMockRecorder) ListPortForwardingRules(p interf
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListPortForwardingRules", reflect.TypeOf((*MockFirewallServiceIface)(nil).ListPortForwardingRules), p)
 }
 
+// ListTungstenFabricFirewallPolicy mocks base method.
+func (m *MockFirewallServiceIface) ListTungstenFabricFirewallPolicy(p *ListTungstenFabricFirewallPolicyParams) (*ListTungstenFabricFirewallPolicyResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListTungstenFabricFirewallPolicy", p)
+	ret0, _ := ret[0].(*ListTungstenFabricFirewallPolicyResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListTungstenFabricFirewallPolicy indicates an expected call of ListTungstenFabricFirewallPolicy.
+func (mr *MockFirewallServiceIfaceMockRecorder) ListTungstenFabricFirewallPolicy(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListTungstenFabricFirewallPolicy", reflect.TypeOf((*MockFirewallServiceIface)(nil).ListTungstenFabricFirewallPolicy), p)
+}
+
+// ListTungstenFabricFirewallRule mocks base method.
+func (m *MockFirewallServiceIface) ListTungstenFabricFirewallRule(p *ListTungstenFabricFirewallRuleParams) (*ListTungstenFabricFirewallRuleResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListTungstenFabricFirewallRule", p)
+	ret0, _ := ret[0].(*ListTungstenFabricFirewallRuleResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListTungstenFabricFirewallRule indicates an expected call of ListTungstenFabricFirewallRule.
+func (mr *MockFirewallServiceIfaceMockRecorder) ListTungstenFabricFirewallRule(p interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListTungstenFabricFirewallRule", reflect.TypeOf((*MockFirewallServiceIface)(nil).ListTungstenFabricFirewallRule), p)
+}
+
 // NewAddPaloAltoFirewallParams mocks base method.
 func (m *MockFirewallServiceIface) NewAddPaloAltoFirewallParams(networkdevicetype, password, physicalnetworkid, url, username string) *AddPaloAltoFirewallParams {
 	m.ctrl.T.Helper()
@@ -460,6 +535,34 @@ func (mr *MockFirewallServiceIfaceMockRecorder) NewCreatePortForwardingRuleParam
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewCreatePortForwardingRuleParams", reflect.TypeOf((*MockFirewallServiceIface)(nil).NewCreatePortForwardingRuleParams), ipaddressid, privateport, protocol, publicport, virtualmachineid)
 }
 
+// NewCreateTungstenFabricFirewallPolicyParams mocks base method.
+func (m *MockFirewallServiceIface) NewCreateTungstenFabricFirewallPolicyParams(name string, sequence int, zoneid string) *CreateTungstenFabricFirewallPolicyParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewCreateTungstenFabricFirewallPolicyParams", name, sequence, zoneid)
+	ret0, _ := ret[0].(*CreateTungstenFabricFirewallPolicyParams)
+	return ret0
+}
+
+// NewCreateTungstenFabricFirewallPolicyParams indicates an expected call of NewCreateTungstenFabricFirewallPolicyParams.
+func (mr *MockFirewallServiceIfaceMockRecorder) NewCreateTungstenFabricFirewallPolicyParams(name, sequence, zoneid interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewCreateTungstenFabricFirewallPolicyParams", reflect.TypeOf((*MockFirewallServiceIface)(nil).NewCreateTungstenFabricFirewallPolicyParams), name, sequence, zoneid)
+}
+
+// NewCreateTungstenFabricFirewallRuleParams mocks base method.
+func (m *MockFirewallServiceIface) NewCreateTungstenFabricFirewallRuleParams(action, direction, firewallpolicyuuid, name string, sequence int, servicegroupuuid, zoneid string) *CreateTungstenFabricFirewallRuleParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewCreateTungstenFabricFirewallRuleParams", action, direction, firewallpolicyuuid, name, sequence, servicegroupuuid, zoneid)
+	ret0, _ := ret[0].(*CreateTungstenFabricFirewallRuleParams)
+	return ret0
+}
+
+// NewCreateTungstenFabricFirewallRuleParams indicates an expected call of NewCreateTungstenFabricFirewallRuleParams.
+func (mr *MockFirewallServiceIfaceMockRecorder) NewCreateTungstenFabricFirewallRuleParams(action, direction, firewallpolicyuuid, name, sequence, servicegroupuuid, zoneid interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewCreateTungstenFabricFirewallRuleParams", reflect.TypeOf((*MockFirewallServiceIface)(nil).NewCreateTungstenFabricFirewallRuleParams), action, direction, firewallpolicyuuid, name, sequence, servicegroupuuid, zoneid)
+}
+
 // NewDeleteEgressFirewallRuleParams mocks base method.
 func (m *MockFirewallServiceIface) NewDeleteEgressFirewallRuleParams(id string) *DeleteEgressFirewallRuleParams {
 	m.ctrl.T.Helper()
@@ -530,6 +633,20 @@ func (mr *MockFirewallServiceIfaceMockRecorder) NewDeletePortForwardingRuleParam
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewDeletePortForwardingRuleParams", reflect.TypeOf((*MockFirewallServiceIface)(nil).NewDeletePortForwardingRuleParams), id)
 }
 
+// NewDeleteTungstenFabricFirewallPolicyParams mocks base method.
+func (m *MockFirewallServiceIface) NewDeleteTungstenFabricFirewallPolicyParams(firewallpolicyuuid, zoneid string) *DeleteTungstenFabricFirewallPolicyParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewDeleteTungstenFabricFirewallPolicyParams", firewallpolicyuuid, zoneid)
+	ret0, _ := ret[0].(*DeleteTungstenFabricFirewallPolicyParams)
+	return ret0
+}
+
+// NewDeleteTungstenFabricFirewallPolicyParams indicates an expected call of NewDeleteTungstenFabricFirewallPolicyParams.
+func (mr *MockFirewallServiceIfaceMockRecorder) NewDeleteTungstenFabricFirewallPolicyParams(firewallpolicyuuid, zoneid interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewDeleteTungstenFabricFirewallPolicyParams", reflect.TypeOf((*MockFirewallServiceIface)(nil).NewDeleteTungstenFabricFirewallPolicyParams), firewallpolicyuuid, zoneid)
+}
+
 // NewListEgressFirewallRulesParams mocks base method.
 func (m *MockFirewallServiceIface) NewListEgressFirewallRulesParams() *ListEgressFirewallRulesParams {
 	m.ctrl.T.Helper()
@@ -598,6 +715,34 @@ func (m *MockFirewallServiceIface) NewListPortForwardingRulesParams() *ListPortF
 func (mr *MockFirewallServiceIfaceMockRecorder) NewListPortForwardingRulesParams() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListPortForwardingRulesParams", reflect.TypeOf((*MockFirewallServiceIface)(nil).NewListPortForwardingRulesParams))
+}
+
+// NewListTungstenFabricFirewallPolicyParams mocks base method.
+func (m *MockFirewallServiceIface) NewListTungstenFabricFirewallPolicyParams() *ListTungstenFabricFirewallPolicyParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewListTungstenFabricFirewallPolicyParams")
+	ret0, _ := ret[0].(*ListTungstenFabricFirewallPolicyParams)
+	return ret0
+}
+
+// NewListTungstenFabricFirewallPolicyParams indicates an expected call of NewListTungstenFabricFirewallPolicyParams.
+func (mr *MockFirewallServiceIfaceMockRecorder) NewListTungstenFabricFirewallPolicyParams() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListTungstenFabricFirewallPolicyParams", reflect.TypeOf((*MockFirewallServiceIface)(nil).NewListTungstenFabricFirewallPolicyParams))
+}
+
+// NewListTungstenFabricFirewallRuleParams mocks base method.
+func (m *MockFirewallServiceIface) NewListTungstenFabricFirewallRuleParams() *ListTungstenFabricFirewallRuleParams {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NewListTungstenFabricFirewallRuleParams")
+	ret0, _ := ret[0].(*ListTungstenFabricFirewallRuleParams)
+	return ret0
+}
+
+// NewListTungstenFabricFirewallRuleParams indicates an expected call of NewListTungstenFabricFirewallRuleParams.
+func (mr *MockFirewallServiceIfaceMockRecorder) NewListTungstenFabricFirewallRuleParams() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewListTungstenFabricFirewallRuleParams", reflect.TypeOf((*MockFirewallServiceIface)(nil).NewListTungstenFabricFirewallRuleParams))
 }
 
 // NewUpdateEgressFirewallRuleParams mocks base method.

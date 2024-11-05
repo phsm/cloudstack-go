@@ -32,16 +32,24 @@ type NetworkServiceIface interface {
 	NewAddNetworkServiceProviderParams(name string, physicalnetworkid string) *AddNetworkServiceProviderParams
 	AddOpenDaylightController(p *AddOpenDaylightControllerParams) (*AddOpenDaylightControllerResponse, error)
 	NewAddOpenDaylightControllerParams(password string, physicalnetworkid string, url string, username string) *AddOpenDaylightControllerParams
+	CreateManagementNetworkIpRange(p *CreateManagementNetworkIpRangeParams) (*CreateManagementNetworkIpRangeResponse, error)
+	NewCreateManagementNetworkIpRangeParams(gateway string, netmask string, podid string, startip string) *CreateManagementNetworkIpRangeParams
 	CreateNetwork(p *CreateNetworkParams) (*CreateNetworkResponse, error)
 	NewCreateNetworkParams(name string, networkofferingid string, zoneid string) *CreateNetworkParams
 	CreatePhysicalNetwork(p *CreatePhysicalNetworkParams) (*CreatePhysicalNetworkResponse, error)
 	NewCreatePhysicalNetworkParams(name string, zoneid string) *CreatePhysicalNetworkParams
+	CreateTungstenFabricPublicNetwork(p *CreateTungstenFabricPublicNetworkParams) (*CreateTungstenFabricPublicNetworkResponse, error)
+	NewCreateTungstenFabricPublicNetworkParams(zoneid string) *CreateTungstenFabricPublicNetworkParams
 	CreateServiceInstance(p *CreateServiceInstanceParams) (*CreateServiceInstanceResponse, error)
 	NewCreateServiceInstanceParams(leftnetworkid string, name string, rightnetworkid string, serviceofferingid string, templateid string, zoneid string) *CreateServiceInstanceParams
 	CreateStorageNetworkIpRange(p *CreateStorageNetworkIpRangeParams) (*CreateStorageNetworkIpRangeResponse, error)
 	NewCreateStorageNetworkIpRangeParams(gateway string, netmask string, podid string, startip string) *CreateStorageNetworkIpRangeParams
+	CreateTungstenFabricManagementNetwork(p *CreateTungstenFabricManagementNetworkParams) (*CreateTungstenFabricManagementNetworkResponse, error)
+	NewCreateTungstenFabricManagementNetworkParams(podid string) *CreateTungstenFabricManagementNetworkParams
 	DedicatePublicIpRange(p *DedicatePublicIpRangeParams) (*DedicatePublicIpRangeResponse, error)
 	NewDedicatePublicIpRangeParams(domainid string, id string) *DedicatePublicIpRangeParams
+	DeleteManagementNetworkIpRange(p *DeleteManagementNetworkIpRangeParams) (*DeleteManagementNetworkIpRangeResponse, error)
+	NewDeleteManagementNetworkIpRangeParams(endip string, podid string, startip string, vlan string) *DeleteManagementNetworkIpRangeParams
 	DeleteNetwork(p *DeleteNetworkParams) (*DeleteNetworkResponse, error)
 	NewDeleteNetworkParams(id string) *DeleteNetworkParams
 	DeleteNetworkServiceProvider(p *DeleteNetworkServiceProviderParams) (*DeleteNetworkServiceProviderResponse, error)
@@ -52,6 +60,8 @@ type NetworkServiceIface interface {
 	NewDeletePhysicalNetworkParams(id string) *DeletePhysicalNetworkParams
 	DeleteStorageNetworkIpRange(p *DeleteStorageNetworkIpRangeParams) (*DeleteStorageNetworkIpRangeResponse, error)
 	NewDeleteStorageNetworkIpRangeParams(id string) *DeleteStorageNetworkIpRangeParams
+	DeleteTungstenFabricFirewallRule(p *DeleteTungstenFabricFirewallRuleParams) (*DeleteTungstenFabricFirewallRuleResponse, error)
+	NewDeleteTungstenFabricFirewallRuleParams(firewallruleuuid string, zoneid string) *DeleteTungstenFabricFirewallRuleParams
 	ListNetscalerLoadBalancerNetworks(p *ListNetscalerLoadBalancerNetworksParams) (*ListNetscalerLoadBalancerNetworksResponse, error)
 	NewListNetscalerLoadBalancerNetworksParams(lbdeviceid string) *ListNetscalerLoadBalancerNetworksParams
 	GetNetscalerLoadBalancerNetworkID(keyword string, lbdeviceid string, opts ...OptionFunc) (string, int, error)
@@ -84,6 +94,12 @@ type NetworkServiceIface interface {
 	GetStorageNetworkIpRangeByID(id string, opts ...OptionFunc) (*StorageNetworkIpRange, int, error)
 	ListSupportedNetworkServices(p *ListSupportedNetworkServicesParams) (*ListSupportedNetworkServicesResponse, error)
 	NewListSupportedNetworkServicesParams() *ListSupportedNetworkServicesParams
+	ListTungstenFabricNetwork(p *ListTungstenFabricNetworkParams) (*ListTungstenFabricNetworkResponse, error)
+	NewListTungstenFabricNetworkParams() *ListTungstenFabricNetworkParams
+	MigrateNetwork(p *MigrateNetworkParams) (*MigrateNetworkResponse, error)
+	NewMigrateNetworkParams(networkid string, networkofferingid string) *MigrateNetworkParams
+	MoveNetworkAclItem(p *MoveNetworkAclItemParams) (*MoveNetworkAclItemResponse, error)
+	NewMoveNetworkAclItemParams(id string) *MoveNetworkAclItemParams
 	ReleasePublicIpRange(p *ReleasePublicIpRangeParams) (*ReleasePublicIpRangeResponse, error)
 	NewReleasePublicIpRangeParams(id string) *ReleasePublicIpRangeParams
 	RestartNetwork(p *RestartNetworkParams) (*RestartNetworkResponse, error)
@@ -442,6 +458,277 @@ type AddOpenDaylightControllerResponse struct {
 	Physicalnetworkid string `json:"physicalnetworkid"`
 	Url               string `json:"url"`
 	Username          string `json:"username"`
+}
+
+type CreateManagementNetworkIpRangeParams struct {
+	p map[string]interface{}
+}
+
+func (p *CreateManagementNetworkIpRangeParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["endip"]; found {
+		u.Set("endip", v.(string))
+	}
+	if v, found := p.p["forsystemvms"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("forsystemvms", vv)
+	}
+	if v, found := p.p["gateway"]; found {
+		u.Set("gateway", v.(string))
+	}
+	if v, found := p.p["netmask"]; found {
+		u.Set("netmask", v.(string))
+	}
+	if v, found := p.p["podid"]; found {
+		u.Set("podid", v.(string))
+	}
+	if v, found := p.p["startip"]; found {
+		u.Set("startip", v.(string))
+	}
+	if v, found := p.p["vlan"]; found {
+		u.Set("vlan", v.(string))
+	}
+	return u
+}
+
+func (p *CreateManagementNetworkIpRangeParams) SetEndip(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["endip"] = v
+}
+
+func (p *CreateManagementNetworkIpRangeParams) ResetEndip() {
+	if p.p != nil && p.p["endip"] != nil {
+		delete(p.p, "endip")
+	}
+}
+
+func (p *CreateManagementNetworkIpRangeParams) GetEndip() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["endip"].(string)
+	return value, ok
+}
+
+func (p *CreateManagementNetworkIpRangeParams) SetForsystemvms(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["forsystemvms"] = v
+}
+
+func (p *CreateManagementNetworkIpRangeParams) ResetForsystemvms() {
+	if p.p != nil && p.p["forsystemvms"] != nil {
+		delete(p.p, "forsystemvms")
+	}
+}
+
+func (p *CreateManagementNetworkIpRangeParams) GetForsystemvms() (bool, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["forsystemvms"].(bool)
+	return value, ok
+}
+
+func (p *CreateManagementNetworkIpRangeParams) SetGateway(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["gateway"] = v
+}
+
+func (p *CreateManagementNetworkIpRangeParams) ResetGateway() {
+	if p.p != nil && p.p["gateway"] != nil {
+		delete(p.p, "gateway")
+	}
+}
+
+func (p *CreateManagementNetworkIpRangeParams) GetGateway() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["gateway"].(string)
+	return value, ok
+}
+
+func (p *CreateManagementNetworkIpRangeParams) SetNetmask(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["netmask"] = v
+}
+
+func (p *CreateManagementNetworkIpRangeParams) ResetNetmask() {
+	if p.p != nil && p.p["netmask"] != nil {
+		delete(p.p, "netmask")
+	}
+}
+
+func (p *CreateManagementNetworkIpRangeParams) GetNetmask() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["netmask"].(string)
+	return value, ok
+}
+
+func (p *CreateManagementNetworkIpRangeParams) SetPodid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["podid"] = v
+}
+
+func (p *CreateManagementNetworkIpRangeParams) ResetPodid() {
+	if p.p != nil && p.p["podid"] != nil {
+		delete(p.p, "podid")
+	}
+}
+
+func (p *CreateManagementNetworkIpRangeParams) GetPodid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["podid"].(string)
+	return value, ok
+}
+
+func (p *CreateManagementNetworkIpRangeParams) SetStartip(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["startip"] = v
+}
+
+func (p *CreateManagementNetworkIpRangeParams) ResetStartip() {
+	if p.p != nil && p.p["startip"] != nil {
+		delete(p.p, "startip")
+	}
+}
+
+func (p *CreateManagementNetworkIpRangeParams) GetStartip() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["startip"].(string)
+	return value, ok
+}
+
+func (p *CreateManagementNetworkIpRangeParams) SetVlan(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["vlan"] = v
+}
+
+func (p *CreateManagementNetworkIpRangeParams) ResetVlan() {
+	if p.p != nil && p.p["vlan"] != nil {
+		delete(p.p, "vlan")
+	}
+}
+
+func (p *CreateManagementNetworkIpRangeParams) GetVlan() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["vlan"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new CreateManagementNetworkIpRangeParams instance,
+// as then you are sure you have configured all required params
+func (s *NetworkService) NewCreateManagementNetworkIpRangeParams(gateway string, netmask string, podid string, startip string) *CreateManagementNetworkIpRangeParams {
+	p := &CreateManagementNetworkIpRangeParams{}
+	p.p = make(map[string]interface{})
+	p.p["gateway"] = gateway
+	p.p["netmask"] = netmask
+	p.p["podid"] = podid
+	p.p["startip"] = startip
+	return p
+}
+
+// Creates a Management network IP range.
+func (s *NetworkService) CreateManagementNetworkIpRange(p *CreateManagementNetworkIpRangeParams) (*CreateManagementNetworkIpRangeResponse, error) {
+	resp, err := s.cs.newRequest("createManagementNetworkIpRange", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r CreateManagementNetworkIpRangeResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type CreateManagementNetworkIpRangeResponse struct {
+	Allocationstate string                                           `json:"allocationstate"`
+	Capacity        []CreateManagementNetworkIpRangeResponseCapacity `json:"capacity"`
+	Endip           []string                                         `json:"endip"`
+	Forsystemvms    []string                                         `json:"forsystemvms"`
+	Gateway         string                                           `json:"gateway"`
+	Hasannotations  bool                                             `json:"hasannotations"`
+	Id              string                                           `json:"id"`
+	Ipranges        []CreateManagementNetworkIpRangeResponseIpranges `json:"ipranges"`
+	JobID           string                                           `json:"jobid"`
+	Jobstatus       int                                              `json:"jobstatus"`
+	Name            string                                           `json:"name"`
+	Netmask         string                                           `json:"netmask"`
+	Startip         []string                                         `json:"startip"`
+	Vlanid          []string                                         `json:"vlanid"`
+	Zoneid          string                                           `json:"zoneid"`
+	Zonename        string                                           `json:"zonename"`
+}
+
+type CreateManagementNetworkIpRangeResponseIpranges struct {
+	Cidr         string `json:"cidr"`
+	Endip        string `json:"endip"`
+	Forsystemvms string `json:"forsystemvms"`
+	Gateway      string `json:"gateway"`
+	Startip      string `json:"startip"`
+	Vlanid       string `json:"vlanid"`
+}
+
+type CreateManagementNetworkIpRangeResponseCapacity struct {
+	Capacityallocated int64  `json:"capacityallocated"`
+	Capacitytotal     int64  `json:"capacitytotal"`
+	Capacityused      int64  `json:"capacityused"`
+	Clusterid         string `json:"clusterid"`
+	Clustername       string `json:"clustername"`
+	Name              string `json:"name"`
+	Percentused       string `json:"percentused"`
+	Podid             string `json:"podid"`
+	Podname           string `json:"podname"`
+	Type              int    `json:"type"`
+	Zoneid            string `json:"zoneid"`
+	Zonename          string `json:"zonename"`
 }
 
 type CreateNetworkParams struct {
@@ -1793,6 +2080,100 @@ type CreatePhysicalNetworkResponse struct {
 	Zonename             string `json:"zonename"`
 }
 
+type CreateTungstenFabricPublicNetworkParams struct {
+	p map[string]interface{}
+}
+
+func (p *CreateTungstenFabricPublicNetworkParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *CreateTungstenFabricPublicNetworkParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+}
+
+func (p *CreateTungstenFabricPublicNetworkParams) ResetZoneid() {
+	if p.p != nil && p.p["zoneid"] != nil {
+		delete(p.p, "zoneid")
+	}
+}
+
+func (p *CreateTungstenFabricPublicNetworkParams) GetZoneid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["zoneid"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new CreateTungstenFabricPublicNetworkParams instance,
+// as then you are sure you have configured all required params
+func (s *NetworkService) NewCreateTungstenFabricPublicNetworkParams(zoneid string) *CreateTungstenFabricPublicNetworkParams {
+	p := &CreateTungstenFabricPublicNetworkParams{}
+	p.p = make(map[string]interface{})
+	p.p["zoneid"] = zoneid
+	return p
+}
+
+// create Tungsten-Fabric public network
+func (s *NetworkService) CreateTungstenFabricPublicNetwork(p *CreateTungstenFabricPublicNetworkParams) (*CreateTungstenFabricPublicNetworkResponse, error) {
+	resp, err := s.cs.newRequest("createTungstenFabricPublicNetwork", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r CreateTungstenFabricPublicNetworkResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type CreateTungstenFabricPublicNetworkResponse struct {
+	Displaytext string `json:"displaytext"`
+	JobID       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
+	Success     bool   `json:"success"`
+}
+
+func (r *CreateTungstenFabricPublicNetworkResponse) UnmarshalJSON(b []byte) error {
+	var m map[string]interface{}
+	err := json.Unmarshal(b, &m)
+	if err != nil {
+		return err
+	}
+
+	if success, ok := m["success"].(string); ok {
+		m["success"] = success == "true"
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	type alias CreateTungstenFabricPublicNetworkResponse
+	return json.Unmarshal(b, (*alias)(r))
+}
+
 type CreateServiceInstanceParams struct {
 	p map[string]interface{}
 }
@@ -2301,6 +2682,100 @@ type CreateStorageNetworkIpRangeResponse struct {
 	Zoneid    string `json:"zoneid"`
 }
 
+type CreateTungstenFabricManagementNetworkParams struct {
+	p map[string]interface{}
+}
+
+func (p *CreateTungstenFabricManagementNetworkParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["podid"]; found {
+		u.Set("podid", v.(string))
+	}
+	return u
+}
+
+func (p *CreateTungstenFabricManagementNetworkParams) SetPodid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["podid"] = v
+}
+
+func (p *CreateTungstenFabricManagementNetworkParams) ResetPodid() {
+	if p.p != nil && p.p["podid"] != nil {
+		delete(p.p, "podid")
+	}
+}
+
+func (p *CreateTungstenFabricManagementNetworkParams) GetPodid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["podid"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new CreateTungstenFabricManagementNetworkParams instance,
+// as then you are sure you have configured all required params
+func (s *NetworkService) NewCreateTungstenFabricManagementNetworkParams(podid string) *CreateTungstenFabricManagementNetworkParams {
+	p := &CreateTungstenFabricManagementNetworkParams{}
+	p.p = make(map[string]interface{})
+	p.p["podid"] = podid
+	return p
+}
+
+// create Tungsten-Fabric management network
+func (s *NetworkService) CreateTungstenFabricManagementNetwork(p *CreateTungstenFabricManagementNetworkParams) (*CreateTungstenFabricManagementNetworkResponse, error) {
+	resp, err := s.cs.newRequest("createTungstenFabricManagementNetwork", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r CreateTungstenFabricManagementNetworkResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type CreateTungstenFabricManagementNetworkResponse struct {
+	Displaytext string `json:"displaytext"`
+	JobID       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
+	Success     bool   `json:"success"`
+}
+
+func (r *CreateTungstenFabricManagementNetworkResponse) UnmarshalJSON(b []byte) error {
+	var m map[string]interface{}
+	err := json.Unmarshal(b, &m)
+	if err != nil {
+		return err
+	}
+
+	if success, ok := m["success"].(string); ok {
+		m["success"] = success == "true"
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	if ostypeid, ok := m["ostypeid"].(float64); ok {
+		m["ostypeid"] = strconv.Itoa(int(ostypeid))
+		b, err = json.Marshal(m)
+		if err != nil {
+			return err
+		}
+	}
+
+	type alias CreateTungstenFabricManagementNetworkResponse
+	return json.Unmarshal(b, (*alias)(r))
+}
+
 type DedicatePublicIpRangeParams struct {
 	p map[string]interface{}
 }
@@ -2461,6 +2936,163 @@ type DedicatePublicIpRangeResponse struct {
 	Startipv6         string `json:"startipv6"`
 	Vlan              string `json:"vlan"`
 	Zoneid            string `json:"zoneid"`
+}
+
+type DeleteManagementNetworkIpRangeParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeleteManagementNetworkIpRangeParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["endip"]; found {
+		u.Set("endip", v.(string))
+	}
+	if v, found := p.p["podid"]; found {
+		u.Set("podid", v.(string))
+	}
+	if v, found := p.p["startip"]; found {
+		u.Set("startip", v.(string))
+	}
+	if v, found := p.p["vlan"]; found {
+		u.Set("vlan", v.(string))
+	}
+	return u
+}
+
+func (p *DeleteManagementNetworkIpRangeParams) SetEndip(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["endip"] = v
+}
+
+func (p *DeleteManagementNetworkIpRangeParams) ResetEndip() {
+	if p.p != nil && p.p["endip"] != nil {
+		delete(p.p, "endip")
+	}
+}
+
+func (p *DeleteManagementNetworkIpRangeParams) GetEndip() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["endip"].(string)
+	return value, ok
+}
+
+func (p *DeleteManagementNetworkIpRangeParams) SetPodid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["podid"] = v
+}
+
+func (p *DeleteManagementNetworkIpRangeParams) ResetPodid() {
+	if p.p != nil && p.p["podid"] != nil {
+		delete(p.p, "podid")
+	}
+}
+
+func (p *DeleteManagementNetworkIpRangeParams) GetPodid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["podid"].(string)
+	return value, ok
+}
+
+func (p *DeleteManagementNetworkIpRangeParams) SetStartip(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["startip"] = v
+}
+
+func (p *DeleteManagementNetworkIpRangeParams) ResetStartip() {
+	if p.p != nil && p.p["startip"] != nil {
+		delete(p.p, "startip")
+	}
+}
+
+func (p *DeleteManagementNetworkIpRangeParams) GetStartip() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["startip"].(string)
+	return value, ok
+}
+
+func (p *DeleteManagementNetworkIpRangeParams) SetVlan(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["vlan"] = v
+}
+
+func (p *DeleteManagementNetworkIpRangeParams) ResetVlan() {
+	if p.p != nil && p.p["vlan"] != nil {
+		delete(p.p, "vlan")
+	}
+}
+
+func (p *DeleteManagementNetworkIpRangeParams) GetVlan() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["vlan"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new DeleteManagementNetworkIpRangeParams instance,
+// as then you are sure you have configured all required params
+func (s *NetworkService) NewDeleteManagementNetworkIpRangeParams(endip string, podid string, startip string, vlan string) *DeleteManagementNetworkIpRangeParams {
+	p := &DeleteManagementNetworkIpRangeParams{}
+	p.p = make(map[string]interface{})
+	p.p["endip"] = endip
+	p.p["podid"] = podid
+	p.p["startip"] = startip
+	p.p["vlan"] = vlan
+	return p
+}
+
+// Deletes a management network IP range. This action is only allowed when no IPs in this range are allocated.
+func (s *NetworkService) DeleteManagementNetworkIpRange(p *DeleteManagementNetworkIpRangeParams) (*DeleteManagementNetworkIpRangeResponse, error) {
+	resp, err := s.cs.newRequest("deleteManagementNetworkIpRange", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeleteManagementNetworkIpRangeResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type DeleteManagementNetworkIpRangeResponse struct {
+	Displaytext string `json:"displaytext"`
+	JobID       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
+	Success     bool   `json:"success"`
 }
 
 type DeleteNetworkParams struct {
@@ -2900,6 +3532,113 @@ func (s *NetworkService) DeleteStorageNetworkIpRange(p *DeleteStorageNetworkIpRa
 }
 
 type DeleteStorageNetworkIpRangeResponse struct {
+	Displaytext string `json:"displaytext"`
+	JobID       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
+	Success     bool   `json:"success"`
+}
+
+type DeleteTungstenFabricFirewallRuleParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeleteTungstenFabricFirewallRuleParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["firewallruleuuid"]; found {
+		u.Set("firewallruleuuid", v.(string))
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *DeleteTungstenFabricFirewallRuleParams) SetFirewallruleuuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["firewallruleuuid"] = v
+}
+
+func (p *DeleteTungstenFabricFirewallRuleParams) ResetFirewallruleuuid() {
+	if p.p != nil && p.p["firewallruleuuid"] != nil {
+		delete(p.p, "firewallruleuuid")
+	}
+}
+
+func (p *DeleteTungstenFabricFirewallRuleParams) GetFirewallruleuuid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["firewallruleuuid"].(string)
+	return value, ok
+}
+
+func (p *DeleteTungstenFabricFirewallRuleParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+}
+
+func (p *DeleteTungstenFabricFirewallRuleParams) ResetZoneid() {
+	if p.p != nil && p.p["zoneid"] != nil {
+		delete(p.p, "zoneid")
+	}
+}
+
+func (p *DeleteTungstenFabricFirewallRuleParams) GetZoneid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["zoneid"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new DeleteTungstenFabricFirewallRuleParams instance,
+// as then you are sure you have configured all required params
+func (s *NetworkService) NewDeleteTungstenFabricFirewallRuleParams(firewallruleuuid string, zoneid string) *DeleteTungstenFabricFirewallRuleParams {
+	p := &DeleteTungstenFabricFirewallRuleParams{}
+	p.p = make(map[string]interface{})
+	p.p["firewallruleuuid"] = firewallruleuuid
+	p.p["zoneid"] = zoneid
+	return p
+}
+
+// delete Tungsten-Fabric firewall rule
+func (s *NetworkService) DeleteTungstenFabricFirewallRule(p *DeleteTungstenFabricFirewallRuleParams) (*DeleteTungstenFabricFirewallRuleResponse, error) {
+	resp, err := s.cs.newRequest("deleteTungstenFabricFirewallRule", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeleteTungstenFabricFirewallRuleResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type DeleteTungstenFabricFirewallRuleResponse struct {
 	Displaytext string `json:"displaytext"`
 	JobID       string `json:"jobid"`
 	Jobstatus   int    `json:"jobstatus"`
@@ -5849,6 +6588,627 @@ type SupportedNetworkServiceCapability struct {
 	Canchooseservicecapability bool   `json:"canchooseservicecapability"`
 	Name                       string `json:"name"`
 	Value                      string `json:"value"`
+}
+
+type ListTungstenFabricNetworkParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListTungstenFabricNetworkParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["listall"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("listall", vv)
+	}
+	if v, found := p.p["networkuuid"]; found {
+		u.Set("networkuuid", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *ListTungstenFabricNetworkParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+}
+
+func (p *ListTungstenFabricNetworkParams) ResetKeyword() {
+	if p.p != nil && p.p["keyword"] != nil {
+		delete(p.p, "keyword")
+	}
+}
+
+func (p *ListTungstenFabricNetworkParams) GetKeyword() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["keyword"].(string)
+	return value, ok
+}
+
+func (p *ListTungstenFabricNetworkParams) SetListall(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["listall"] = v
+}
+
+func (p *ListTungstenFabricNetworkParams) ResetListall() {
+	if p.p != nil && p.p["listall"] != nil {
+		delete(p.p, "listall")
+	}
+}
+
+func (p *ListTungstenFabricNetworkParams) GetListall() (bool, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["listall"].(bool)
+	return value, ok
+}
+
+func (p *ListTungstenFabricNetworkParams) SetNetworkuuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["networkuuid"] = v
+}
+
+func (p *ListTungstenFabricNetworkParams) ResetNetworkuuid() {
+	if p.p != nil && p.p["networkuuid"] != nil {
+		delete(p.p, "networkuuid")
+	}
+}
+
+func (p *ListTungstenFabricNetworkParams) GetNetworkuuid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["networkuuid"].(string)
+	return value, ok
+}
+
+func (p *ListTungstenFabricNetworkParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+}
+
+func (p *ListTungstenFabricNetworkParams) ResetPage() {
+	if p.p != nil && p.p["page"] != nil {
+		delete(p.p, "page")
+	}
+}
+
+func (p *ListTungstenFabricNetworkParams) GetPage() (int, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["page"].(int)
+	return value, ok
+}
+
+func (p *ListTungstenFabricNetworkParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+}
+
+func (p *ListTungstenFabricNetworkParams) ResetPagesize() {
+	if p.p != nil && p.p["pagesize"] != nil {
+		delete(p.p, "pagesize")
+	}
+}
+
+func (p *ListTungstenFabricNetworkParams) GetPagesize() (int, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["pagesize"].(int)
+	return value, ok
+}
+
+func (p *ListTungstenFabricNetworkParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+}
+
+func (p *ListTungstenFabricNetworkParams) ResetZoneid() {
+	if p.p != nil && p.p["zoneid"] != nil {
+		delete(p.p, "zoneid")
+	}
+}
+
+func (p *ListTungstenFabricNetworkParams) GetZoneid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["zoneid"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new ListTungstenFabricNetworkParams instance,
+// as then you are sure you have configured all required params
+func (s *NetworkService) NewListTungstenFabricNetworkParams() *ListTungstenFabricNetworkParams {
+	p := &ListTungstenFabricNetworkParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// list Tungsten-Fabric network
+func (s *NetworkService) ListTungstenFabricNetwork(p *ListTungstenFabricNetworkParams) (*ListTungstenFabricNetworkResponse, error) {
+	resp, err := s.cs.newRequest("listTungstenFabricNetwork", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ListTungstenFabricNetworkResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	return &r, nil
+}
+
+type ListTungstenFabricNetworkResponse struct {
+	Count                 int                      `json:"count"`
+	TungstenFabricNetwork []*TungstenFabricNetwork `json:"tungstenfabricnetwork"`
+}
+
+type TungstenFabricNetwork struct {
+	JobID     string `json:"jobid"`
+	Jobstatus int    `json:"jobstatus"`
+	Name      string `json:"name"`
+	Uuid      string `json:"uuid"`
+	Zoneid    int64  `json:"zoneid"`
+	Zonename  string `json:"zonename"`
+}
+
+type MigrateNetworkParams struct {
+	p map[string]interface{}
+}
+
+func (p *MigrateNetworkParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["networkid"]; found {
+		u.Set("networkid", v.(string))
+	}
+	if v, found := p.p["networkofferingid"]; found {
+		u.Set("networkofferingid", v.(string))
+	}
+	if v, found := p.p["resume"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("resume", vv)
+	}
+	return u
+}
+
+func (p *MigrateNetworkParams) SetNetworkid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["networkid"] = v
+}
+
+func (p *MigrateNetworkParams) ResetNetworkid() {
+	if p.p != nil && p.p["networkid"] != nil {
+		delete(p.p, "networkid")
+	}
+}
+
+func (p *MigrateNetworkParams) GetNetworkid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["networkid"].(string)
+	return value, ok
+}
+
+func (p *MigrateNetworkParams) SetNetworkofferingid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["networkofferingid"] = v
+}
+
+func (p *MigrateNetworkParams) ResetNetworkofferingid() {
+	if p.p != nil && p.p["networkofferingid"] != nil {
+		delete(p.p, "networkofferingid")
+	}
+}
+
+func (p *MigrateNetworkParams) GetNetworkofferingid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["networkofferingid"].(string)
+	return value, ok
+}
+
+func (p *MigrateNetworkParams) SetResume(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["resume"] = v
+}
+
+func (p *MigrateNetworkParams) ResetResume() {
+	if p.p != nil && p.p["resume"] != nil {
+		delete(p.p, "resume")
+	}
+}
+
+func (p *MigrateNetworkParams) GetResume() (bool, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["resume"].(bool)
+	return value, ok
+}
+
+// You should always use this function to get a new MigrateNetworkParams instance,
+// as then you are sure you have configured all required params
+func (s *NetworkService) NewMigrateNetworkParams(networkid string, networkofferingid string) *MigrateNetworkParams {
+	p := &MigrateNetworkParams{}
+	p.p = make(map[string]interface{})
+	p.p["networkid"] = networkid
+	p.p["networkofferingid"] = networkofferingid
+	return p
+}
+
+// moves a network to another physical network
+func (s *NetworkService) MigrateNetwork(p *MigrateNetworkParams) (*MigrateNetworkResponse, error) {
+	resp, err := s.cs.newRequest("migrateNetwork", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r MigrateNetworkResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type MigrateNetworkResponse struct {
+	Account                     string                          `json:"account"`
+	Aclid                       string                          `json:"aclid"`
+	Aclname                     string                          `json:"aclname"`
+	Acltype                     string                          `json:"acltype"`
+	Associatednetwork           string                          `json:"associatednetwork"`
+	Associatednetworkid         string                          `json:"associatednetworkid"`
+	Broadcastdomaintype         string                          `json:"broadcastdomaintype"`
+	Broadcasturi                string                          `json:"broadcasturi"`
+	Canusefordeploy             bool                            `json:"canusefordeploy"`
+	Cidr                        string                          `json:"cidr"`
+	Created                     string                          `json:"created"`
+	Details                     map[string]string               `json:"details"`
+	Displaynetwork              bool                            `json:"displaynetwork"`
+	Displaytext                 string                          `json:"displaytext"`
+	Dns1                        string                          `json:"dns1"`
+	Dns2                        string                          `json:"dns2"`
+	Domain                      string                          `json:"domain"`
+	Domainid                    string                          `json:"domainid"`
+	Domainpath                  string                          `json:"domainpath"`
+	Egressdefaultpolicy         bool                            `json:"egressdefaultpolicy"`
+	Externalid                  string                          `json:"externalid"`
+	Gateway                     string                          `json:"gateway"`
+	Hasannotations              bool                            `json:"hasannotations"`
+	Icon                        interface{}                     `json:"icon"`
+	Id                          string                          `json:"id"`
+	Internetprotocol            string                          `json:"internetprotocol"`
+	Ip6cidr                     string                          `json:"ip6cidr"`
+	Ip6dns1                     string                          `json:"ip6dns1"`
+	Ip6dns2                     string                          `json:"ip6dns2"`
+	Ip6gateway                  string                          `json:"ip6gateway"`
+	Ip6routes                   []interface{}                   `json:"ip6routes"`
+	Ip6routing                  string                          `json:"ip6routing"`
+	Isdefault                   bool                            `json:"isdefault"`
+	Ispersistent                bool                            `json:"ispersistent"`
+	Issystem                    bool                            `json:"issystem"`
+	JobID                       string                          `json:"jobid"`
+	Jobstatus                   int                             `json:"jobstatus"`
+	Name                        string                          `json:"name"`
+	Netmask                     string                          `json:"netmask"`
+	Networkcidr                 string                          `json:"networkcidr"`
+	Networkdomain               string                          `json:"networkdomain"`
+	Networkofferingavailability string                          `json:"networkofferingavailability"`
+	Networkofferingconservemode bool                            `json:"networkofferingconservemode"`
+	Networkofferingdisplaytext  string                          `json:"networkofferingdisplaytext"`
+	Networkofferingid           string                          `json:"networkofferingid"`
+	Networkofferingname         string                          `json:"networkofferingname"`
+	Physicalnetworkid           string                          `json:"physicalnetworkid"`
+	Privatemtu                  int                             `json:"privatemtu"`
+	Project                     string                          `json:"project"`
+	Projectid                   string                          `json:"projectid"`
+	Publicmtu                   int                             `json:"publicmtu"`
+	Receivedbytes               int64                           `json:"receivedbytes"`
+	Redundantrouter             bool                            `json:"redundantrouter"`
+	Related                     string                          `json:"related"`
+	Reservediprange             string                          `json:"reservediprange"`
+	Restartrequired             bool                            `json:"restartrequired"`
+	Sentbytes                   int64                           `json:"sentbytes"`
+	Service                     []MigrateNetworkResponseService `json:"service"`
+	Specifyipranges             bool                            `json:"specifyipranges"`
+	State                       string                          `json:"state"`
+	Strechedl2subnet            bool                            `json:"strechedl2subnet"`
+	Subdomainaccess             bool                            `json:"subdomainaccess"`
+	Supportsvmautoscaling       bool                            `json:"supportsvmautoscaling"`
+	Tags                        []Tags                          `json:"tags"`
+	Traffictype                 string                          `json:"traffictype"`
+	Tungstenvirtualrouteruuid   string                          `json:"tungstenvirtualrouteruuid"`
+	Type                        string                          `json:"type"`
+	Vlan                        string                          `json:"vlan"`
+	Vpcid                       string                          `json:"vpcid"`
+	Vpcname                     string                          `json:"vpcname"`
+	Zoneid                      string                          `json:"zoneid"`
+	Zonename                    string                          `json:"zonename"`
+	Zonesnetworkspans           []interface{}                   `json:"zonesnetworkspans"`
+}
+
+type MigrateNetworkResponseService struct {
+	Capability []MigrateNetworkResponseServiceCapability `json:"capability"`
+	Name       string                                    `json:"name"`
+	Provider   []MigrateNetworkResponseServiceProvider   `json:"provider"`
+}
+
+type MigrateNetworkResponseServiceProvider struct {
+	Canenableindividualservice   bool     `json:"canenableindividualservice"`
+	Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid"`
+	Id                           string   `json:"id"`
+	Name                         string   `json:"name"`
+	Physicalnetworkid            string   `json:"physicalnetworkid"`
+	Servicelist                  []string `json:"servicelist"`
+	State                        string   `json:"state"`
+}
+
+type MigrateNetworkResponseServiceCapability struct {
+	Canchooseservicecapability bool   `json:"canchooseservicecapability"`
+	Name                       string `json:"name"`
+	Value                      string `json:"value"`
+}
+
+type MoveNetworkAclItemParams struct {
+	p map[string]interface{}
+}
+
+func (p *MoveNetworkAclItemParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["aclconsistencyhash"]; found {
+		u.Set("aclconsistencyhash", v.(string))
+	}
+	if v, found := p.p["customid"]; found {
+		u.Set("customid", v.(string))
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["nextaclruleid"]; found {
+		u.Set("nextaclruleid", v.(string))
+	}
+	if v, found := p.p["previousaclruleid"]; found {
+		u.Set("previousaclruleid", v.(string))
+	}
+	return u
+}
+
+func (p *MoveNetworkAclItemParams) SetAclconsistencyhash(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["aclconsistencyhash"] = v
+}
+
+func (p *MoveNetworkAclItemParams) ResetAclconsistencyhash() {
+	if p.p != nil && p.p["aclconsistencyhash"] != nil {
+		delete(p.p, "aclconsistencyhash")
+	}
+}
+
+func (p *MoveNetworkAclItemParams) GetAclconsistencyhash() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["aclconsistencyhash"].(string)
+	return value, ok
+}
+
+func (p *MoveNetworkAclItemParams) SetCustomid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["customid"] = v
+}
+
+func (p *MoveNetworkAclItemParams) ResetCustomid() {
+	if p.p != nil && p.p["customid"] != nil {
+		delete(p.p, "customid")
+	}
+}
+
+func (p *MoveNetworkAclItemParams) GetCustomid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["customid"].(string)
+	return value, ok
+}
+
+func (p *MoveNetworkAclItemParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *MoveNetworkAclItemParams) ResetId() {
+	if p.p != nil && p.p["id"] != nil {
+		delete(p.p, "id")
+	}
+}
+
+func (p *MoveNetworkAclItemParams) GetId() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["id"].(string)
+	return value, ok
+}
+
+func (p *MoveNetworkAclItemParams) SetNextaclruleid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["nextaclruleid"] = v
+}
+
+func (p *MoveNetworkAclItemParams) ResetNextaclruleid() {
+	if p.p != nil && p.p["nextaclruleid"] != nil {
+		delete(p.p, "nextaclruleid")
+	}
+}
+
+func (p *MoveNetworkAclItemParams) GetNextaclruleid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["nextaclruleid"].(string)
+	return value, ok
+}
+
+func (p *MoveNetworkAclItemParams) SetPreviousaclruleid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["previousaclruleid"] = v
+}
+
+func (p *MoveNetworkAclItemParams) ResetPreviousaclruleid() {
+	if p.p != nil && p.p["previousaclruleid"] != nil {
+		delete(p.p, "previousaclruleid")
+	}
+}
+
+func (p *MoveNetworkAclItemParams) GetPreviousaclruleid() (string, bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	value, ok := p.p["previousaclruleid"].(string)
+	return value, ok
+}
+
+// You should always use this function to get a new MoveNetworkAclItemParams instance,
+// as then you are sure you have configured all required params
+func (s *NetworkService) NewMoveNetworkAclItemParams(id string) *MoveNetworkAclItemParams {
+	p := &MoveNetworkAclItemParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Move an ACL rule to a position bettwen two other ACL rules of the same ACL network list
+func (s *NetworkService) MoveNetworkAclItem(p *MoveNetworkAclItemParams) (*MoveNetworkAclItemResponse, error) {
+	resp, err := s.cs.newRequest("moveNetworkAclItem", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r MoveNetworkAclItemResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+
+	return &r, nil
+}
+
+type MoveNetworkAclItemResponse struct {
+	Aclid       string `json:"aclid"`
+	Aclname     string `json:"aclname"`
+	Action      string `json:"action"`
+	Cidrlist    string `json:"cidrlist"`
+	Endport     string `json:"endport"`
+	Fordisplay  bool   `json:"fordisplay"`
+	Icmpcode    int    `json:"icmpcode"`
+	Icmptype    int    `json:"icmptype"`
+	Id          string `json:"id"`
+	JobID       string `json:"jobid"`
+	Jobstatus   int    `json:"jobstatus"`
+	Number      int    `json:"number"`
+	Protocol    string `json:"protocol"`
+	Reason      string `json:"reason"`
+	Startport   string `json:"startport"`
+	State       string `json:"state"`
+	Tags        []Tags `json:"tags"`
+	Traffictype string `json:"traffictype"`
 }
 
 type ReleasePublicIpRangeParams struct {

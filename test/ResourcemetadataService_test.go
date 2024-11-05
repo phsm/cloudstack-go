@@ -47,17 +47,17 @@ func TestResourcemetadataService(t *testing.T) {
 	}
 	t.Run("AddResourceDetail", testaddResourceDetail)
 
-	testgetVolumeSnapshotDetails := func(t *testing.T) {
-		if _, ok := response["getVolumeSnapshotDetails"]; !ok {
+	testlistDetailOptions := func(t *testing.T) {
+		if _, ok := response["listDetailOptions"]; !ok {
 			t.Skipf("Skipping as no json response is provided in testdata")
 		}
-		p := client.Resourcemetadata.NewGetVolumeSnapshotDetailsParams("snapshotid")
-		_, err := client.Resourcemetadata.GetVolumeSnapshotDetails(p)
+		p := client.Resourcemetadata.NewListDetailOptionsParams("resourcetype")
+		_, err := client.Resourcemetadata.ListDetailOptions(p)
 		if err != nil {
 			t.Errorf(err.Error())
 		}
 	}
-	t.Run("GetVolumeSnapshotDetails", testgetVolumeSnapshotDetails)
+	t.Run("ListDetailOptions", testlistDetailOptions)
 
 	testlistResourceDetails := func(t *testing.T) {
 		if _, ok := response["listResourceDetails"]; !ok {
